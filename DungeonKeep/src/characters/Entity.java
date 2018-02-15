@@ -18,5 +18,11 @@ public abstract class Entity {
 		return y;
 	}
 	
-	public abstract void move();
+	public void setX(int new_x) {
+		x = new_x;
+	}
+	
+	public void setY(int new_y) {
+		y = new_y;
+	}
 }

@@ -4,22 +4,6 @@ public class Map {
 	
 	private char[][] map;
 	
-	public Map() {
-		loadMap(1);
-	}
-	
-	public void loadMap(int option) {
-		
-		switch(option) {
-		case 1:
-			map = Levels.map01;
-			break;
-		case 2:
-			map = Levels.map02;
-			break;
-		}
-	}
-	
 	public void displayMap() {
 		
 		//Display map

@@ -5,9 +5,9 @@ public abstract class Entity {
 	private int x;
 	private int y;
 	
-	public Entity() {
-		x = 0;
-		y = 0;
+	public Entity(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	public int getX() {
@@ -18,11 +18,11 @@ public abstract class Entity {
 		return y;
 	}
 	
-	public void setX(int new_x) {
-		x = new_x;
+	public void setX(int x) {
+		this.x = x;
 	}
 	
-	public void setY(int new_y) {
-		y = new_y;
+	public void setY(int y) {
+		this.y = y;
 	}
 }

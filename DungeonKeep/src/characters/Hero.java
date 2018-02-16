@@ -2,7 +2,7 @@ package characters;
 
 public class Hero extends Entity {
 	
-	public Hero() {
-		
+	public Hero(int x, int y) {
+		super(x, y);
 	}
 }

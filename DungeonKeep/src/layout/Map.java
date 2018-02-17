@@ -12,6 +12,43 @@ public class Map {
 		loadMap(Levels.map01);
 	}
 	
+	public char[][] getMap() {
+		return map;
+	}
+	
+	public void moveHero(char direction)
+	{
+		//Save position if needed
+		int last_x = hero.getX();
+		int last_y = hero.getY();
+		
+		//Update position
+		switch(direction)
+		{
+		case 'w':
+			hero.setY(hero.getY() - 1);
+			break;
+		case 'a':
+			hero.setX(hero.getX() - 1);
+			break;
+		case 's':
+			hero.setY(hero.getY() + 1);
+			break;
+		case 'd':
+			hero.setX(hero.getX() + 1);
+			break;
+		}
+		
+		//Confirm position
+		if(getMap()[hero.getY()][hero.getX()] != ' ')
+		{
+			hero.setX(last_x);
+			hero.setY(last_y);
+		}
+		else
+			map[last_y][last_x] = ' ';
+	}
+	
 	public void loadMap(char[][] m) {
 		
 		map = m;

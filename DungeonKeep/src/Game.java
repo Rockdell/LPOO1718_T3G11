@@ -10,15 +10,29 @@ public class Game {
 		
 		Scanner S = new Scanner(System.in);
 		
-		int count = 10;
+		int count = 100;
+		
 		
 		while(count >= 1)
 		{
-			char c = S.next(".").charAt(0);
+			//Checks for user input
+			boolean cont;
+			char c;
+			
+			do {
+				cont = false;
+				String scan = S.next();
+				c = scan.charAt(0);
+				
+				if(scan.length() > 1 || !Character.isLetter(c))
+					cont = true;
+				
+			} while (cont);
 			
 			link_start.moveHero(c);
 			
-			link_start.displayMap();	
+			if(link_start.displayMap() == 1)
+				break;
 			
 			count--;
 		}

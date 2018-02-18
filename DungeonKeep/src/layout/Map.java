@@ -37,10 +37,14 @@ public class Map {
 		case 'd':
 			hero.setX(hero.getX() + 1);
 			break;
+		default:
+			return;
 		}
 		
 		//Confirm position
-		if(getMap()[hero.getY()][hero.getX()] != ' ')
+		if(getMap()[hero.getY()][hero.getX()] != ' '
+				&& getMap()[hero.getY()][hero.getX()] != 'k'
+				&& getMap()[hero.getY()][hero.getX()] != 'S')
 		{
 			hero.setX(last_x);
 			hero.setY(last_y);
@@ -70,17 +74,48 @@ public class Map {
 		//Load custom doors, etc
 		switch(mapN) {
 		case 1:
+			//Open the exit doors -> Checks if the Hero is standing on the lever
+			if(hero.getY() == 8 && hero.getX() == 7)
+			{
+				map[5][0] = 'S';
+				map[6][0] = 'S';
+			}
 			break;
 		case 2:
 			break;
 		}
 		
-		//Load hero
+		//Load lever / hero / enemy
+		map[8][7] = 'k';
 		map[hero.getY()][hero.getX()] = 'H';
 		map[enemy.getY()][enemy.getX()] = 'G';
 	}
 	
-	public void displayMap() {
+	private int checkPosition() {
+		
+		//Return values:
+		//0 -> Nothing happens;
+		//1 -> Captured
+		//2 -> End level / Win;
+		
+		int[][] adjacent = {{enemy.getY() + 1,enemy.getX()},
+				{enemy.getY() - 1,enemy.getX()},
+				{enemy.getY(),enemy.getX() + 1},
+				{enemy.getY(),enemy.getX() - 1}};
+		
+		for(int[] spot:adjacent)
+		{
+			if(map[spot[0]][spot[1]] == 'H')
+				return 1;
+		}
+		
+		if((hero.getY() == 5 || hero.getY() == 6) && hero.getX() == 0)
+			return 2;
+		
+		return 0;
+	}	
+	
+	public int displayMap() {
 		
 		//Load characters and door
 		loadAssets();
@@ -95,5 +130,24 @@ public class Map {
 			
 			System.out.println();
 		}	
-	}	
+		
+		switch(checkPosition())
+		{
+		case 0:
+			//Nothing happens
+			break;
+		case 1:
+			//Captured
+			System.out.print("You have benn captured!\nGAME OVER");
+			return 1;
+		case 2:
+			//Next Level / Win
+			//TODO Add next level/map
+			System.out.print("YOU'VE WON!");
+			return 1;
+		default:
+			break;
+		}
+		return 0;
+	}		
 }

@@ -49,6 +49,7 @@ public class Hero extends Entity {
 			setX(next_x);
 			setY(next_y);
 			
+			//TODO In map2, the player must open the door (it doesnt open automatically)
 			//Check if it got a key
 			if(m[next_y][next_x] == 'k')
 				key = 1;

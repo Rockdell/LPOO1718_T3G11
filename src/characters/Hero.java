@@ -8,9 +8,15 @@ public class Hero extends Entity {
 	//-1 -> doors open
 	private int key;
 	
+	private char icon = 'H';
+	
 	public Hero(int x, int y) {
 		super(x, y);
 		key = 0;
+	}
+
+	public char getIcon() {
+		return icon;
 	}
 	
 	public int getKey() {
@@ -59,14 +65,19 @@ public class Hero extends Entity {
 			if(m[next_y][next_x] == 'k')
 				key = 1;
 		}
+
+		if (m.length == 9 && getKey() == 1)
+			icon = 'K';
+		else
+			icon = 'H';
 		
 		//Save new position
-		m[getY()][getX()] = 'H';
+		m[getY()][getX()] = icon;
 	}
 	
 	private void eraseLastPosition(char[][] m) {
-		if((getX() == 2 && getY() == 3) || (getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) ||
-				(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8)) {
+		if(((getX() == 2 && getY() == 3) || (getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) ||
+				(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8)) && m.length == 10) {
 			m[getY()][getX()] = 'S';
 		}
 		else

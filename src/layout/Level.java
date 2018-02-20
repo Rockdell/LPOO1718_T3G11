@@ -50,7 +50,7 @@ public class Level {
 			o.move(map);
 		}		
 		
-		if(hero.getKey() != 0)
+		if(hero.getKey() != 0 && hero.getKey() != -1)
 			openDoors(hero.getKey());
 	}
 	
@@ -92,7 +92,7 @@ public class Level {
 				};
 		
 		for(int[] spot : adjacent) {
-			if(map[spot[0]][spot[1]] == 'H')
+			if(map[spot[0]][spot[1]] == hero.getIcon())
 				return 1;
 		}
 		

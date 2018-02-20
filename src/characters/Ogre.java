@@ -6,14 +6,15 @@ public class Ogre extends Entity {
 	
 	private Random intGenerator = new Random();
 	
+	private char icon = 'O';
+	
 	public Ogre(int x, int y) {
 		super(x, y);
 	}
 	
 	public void move(char[][] m) {
 		
-		//Delete old position
-		m[getY()][getX()] = ' ';
+		eraseLastPosition(m);
 		
 		//Save old x and y, in case the new x and y are not accept
 		int next_x = getX(), next_y = getY();
@@ -56,6 +57,18 @@ public class Ogre extends Entity {
 		}
 		
 		//Save new position
-		m[getY()][getX()] = 'O';
+		if(m[getY()][getX()] == 'k')
+			icon = '$';
+		else
+			icon = 'O';
+			
+		m[getY()][getX()] = icon;
+	}
+
+	private void eraseLastPosition(char[][] m) {
+		if (m[getY()][getX()] == '$')
+			m[getY()][getX()] = 'k';
+		else
+			m[getY()][getX()] = ' ';
 	}
 }

@@ -84,17 +84,61 @@ public class Level {
 		if(hero.getX() == enemy.getX() && hero.getY() == enemy.getY())
 			return 1;
 		
-		int[][] adjacent = {
-				{ enemy.getY() + 1, enemy.getX()},
-				{ enemy.getY() - 1, enemy.getX()},
-				{ enemy.getY(), enemy.getX() + 1},
-				{ enemy.getY(), enemy.getX() - 1}
-				};
+		int[][] adjacent = new int[][] {
+					{ enemy.getY() + 1, enemy.getX()},
+					{ enemy.getY() - 1, enemy.getX()},
+					{ enemy.getY(), enemy.getX() + 1},
+					{ enemy.getY(), enemy.getX() - 1}
+					};
 		
 		for(int[] spot : adjacent) {
 			if(map[spot[0]][spot[1]] == hero.getIcon())
 				return 1;
 		}
+		
+		//Check club
+		if(enemy instanceof Ogre) {
+			
+			Ogre o = (Ogre) enemy;
+			char[] club_settings = o.getClub();
+			int cx = (int) club_settings[0], cy = (int) club_settings[1];
+			char ld = club_settings[2];
+			
+			int[][] adjw;
+	
+			switch(ld) {
+			case 'w':
+				adjw = new int[][] {
+					{cy,cx - 1}, //esquerda
+					{cy,cx + 1}, //direita
+					{cy + 1,cx}, //cima
+				};
+				
+	
+				break;
+			case 'a':
+				adjw = new int[][] {
+					{cy,cx - 1}, //esquerda
+					{cy,cx + 1}, //direita
+					{cy + 1,cx}, //cima
+				};
+				break;
+			case 's':
+				adjw = new int[][] {
+					{cy,cx - 1}, //esquerda
+					{cy,cx + 1}, //direita
+					{cy + 1,cx}, //cima
+				};
+				break;
+			case 'd':
+				adjw = new int[][] {
+					{cy,cx - 1}, //esquerda
+					{cy,cx + 1}, //direita
+					{cy + 1,cx}, //cima
+				};
+				break;
+			}	
+		}		
 		
 		switch(mapID) {
 		case 1:

@@ -4,7 +4,7 @@ public class Hero extends Entity {
 	
 	//0 -> doesn't have key
 	//1 -> has key
-	//2 -> door unlocked
+	//2 -> unlock door
 	//-1 -> doors open
 	private int key;
 	

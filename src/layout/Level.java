@@ -64,13 +64,13 @@ public class Level {
 			map[8][2] = 'S';
 			map[8][4] = 'S';
 			
-			hero.setKey(key);
+			hero.setKey(-1);
 	
 		}
 		else if(mapID == 2 && key == 2) {
 			map[1][0] = 'S';
 			
-			hero.setKey(key);
+			hero.setKey(-1);
 		}
 	}
 	

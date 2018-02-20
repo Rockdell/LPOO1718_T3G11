@@ -50,23 +50,27 @@ public class Level {
 			o.move(map);
 		}		
 		
-		if(hero.hasKey())
-			openDoors();
+		if(hero.getKey() != 0)
+			openDoors(hero.getKey());
 	}
 	
-	public void openDoors() {
-		
-		if(mapID == 1) {
+	public void openDoors(int key) {
+
+		if(mapID == 1 && key == 1) {
 			map[3][2] = 'S';
 			map[3][4] = 'S';
 			map[5][0] = 'S';
 			map[6][0] = 'S';
 			map[8][2] = 'S';
 			map[8][4] = 'S';
+			
+			hero.setKey(key);
 	
 		}
-		else if(mapID == 2) {
+		else if(mapID == 2 && key == 2) {
 			map[1][0] = 'S';
+			
+			hero.setKey(key);
 		}
 	}
 	

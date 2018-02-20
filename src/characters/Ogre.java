@@ -44,7 +44,6 @@ public class Ogre extends Entity {
 				break;
 			}
 			
-			//TODO Error -> array index -1 sometimes -> why?
 			// Check for collision
 			if (m[next_y][next_x] != 'X' && m[next_y][next_x] != 'I' && m[next_y][next_x] != 'S') {
 

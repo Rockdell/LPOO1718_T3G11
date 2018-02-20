@@ -2,6 +2,10 @@ package characters;
 
 public class Hero extends Entity {
 	
+	//0 -> doesn't have key
+	//1 -> has key
+	//2 -> door unlocked
+	//-1 -> doors open
 	private int key;
 	
 	public Hero(int x, int y) {
@@ -9,14 +13,12 @@ public class Hero extends Entity {
 		key = 0;
 	}
 	
-	public boolean hasKey() {
-		
-		if(key == 1) {
-			key = -1;
-			return true;
-		}
-		else
-			return false;
+	public int getKey() {
+		return key;
+	}
+	
+	public void setKey(int k) {
+		key = k;
 	}
 	
 	public void move(char direction, char[][] m) {
@@ -42,14 +44,17 @@ public class Hero extends Entity {
 			break;
 		}
 		
-		//Check for collision
-		if(m[next_y][next_x] != 'X' && m[next_y][next_x] != 'I') {
+		//Checking for collision
+		if(m[next_y][next_x] == 'I') {
+			if(key == 1)
+				key = 2;
+		}
+		else if(m[next_y][next_x] != 'X' && m[next_y][next_x] != 'I') {
 			
 			//Set new x and y
 			setX(next_x);
 			setY(next_y);
 			
-			//TODO In map2, the player must open the door (it doesnt open automatically)
 			//Check if it got a key
 			if(m[next_y][next_x] == 'k')
 				key = 1;

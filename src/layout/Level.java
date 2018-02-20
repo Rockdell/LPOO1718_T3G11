@@ -137,7 +137,14 @@ public class Level {
 					{cy + 1,cx}, //cima
 				};
 				break;
+			default:
+				adjw = new int[0][0];
 			}	
+			
+			for(int[] spot : adjw) {
+				if(map[spot[0]][spot[1]] == hero.getIcon())
+					return 1;
+			}
 		}		
 		
 		switch(mapID) {

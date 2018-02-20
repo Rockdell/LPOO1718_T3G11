@@ -16,6 +16,7 @@ public class Game {
 	public void startGame() {
 		
 		boolean stopGame = false;
+		boolean wonGame = false;
 		while(!stopGame) {
 			
 			//Display map every iteration
@@ -27,6 +28,10 @@ public class Game {
 				continue;
 			case 2:
 				continue;
+			case 3:
+				stopGame = true;
+				wonGame = true;
+				continue;
 			}
 			
 			//Read input
@@ -36,6 +41,9 @@ public class Game {
 			level.moveHero(input);
 		}
 		
-		is.closeInput();
+		if(wonGame)
+			System.out.println("You won!");
+		else
+			System.out.println("You lose!");
 	}	
 }

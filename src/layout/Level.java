@@ -13,6 +13,10 @@ public class Level {
 		loadMap(Maps.map01);
 	}
 	
+	public int getID() {
+		return mapID;
+	}
+	
 	public char[][] getMap() {
 		return map;
 	}
@@ -69,9 +73,9 @@ public class Level {
 	private int checkPosition() {
 		
 		//Return values:
-		//0 -> Nothing happens;
-		//1 -> Captured
-		//2 -> End level / Win;
+		//0 -> Nothing
+		//1 -> Captured;
+		//2 -> End level;
 		
 		if(hero.getX() == enemy.getX() && hero.getY() == enemy.getY())
 			return 1;
@@ -102,6 +106,10 @@ public class Level {
 	
 	public int display() {
 		
+		//Clear console
+		for(int i = 0; i < 10; i++)
+			System.out.print("\n");
+		
 		//Display map
 		for(int i = 0; i < map.length; i++) {
 			
@@ -119,11 +127,15 @@ public class Level {
 			break;
 		case 1:
 			//Captured
-			System.out.print("You have been captured!\n");
 			return 1;
 		case 2:
-			loadMap(Maps.map02);
-			return 2;
+			//Load map or end game
+			if(mapID == 1) {
+				loadMap(Maps.map02);
+				return 2;
+			}
+			else if(mapID == 2)
+				return 3;
 		}
 		
 		return 0;

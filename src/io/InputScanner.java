@@ -24,7 +24,7 @@ public class InputScanner {
 			return readInput();
 	}
 	
-	public void closeInput() {
+	public void finalize() {
 		is.close();
 	}
 }

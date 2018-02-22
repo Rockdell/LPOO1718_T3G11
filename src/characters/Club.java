@@ -2,12 +2,12 @@ package characters;
 
 public class Club extends Entity {
 	
-	private Ogre ogre;
+	private Entity wielder;
 	private char lastDirection;
 	
-	public Club(int x, int y, Ogre o) {
-		super(x, y, '*');
-		ogre = o;
+	public Club(int x, int y, Entity w) {
+		super(x, y, null, '*');
+		wielder = w;
 		lastDirection = 'n';
 	}
 	
@@ -20,12 +20,12 @@ public class Club extends Entity {
 		//Erase last position
 		eraseLastPosition();
 		
-		int next_x = ogre.getX(), next_y = ogre.getY();
+		int next_x = wielder.getX(), next_y = wielder.getY();
 		
 		//Generate new position
 		generateRandomPosition(next_x, next_y);
 		
-		ogre.getLevel().getMap()[getY()][getX()] = getIcon();
+		wielder.getLevel().getMap()[getY()][getX()] = getIcon();
 	}
 	
 	@Override
@@ -57,17 +57,17 @@ public class Club extends Entity {
 				return;
 			}
 			
-			x = ogre.getX();
-			y = ogre.getY();
+			x = wielder.getX();
+			y = wielder.getY();
 		}
 	}
 	
 	protected boolean checkCollision(int x, int y) {
 		
-		if (ogre.getLevel().getMap()[y][x] == 'X' || ogre.getLevel().getMap()[y][x] == 'I' || ogre.getLevel().getMap()[y][x] == 'S')
+		if (wielder.getLevel().getMap()[y][x] == 'X' || wielder.getLevel().getMap()[y][x] == 'I' || wielder.getLevel().getMap()[y][x] == 'S')
 			return false;
 			
-		if (ogre.getLevel().getMap()[y][x] == 'k' || ogre.getLevel().getMap()[y][x] == '$')
+		if (wielder.getLevel().getMap()[y][x] == 'k' || wielder.getLevel().getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('*');
@@ -77,9 +77,9 @@ public class Club extends Entity {
 	
 	protected void eraseLastPosition() {
 		
-		if (ogre.getLevel().getMap()[getY()][getX()] == '$')
-			ogre.getLevel().getMap()[getY()][getX()] = 'k';
-		else if(ogre.getLevel().getMap()[getY()][getX()] != 'O')
-			ogre.getLevel().getMap()[getY()][getX()] = ' ';
+		if (wielder.getLevel().getMap()[getY()][getX()] == '$')
+			wielder.getLevel().getMap()[getY()][getX()] = 'k';
+		else if(wielder.getLevel().getMap()[getY()][getX()] != 'O')
+			wielder.getLevel().getMap()[getY()][getX()] = ' ';
 	}
 }

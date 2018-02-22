@@ -2,15 +2,19 @@ package characters;
 
 import java.util.Random;
 
+import layout.Level;
+
 public abstract class Entity {
 	
 	private int x;
 	private int y;
+	private Level currentLevel;
 	private char icon;
 	
-	public Entity(int x, int y, char i) {
+	public Entity(int x, int y, Level l, char i) {
 		this.x = x;
 		this.y = y;
+		currentLevel = l;
 		icon = i;
 	}
 	
@@ -21,6 +25,10 @@ public abstract class Entity {
 	public int getY() {
 		return y;
 	}
+	
+	 public Level getLevel() {
+	 return currentLevel;
+	 }
 	
 	public char getIcon() {
 		return icon;

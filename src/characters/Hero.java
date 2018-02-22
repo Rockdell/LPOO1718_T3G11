@@ -9,12 +9,10 @@ public class Hero extends Entity {
 	//2 -> unlock door
 	//-1 -> doors open
 	private int key;
-	private Level currentLevel;
 	
 	public Hero(int x, int y, Level l) {
-		super(x, y, 'H');
+		super(x, y, l, 'H');
 		key = 0;
-		currentLevel = l;
 	}
 	
 	public int getKey() {
@@ -36,23 +34,23 @@ public class Hero extends Entity {
 		generatePosition(direction, next_x, next_y);
 		
 		//Save new position
-		currentLevel.getMap()[getY()][getX()] = getIcon();
+		getLevel().getMap()[getY()][getX()] = getIcon();
 	}
 	
 	protected boolean checkCollision(int x, int y) {
 		
-		if(currentLevel.getMap()[y][x] == 'I' && key == 1) {
+		if(getLevel().getMap()[y][x] == 'I' && key == 1) {
 			key = 2;
 			updateIcon('H');
 			return false;
 		}
-		else if(currentLevel.getMap()[y][x] == 'k') {
+		else if(getLevel().getMap()[y][x] == 'k') {
 			key = 1;
 		}
-		else if(currentLevel.getMap()[y][x] == 'X' || currentLevel.getMap()[y][x] == 'I')
+		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
 			return false;
 		
-		if(currentLevel.getID() == 2 && getKey() == 1)
+		if(getLevel().getID() == 2 && getKey() == 1)
 			updateIcon('K');
 		else
 			updateIcon('H');
@@ -62,17 +60,17 @@ public class Hero extends Entity {
 	
 	protected void eraseLastPosition() {
 		
-		switch(currentLevel.getID()) {
+		switch(getLevel().getID()) {
 		case 1:
 			if((getX() == 2 && getY() == 3) || (getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) ||
 					(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8)) {
-				currentLevel.getMap()[getY()][getX()] = 'S';
+				getLevel().getMap()[getY()][getX()] = 'S';
 			}
 			else
-				currentLevel.getMap()[getY()][getX()] = ' ';
+				getLevel().getMap()[getY()][getX()] = ' ';
 			break;
 		case 2:
-			currentLevel.getMap()[getY()][getX()] = ' ';
+			getLevel().getMap()[getY()][getX()] = ' ';
 			break;
 		}
 	}

@@ -9,8 +9,16 @@ public class Game {
 	
 	public Game() {
 		
-		level = new Level();
+		loadLevel(2);
 		is = new InputScanner();
+	}
+	
+	private void loadLevel(int id) {
+		
+		if(id == 1)
+			level = new Level01();
+		else if(id == 2)
+			level = new Level02();
 	}
 	
 	public void startGame() {
@@ -27,18 +35,22 @@ public class Game {
 				stopGame = true;
 				continue;
 			case 2:
-				continue;
-			case 3:
-				stopGame = true;
-				wonGame = true;
-				continue;
+				if(level.getID() == 1) {
+					loadLevel(2);
+					continue;
+				}
+				else if(level.getID() == 2) {
+					stopGame = true;
+					wonGame = true;
+					continue;
+				}
 			}
 			
 			//Read input
 			char input = is.readInput();
 			
 			//Move entities
-			level.moveHero(input);
+			level.updateLevel(input);
 		}
 		
 		if(wonGame)

@@ -2,7 +2,6 @@ package layout;
 
 public class Maps {
 
-	
 	public static char[][] map01 = {
 			{'X','X','X','X','X','X','X','X','X','X'},
 			{'X','H',' ',' ',' ',' ','X',' ','G','X'},

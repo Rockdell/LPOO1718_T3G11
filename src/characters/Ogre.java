@@ -1,108 +1,60 @@
 package characters;
 
-import java.util.Random;
+import layout.Level;
 
 public class Ogre extends Entity {
 	
-	private Random intGenerator;
-	private char icon = 'O';
-	private int club_x = getX();
-	private int club_y = getY();
-	private char lastDirection = 'n';
-	private char club_icon = '*';
+	Club weapon;
+	private Level currentLevel;
 	
-	public Ogre(int x, int y) {
-		super(x, y);
-		intGenerator = new Random();
+	public Ogre(int x, int y, Level l) {
+		super(x, y, 'O');
+		weapon = new Club(getX(), getY(), this);
+		currentLevel = l;
 	}
 	
-	public char[] getClub() {
-		return new char[] {(char) club_x, (char) club_y, lastDirection};
-	}
+	 public Club getWeapon() {
+	 return weapon;
+	 }
 	
-	public void move(char[][] m) {
-		
-		eraseLastPosition(m);
-		
-		//Ogre position
-		generatePosition(getX(), getY(), m);
-		
-		club_x = getX();
-		club_y = getY();
+	 public Level getLevel() {
+	 return currentLevel;
+	 }
 	
-		//Club position
-		lastDirection = generatePosition(club_x, club_y, m);
+	public void move() {
 		
-		//Save new position
-		if(m[getY()][getX()] == 'k')
-			icon = '$';
-		else
-			icon = 'O';
+		//Erase last position
+		eraseLastPosition();
 		
-		if(m[club_y][club_x] == 'k')
-			club_icon = '$';
-		else
-			club_icon = '*';
+		int next_x = getX(), next_y = getY();
 		
-		m[getY()][getX()] = icon;
-		m[club_y][club_x] = club_icon;
-	}
+		//Generate new position
+		generateRandomPosition(next_x, next_y);
 	
-	private char generatePosition(int x, int y, char[][] m) {
+		currentLevel.getMap()[getY()][getX()] = getIcon();
 		
-		char direction = 'n';
-		
-		//Keep generating inputs until an accepted movement is generated
-		boolean accepted = false;
-		while(!accepted) {
-					
-			//Random number between 0 and 3;
-			int nextMove = intGenerator.nextInt(4);
-	
-			switch (nextMove) {
-			case 0:
-				direction = 'w';
-				y = getY() - 1;
-				break;
-			case 1:
-				direction = 'a';
-				x = getX() - 1;
-				break;
-			case 2:
-				direction = 's';
-				y = getY() + 1;
-				break;
-			case 3:
-				direction = 'd';
-				x = getX() + 1;
-				break;
-			}
-			
-			// Check for collision
-			if (m[y][x] != 'X' && m[y][x] != 'I' && m[y][x] != 'S') {
-	
-				// Set new x and y
-				setX(x);
-				setY(y);
-	
-				accepted = true;
-			}
-		}
-		
-		return direction;
-		
+		weapon.attack();
 	}
 
-	private void eraseLastPosition(char[][] m) {
-		
-		if (m[club_y][club_y] == '$')
-			m[club_y][club_x] = 'k';
+	protected boolean checkCollision(int x, int y) {
+
+		if (currentLevel.getMap()[y][x] == 'X' || currentLevel.getMap()[y][x] == 'I'
+				|| currentLevel.getMap()[y][x] == 'S')
+			return false;
+
+		if (currentLevel.getMap()[y][x] == 'k' || currentLevel.getMap()[y][x] == '$')
+			updateIcon('$');
 		else
-			m[club_y][club_x] = ' ';
-		
-		if (m[getY()][getX()] == '$')
-			m[getY()][getX()] = 'k';
+			updateIcon('O');
+
+		return true;
+	}
+	
+	protected void eraseLastPosition() {
+			
+		if (currentLevel.getMap()[getY()][getX()] == '$')
+			currentLevel.getMap()[getY()][getX()] = 'k';
 		else
-			m[getY()][getX()] = ' ';
+			currentLevel.getMap()[getY()][getX()] = ' ';
 	}
 }

@@ -9,7 +9,7 @@ public class Game {
 	
 	public Game() {
 		
-		loadLevel(2);
+		loadLevel(1);
 		is = new InputScanner();
 	}
 	

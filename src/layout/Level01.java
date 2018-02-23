@@ -25,6 +25,7 @@ public class Level01 extends Level {
 	private void openDoors(int key) {
 
 		if(key == 1) {
+			map[1][4] = 'S';
 			map[3][2] = 'S';
 			map[3][4] = 'S';
 			map[5][0] = 'S';

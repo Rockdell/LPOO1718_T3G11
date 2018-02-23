@@ -63,7 +63,7 @@ public class Hero extends Entity {
 		switch(getLevel().getID()) {
 		case 1:
 			if((getX() == 2 && getY() == 3) || (getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) ||
-					(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8)) {
+					(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8) || (getX() == 4 && getY() == 1)) {
 				getLevel().getMap()[getY()][getX()] = 'S';
 			}
 			else

@@ -1,6 +1,8 @@
 package dkeep.logic.layout;
 
 import dkeep.logic.characters.Guard;
+import dkeep.logic.characters.Suspicious;
+import dkeep.logic.characters.Rookie;
 import dkeep.logic.characters.Hero;
 
 public class Level01 extends Level {
@@ -11,7 +13,7 @@ public class Level01 extends Level {
 		map = Maps.map01;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		//guard = new Guard(8, 1, this); //TODO
+		guard = new Suspicious(8, 1, this); //TODO
 	}
 	
 	public void updateLevel(char direction) {

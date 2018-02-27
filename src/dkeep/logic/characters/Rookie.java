@@ -8,7 +8,7 @@ public class Rookie extends Guard {
 		super(x, y, l);
 	}
 	
-	protected void patrol() {
-		
+	public void patrol() {
+		move();
 	}
 }

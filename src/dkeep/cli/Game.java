@@ -8,6 +8,13 @@ public class Game {
 	private Level level;
 	private InputScanner is;
 	
+	public static void main(String[] args) {
+		
+		Game newGame = new Game();
+		
+		newGame.startGame();
+	}
+	
 	public Game() {
 		
 		loadLevel(1);
@@ -58,5 +65,5 @@ public class Game {
 			System.out.println("You won!");
 		else
 			System.out.println("You lose!");
-	}	
+	}
 }

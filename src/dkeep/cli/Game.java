@@ -17,7 +17,7 @@ public class Game {
 	
 	public Game() {
 		
-		loadLevel(1);
+		loadLevel(2);
 		is = new InputScanner();
 	}
 	

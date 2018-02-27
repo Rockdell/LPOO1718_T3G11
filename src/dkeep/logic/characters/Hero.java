@@ -1,6 +1,6 @@
-package characters;
+package dkeep.logic.characters;
 
-import layout.*;
+import dkeep.logic.layout.Level;
 
 public class Hero extends Entity {
 	

@@ -1,6 +1,7 @@
-package layout;
+package dkeep.logic.layout;
 
-import characters.*;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.Ogre;
 
 public class Level02 extends Level {
 	

@@ -1,6 +1,6 @@
-package layout;
+package dkeep.logic.layout;
 
-import characters.*;
+import dkeep.logic.characters.Hero;
 
 public abstract class Level {
 	

@@ -2,7 +2,7 @@ package dkeep.logic.characters;
 
 import dkeep.logic.layout.Level;
 
-public class Guard extends Entity {
+public abstract class Guard extends Entity {
 	
 	private char[] movingPattern = {'a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w'};
 	private int lastMove;
@@ -12,6 +12,7 @@ public class Guard extends Entity {
 		lastMove = 0;
 	}
 	
+	/*
 	public void move() {
 		
 		//Erase old position
@@ -32,6 +33,9 @@ public class Guard extends Entity {
 		//Save new position
 		getLevel().getMap()[getY()][getX()] = 'G';		
 	}
+	*/
+	
+	protected abstract void move();
 	
 	protected boolean checkCollision(int x, int y) {
 		

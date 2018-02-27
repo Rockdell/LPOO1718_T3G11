@@ -1,4 +1,4 @@
-package layout;
+package dkeep.logic.layout;
 
 public class Maps {
 

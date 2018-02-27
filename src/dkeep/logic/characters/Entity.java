@@ -1,8 +1,8 @@
-package characters;
+package dkeep.logic.characters;
 
 import java.util.Random;
 
-import layout.Level;
+import dkeep.logic.layout.Level;
 
 public abstract class Entity {
 	

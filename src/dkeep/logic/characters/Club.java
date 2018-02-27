@@ -1,4 +1,4 @@
-package characters;
+package dkeep.logic.characters;
 
 public class Club extends Entity {
 	

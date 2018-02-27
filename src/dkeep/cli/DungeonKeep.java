@@ -1,4 +1,4 @@
-import engine.Game;
+package dkeep.cli;
 
 public class DungeonKeep {
 

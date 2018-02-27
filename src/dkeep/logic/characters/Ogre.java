@@ -1,6 +1,6 @@
-package characters;
+package dkeep.logic.characters;
 
-import layout.Level;
+import dkeep.logic.layout.Level;
 
 public class Ogre extends Entity {
 	

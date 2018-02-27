@@ -11,13 +11,13 @@ public class Level01 extends Level {
 		map = Maps.map01;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		guard = new Guard(8, 1, this);
+		//guard = new Guard(8, 1, this); //TODO
 	}
 	
 	public void updateLevel(char direction) {
 		
 		hero.move(direction);
-		guard.move();
+		guard.patrol();
 		
 		if(hero.getKey() != 0 && hero.getKey() != -1)
 			openDoors(hero.getKey());

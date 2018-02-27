@@ -12,7 +12,6 @@ public abstract class Guard extends Entity {
 		lastMove = 0;
 	}
 	
-	/*
 	public void move() {
 		
 		//Erase old position
@@ -33,9 +32,8 @@ public abstract class Guard extends Entity {
 		//Save new position
 		getLevel().getMap()[getY()][getX()] = 'G';		
 	}
-	*/
 	
-	protected abstract void move();
+	protected abstract void patrol();
 	
 	protected boolean checkCollision(int x, int y) {
 		

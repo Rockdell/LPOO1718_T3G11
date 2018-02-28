@@ -49,6 +49,8 @@ public class Hero extends Entity {
 		}
 		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
 			return false;
+		else if(getLevel().getMap()[y][x] == 'g')
+			return false;
 		
 		if(getLevel().getID() == 2 && getKey() == 1)
 			updateIcon('K');

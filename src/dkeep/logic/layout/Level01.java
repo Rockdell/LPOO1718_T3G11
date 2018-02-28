@@ -1,9 +1,8 @@
 package dkeep.logic.layout;
 
-import dkeep.logic.characters.Guard;
-import dkeep.logic.characters.Suspicious;
-import dkeep.logic.characters.Rookie;
-import dkeep.logic.characters.Hero;
+import java.util.Random;
+
+import dkeep.logic.characters.*;
 
 public class Level01 extends Level {
 	
@@ -13,7 +12,21 @@ public class Level01 extends Level {
 		map = Maps.map01;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		guard = new Suspicious(8, 1, this); //TODO
+		
+		int guard_type = new Random().nextInt(3);
+		
+		switch(guard_type)
+		{
+		case 0:
+			guard = new Rookie(8, 1, this);
+			break;
+		case 1:
+			guard = new Drunken(8, 1, this);
+			break;
+		case 2:
+			guard = new Suspicious(8, 1, this);
+			break;
+		}
 	}
 	
 	public void updateLevel(char direction) {
@@ -41,6 +54,10 @@ public class Level01 extends Level {
 	}
 	
 	protected boolean checkEnemy() {
+		
+		if(guard.getArmless())
+			return false;
+		
 		if(hero.getX() == guard.getX() && hero.getY() == guard.getY())
 			return true;
 		

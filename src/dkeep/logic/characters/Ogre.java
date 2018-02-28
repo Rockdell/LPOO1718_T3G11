@@ -12,7 +12,7 @@ public class Ogre extends Entity {
 	}
 	
 	 public Club getWeapon() {
-	 return weapon;
+		 return weapon;
 	 }
 	
 	public void move() {

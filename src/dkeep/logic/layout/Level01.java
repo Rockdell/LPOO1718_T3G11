@@ -1,33 +1,44 @@
 package dkeep.logic.layout;
 
-//import java.util.List;
-//import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import dkeep.logic.characters.*;
 
 public class Level01 extends Level {
 	
-	//List<Entry<Integer, Integer>> doors;
+	//private List<Entry<Entry<Integer, Integer>, Character>> doors;
 	private Guard guard;
 	
 	public Level01() {
 		map = Maps.map01;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		guard = loadGuard();
+		//loadDoors();
+		loadGuard();
 	}
 	
 	public void updateLevel(char direction) {
-		
+			
 		hero.move(direction);
 		guard.patrol();
 		
 		if(hero.getKey() != 0 && hero.getKey() != -1)
 			openDoors(hero.getKey());
+		
+//		for(Entry<Entry<Integer, Integer>, Character> door : doors) {
+//			map[door.getKey().getValue()][door.getKey().getKey()] = door.getValue();
+//		}
 	}
 	
 	private void openDoors(int key) {
+		
+//		for(Entry<Entry<Integer, Integer>, Character> door : doors) {
+//			door.setValue('S');
+//		}
 
 		if(key == 1) {
 			map[1][4] = 'S';
@@ -72,27 +83,36 @@ public class Level01 extends Level {
 			return false;
 	}
 	
-	private Guard loadGuard() {
-		
-		Guard enemy;
+//	private void loadDoors() {
+//		
+//		doors = new ArrayList<Entry<Entry<Integer, Integer>, Character>>();
+//		
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(4, 1), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(2, 3), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(4, 3), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(0, 5), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(0, 6), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(2, 8), 'I'));
+//		doors.add(new SimpleEntry<Entry<Integer, Integer>, Character>(new SimpleEntry<Integer, Integer>(4, 8), 'I'));	
+//	}
+	
+	private void loadGuard() {
 		
 		int guard_type = new Random().nextInt(3);
 		
 		switch(guard_type) {
 		case 0:
-			enemy = new Rookie(8, 1, this);
+			guard = new Rookie(8, 1, this);
 			break;
 		case 1:
-			enemy = new Drunken(8, 1, this);
+			guard = new Drunken(8, 1, this);
 			break;
 		case 2:
-			enemy = new Suspicious(8, 1, this);
+			guard = new Suspicious(8, 1, this);
 			break;
 			
 		default:
-			enemy = new Rookie(0, 0, null);				
+			guard = new Rookie(0, 0, null);				
 		}
-		
-		return enemy;
 	}
 }

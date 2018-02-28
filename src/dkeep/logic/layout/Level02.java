@@ -15,7 +15,7 @@ public class Level02 extends Level {
 		map = Maps.map02;
 		mapID = 2;
 		hero = new Hero(1, 1, this);
-		ogres = loadOgres();
+		loadOgres();
 	}
 	
 	public void updateLevel(char direction) {
@@ -103,19 +103,17 @@ public class Level02 extends Level {
 			return false;
 	}
 	
-	private List<Ogre> loadOgres() {
+	private void loadOgres() {
 		
-		List<Ogre> enemies = new ArrayList<Ogre>();
+		ogres = new ArrayList<Ogre>();
 		
 		Random random = new Random();
 		
 		int nrOgres = random.nextInt(3) + 1;
 		
 		while(nrOgres > 0) {
-			enemies.add(new Ogre(4, 1, this));
+			ogres.add(new Ogre(4, 1, this));
 			nrOgres--;
 		}
-		
-		return enemies;
 	}
 }

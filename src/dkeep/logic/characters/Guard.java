@@ -11,11 +11,21 @@ public abstract class Guard extends Entity {
 	private List<Character> movingPatternInverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
 	private int nextMove;
 	private int way;
+	private boolean armless;
 	
 	public Guard(int x, int y, Level l) {
 		super(x, y, l, 'G');
 		nextMove = 0;
 		way = 0;
+		armless = false;
+	}
+	
+	public boolean getArmless() {
+		return armless;
+	}
+	
+	public void setArmless(boolean armless) {
+		this.armless = armless;
 	}
 	
 	protected void move() {
@@ -50,7 +60,7 @@ public abstract class Guard extends Entity {
 		generatePosition(direction, next_x, next_y);
 		
 		//Save new position
-		getLevel().getMap()[getY()][getX()] = 'G';		
+		getLevel().getMap()[getY()][getX()] = getIcon();		
 	}
 	
 	public abstract void patrol();

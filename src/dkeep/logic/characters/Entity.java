@@ -43,6 +43,10 @@ public abstract class Entity {
 		icon = i;
 	}
 	
+	public void updateIconNow() {
+		currentLevel.getMap()[getY()][getX()] = icon;
+	}
+	
 	protected void generatePosition(char direction, int x, int y) {
 		
 		switch(direction) {

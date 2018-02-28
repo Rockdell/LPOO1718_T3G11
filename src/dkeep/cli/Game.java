@@ -52,6 +52,7 @@ public class Game {
 					wonGame = true;
 					continue;
 				}
+				//Add more levels if necessary
 			}
 			
 			//Read input
@@ -62,7 +63,7 @@ public class Game {
 		}
 		
 		if(wonGame)
-			System.out.println("You won!");
+			System.out.println("You win!");
 		else
 			System.out.println("You lose!");
 	}

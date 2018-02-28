@@ -27,7 +27,7 @@ public abstract class Entity {
 	}
 	
 	 public Level getLevel() {
-	 return currentLevel;
+		 return currentLevel;
 	 }
 	
 	public char getIcon() {
@@ -39,14 +39,15 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
-	public void updateIcon(char i) {
+	public void updateIcon(char i, boolean now) {
+		
 		icon = i;
+		
+		if(now)
+			currentLevel.getMap()[getY()][getX()] = icon;
 	}
 	
-	public void updateIconNow() {
-		currentLevel.getMap()[getY()][getX()] = icon;
-	}
-	
+	//TODO move generatePosition to corresponding classes
 	protected void generatePosition(char direction, int x, int y) {
 		
 		switch(direction) {

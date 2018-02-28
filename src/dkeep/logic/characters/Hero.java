@@ -1,5 +1,7 @@
 package dkeep.logic.characters;
 
+//import java.util.Map;
+
 import dkeep.logic.layout.Level;
 
 public class Hero extends Entity {
@@ -41,7 +43,7 @@ public class Hero extends Entity {
 		
 		if(getLevel().getMap()[y][x] == 'I' && key == 1) {
 			key = 2;
-			updateIcon('H');
+			updateIcon('H', false);
 			return false;
 		}
 		else if(getLevel().getMap()[y][x] == 'k') {
@@ -53,9 +55,9 @@ public class Hero extends Entity {
 			return false;
 		
 		if(getLevel().getID() == 2 && getKey() == 1)
-			updateIcon('K');
+			updateIcon('K', false);
 		else
-			updateIcon('H');
+			updateIcon('H', false);
 		
 		return true;
 	}
@@ -64,7 +66,7 @@ public class Hero extends Entity {
 		
 		switch(getLevel().getID()) {
 		case 1:
-			if((getX() == 2 && getY() == 3) || (getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) ||
+			if((getX() == 2 && getY() == 3) ||(getX() == 4 && getY() == 3) || (getX() == 0 && getY() == 5) || (getX() == 0 && getY() == 6) || 
 					(getX() == 2 && getY() == 8) || (getX() == 4 && getY() == 8) || (getX() == 4 && getY() == 1)) {
 				getLevel().getMap()[getY()][getX()] = 'S';
 			}

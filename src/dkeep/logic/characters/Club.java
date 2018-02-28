@@ -68,16 +68,17 @@ public class Club extends Entity {
 			return false;
 			
 		if (wielder.getLevel().getMap()[y][x] == 'k' || wielder.getLevel().getMap()[y][x] == '$')
-			updateIcon('$');
+			updateIcon('$', false);
 		else
-			updateIcon('*');
+			updateIcon('*', false);
 		
 		return true;
 	}
 	
 	protected void eraseLastPosition() {
 		
-		if (wielder.getLevel().getMap()[getY()][getX()] == '$')
+		//Club esta na posiçao da chave
+		if (getIcon() == '$')
 			wielder.getLevel().getMap()[getY()][getX()] = 'k';
 		else if(wielder.getLevel().getMap()[getY()][getX()] != 'O')
 			wielder.getLevel().getMap()[getY()][getX()] = ' ';

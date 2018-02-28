@@ -8,15 +8,15 @@ import dkeep.logic.layout.Level;
 public abstract class Guard extends Entity {
 	
 	private List<Character> movingPattern = Arrays.asList('a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w');
-	private List<Character> movingPatternInverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
+	private List<Character> movingPatternReverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
 	private int nextMove;
-	private int way;
+	private boolean reverse;
 	private boolean armless;
 	
 	public Guard(int x, int y, Level l) {
 		super(x, y, l, 'G');
 		nextMove = 0;
-		way = 0;
+		reverse = false;
 		armless = false;
 	}
 	
@@ -37,23 +37,23 @@ public abstract class Guard extends Entity {
 		
 		int next_x = getX(), next_y = getY();
 		
-		if(way == 0)
-			direction = movingPattern.get(nextMove);
-		else
-			direction = movingPatternInverse.get(nextMove);
-		
-		switch(way) {
-		case 0:
-			if(nextMove + 1 > movingPattern.size() - 1)
-				nextMove = 0;
-			else
-				nextMove++;
-			break;
-		case 1:
+		if(reverse) {
+			
+			direction = movingPatternReverse.get(nextMove);
+			
 			if(nextMove - 1 < 0)
 				nextMove = movingPattern.size() - 1;
 			else
 				nextMove--;
+		}
+		else {
+			
+			direction = movingPattern.get(nextMove);
+			
+			if(nextMove + 1 > movingPattern.size() - 1)
+				nextMove = 0;
+			else
+				nextMove++;
 		}
 	
 		//Generate new position
@@ -77,25 +77,25 @@ public abstract class Guard extends Entity {
 		getLevel().getMap()[getY()][getX()] = ' ';
 	}
 	
-	protected void changeWay() {
+	protected void reversePath() {
 		
-		if(way == 0) {
-			
-			if(nextMove - 1 < 0)
-				nextMove = movingPattern.size() - 1;
-			else
-				nextMove--;
-			
-			way = 1;
-		}
-		else {
+		if(reverse) {
 			
 			if(nextMove + 1 > movingPattern.size() - 1)
 				nextMove = 0;
 			else
 				nextMove++;
 			
-			way = 0;
+			reverse = false;
+		}
+		else {
+			
+			if(nextMove - 1 < 0)
+				nextMove = movingPattern.size() - 1;
+			else
+				nextMove--;
+			
+			reverse = true;
 		}
 	}
 }

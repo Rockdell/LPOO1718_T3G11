@@ -6,28 +6,28 @@ import java.util.Random;
 
 public class Suspicious extends Guard {
 	
-	private int nextTurnAround;
+	private int turnAround;
 	
 	public Suspicious(int x, int y, Level l) {
 		super(x, y, l);
-		nextTurnAround = generateNextTurnAround();
+		turnAround = nextTurnAround();
 	}
 	
 	public void patrol() {
 		
 		move();
-		nextTurnAround--;
+		turnAround--;
 		
-		if(nextTurnAround == 0)
-			changeWay();
-		
-		nextTurnAround = generateNextTurnAround();	
+		if(turnAround == 0) {
+			reversePath();
+			turnAround = nextTurnAround();	
+		}
 	}
 	
-	private int generateNextTurnAround() {
+	private int nextTurnAround() {
 		
 		Random turn = new Random();
 		
-		return (turn.nextInt(5) + 1);
+		return turn.nextInt(5) + 1;
 	}
 }

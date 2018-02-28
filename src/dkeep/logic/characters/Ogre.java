@@ -36,16 +36,17 @@ public class Ogre extends Entity {
 			return false;
 
 		if (getLevel().getMap()[y][x] == 'k' || getLevel().getMap()[y][x] == '$')
-			updateIcon('$');
+			updateIcon('$', false);
 		else
-			updateIcon('O');
+			updateIcon('O', false);
 
 		return true;
 	}
 	
 	protected void eraseLastPosition() {
 			
-		if (getLevel().getMap()[getY()][getX()] == '$')
+		//Ogre esta na posiçao da chave (independente da char atual no map)
+		if(getIcon() == '$')
 			getLevel().getMap()[getY()][getX()] = 'k';
 		else
 			getLevel().getMap()[getY()][getX()] = ' ';

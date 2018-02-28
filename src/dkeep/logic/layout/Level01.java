@@ -1,32 +1,21 @@
 package dkeep.logic.layout;
 
+//import java.util.List;
+//import java.util.Map.Entry;
 import java.util.Random;
 
 import dkeep.logic.characters.*;
 
 public class Level01 extends Level {
 	
+	//List<Entry<Integer, Integer>> doors;
 	private Guard guard;
 	
 	public Level01() {
 		map = Maps.map01;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		
-		int guard_type = new Random().nextInt(3);
-		
-		switch(guard_type)
-		{
-		case 0:
-			guard = new Rookie(8, 1, this);
-			break;
-		case 1:
-			guard = new Drunken(8, 1, this);
-			break;
-		case 2:
-			guard = new Suspicious(8, 1, this);
-			break;
-		}
+		guard = loadGuard();
 	}
 	
 	public void updateLevel(char direction) {
@@ -55,11 +44,11 @@ public class Level01 extends Level {
 	
 	protected boolean checkEnemy() {
 		
-		if(guard.getArmless())
-			return false;
-		
 		if(hero.getX() == guard.getX() && hero.getY() == guard.getY())
 			return true;
+		
+		if(guard.getArmless())
+			return false;
 		
 		int[][] adjacent = new int[][] {
 					{ guard.getY() + 1, guard.getX()},
@@ -81,5 +70,29 @@ public class Level01 extends Level {
 			return true;
 		else
 			return false;
+	}
+	
+	private Guard loadGuard() {
+		
+		Guard enemy;
+		
+		int guard_type = new Random().nextInt(3);
+		
+		switch(guard_type) {
+		case 0:
+			enemy = new Rookie(8, 1, this);
+			break;
+		case 1:
+			enemy = new Drunken(8, 1, this);
+			break;
+		case 2:
+			enemy = new Suspicious(8, 1, this);
+			break;
+			
+		default:
+			enemy = new Rookie(0, 0, null);				
+		}
+		
+		return enemy;
 	}
 }

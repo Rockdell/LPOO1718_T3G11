@@ -15,8 +15,7 @@ public class Level02 extends Level {
 		map = Maps.map02;
 		mapID = 2;
 		hero = new Hero(1, 1, this);
-		//ogre = new Ogre(4, 1, this);
-		generateOgres();
+		ogres = loadOgres();
 	}
 	
 	public void updateLevel(char direction) {
@@ -61,27 +60,27 @@ public class Level02 extends Level {
 
 			switch (o.getWeapon().getLastDirection()) {
 			case 'w':
-				adjacent_club = new int[][] { { cy, cx - 1 }, // esquerda
-						{ cy, cx + 1 }, // direita
-						{ cy - 1, cx }, // cima
+				adjacent_club = new int[][] { { cy, cx - 1 }, 	// esquerda
+						{ cy, cx + 1 }, 						// direita
+						{ cy - 1, cx },							// cima
 				};
 				break;
 			case 'a':
-				adjacent_club = new int[][] { { cy, cx - 1 }, // esquerda
-						{ cy - 1, cx }, // cima
-						{ cy + 1, cx }, // baixo
+				adjacent_club = new int[][] { { cy, cx - 1 }, 	// esquerda
+						{ cy - 1, cx }, 						// cima
+						{ cy + 1, cx },							// baixo
 				};
 				break;
 			case 's':
-				adjacent_club = new int[][] { { cy, cx - 1 }, // esquerda
-						{ cy, cx + 1 }, // direita
-						{ cy + 1, cx }, // baixo
+				adjacent_club = new int[][] { { cy, cx - 1 }, 	// esquerda
+						{ cy, cx + 1 }, 						// direita
+						{ cy + 1, cx }, 						// baixo
 				};
 				break;
 			case 'd':
-				adjacent_club = new int[][] { { cy, cx + 1 }, // direita
-						{ cy - 1, cx }, // cima
-						{ cy + 1, cx }, // baixo
+				adjacent_club = new int[][] { { cy, cx + 1 }, 	// direita
+						{ cy - 1, cx }, 						// cima
+						{ cy + 1, cx }, 						// baixo
 				};
 				break;
 			default:
@@ -92,7 +91,6 @@ public class Level02 extends Level {
 				if (map[spot[0]][spot[1]] == hero.getIcon())
 					return true;
 			}
-		
 		}
 		
 		return false;
@@ -105,17 +103,19 @@ public class Level02 extends Level {
 			return false;
 	}
 	
-	private void generateOgres() {
+	private List<Ogre> loadOgres() {
 		
-		ogres = new ArrayList<Ogre>();
+		List<Ogre> enemies = new ArrayList<Ogre>();
 		
 		Random random = new Random();
 		
 		int nrOgres = random.nextInt(3) + 1;
 		
 		while(nrOgres > 0) {
-			ogres.add(new Ogre(4, 1, this));
+			enemies.add(new Ogre(4, 1, this));
 			nrOgres--;
 		}
+		
+		return enemies;
 	}
 }

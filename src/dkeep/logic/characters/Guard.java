@@ -32,8 +32,6 @@ public abstract class Guard extends Entity {
 		
 		char direction;
 		
-		int next_x = getX(), next_y = getY();
-		
 		if(reverse) {
 			
 			direction = movingPatternReverse.get(nextMove);
@@ -53,8 +51,7 @@ public abstract class Guard extends Entity {
 				nextMove++;
 		}
 	
-		//Generate new position
-		generatePosition(direction, next_x, next_y);	
+		generatePosition(direction, getX(), getY(), false);
 	}
 	
 	public abstract void patrol();

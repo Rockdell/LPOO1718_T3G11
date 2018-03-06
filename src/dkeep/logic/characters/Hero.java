@@ -26,12 +26,7 @@ public class Hero extends Entity {
 	}
 	
 	public void move(char direction) {
-
-		int next_x = getX(), next_y = getY();
-		
-		//Generate new position
-		generatePosition(direction, next_x, next_y);
-		
+		generatePosition(direction, getX(), getY(), false);
 	}
 	
 	protected boolean checkCollision(int x, int y) {

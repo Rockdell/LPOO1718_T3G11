@@ -5,8 +5,8 @@ public class Club extends Entity {
 	private Entity wielder;
 	private char lastDirection;
 	
-	public Club(int x, int y, Entity w) {
-		super(x, y, null, '*');
+	public Club(Entity w) {
+		super(w.getX(), w.getY(), null, '*');
 		wielder = w;
 		lastDirection = 'n';
 	}
@@ -16,46 +16,9 @@ public class Club extends Entity {
 	}
 	
 	public void attack() {
+		char d = generatePosition(' ', wielder.getX(), wielder.getY(), true);
 		
-		int next_x = wielder.getX(), next_y = wielder.getY();
-		
-		//Generate new position
-		generateRandomPosition(next_x, next_y);
-		
-	}
-	
-	@Override
-	protected void generateRandomPosition(int x, int y) {
-		
-		char direction;
-		
-		while(true) {
-			
-			direction = generateDirection();
-
-			switch (direction) {
-			case 'w':
-				y--;
-				break;
-			case 'a':
-				x--;
-				break;
-			case 's':
-				y++;
-				break;
-			case 'd':
-				x++;
-				break;
-			}
-
-			if (checkCollision(x, y)) {
-				updateCoord(x, y);
-				return;
-			}
-			
-			x = wielder.getX();
-			y = wielder.getY();
-		}
+		lastDirection = d;
 	}
 	
 	protected boolean checkCollision(int x, int y) {

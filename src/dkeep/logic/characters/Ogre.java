@@ -10,7 +10,7 @@ public class Ogre extends Entity {
 	
 	public Ogre(int x, int y, Level l) {
 		super(x, y, l, 'O');
-		weapon = new Club(getX(), getY(), this);
+		weapon = new Club(this);
 		roundsStunned = 0;
 	}
 	
@@ -37,13 +37,10 @@ public class Ogre extends Entity {
 	 }
 	
 	public void move() {
+		//generatePosition(' ', getX(), getY(), true);
 		
-		int next_x = getX(), next_y = getY();
 
 		if (!stunned) {
-			// Generate new position
-			generateRandomPosition(next_x, next_y);
-
 			weapon.attack();
 		}
 	}
@@ -75,7 +72,7 @@ public class Ogre extends Entity {
 	
 	public void erasePosition() {
 			
-		//Ogre esta na posiçao da chave (independente da char atual no map)
+		//Ogre esta na posiï¿½ao da chave (independente da char atual no map)
 		if(getIcon() == '$')
 			getLevel().getMap()[getY()][getX()] = 'k';
 		else

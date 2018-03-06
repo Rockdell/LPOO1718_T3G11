@@ -15,6 +15,7 @@ public class Level02 extends Level {
 		map = Maps.map02;
 		mapID = 2;
 		hero = new Hero(1, 1, this);
+		hero.updateIcon('A');
 		loadOgres();
 	}
 	
@@ -65,6 +66,9 @@ public class Level02 extends Level {
 	protected boolean checkEnemy() {
 		
 		for(Ogre o : ogres) {
+			
+			if(o.getStunned())
+				return false;
 
 			if ((hero.getX() == o.getX() && hero.getY() == o.getY())
 					|| (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY()))
@@ -75,7 +79,10 @@ public class Level02 extends Level {
 
 			for (int[] spot : adjacent) {
 				if (map[spot[0]][spot[1]] == hero.getIcon())
-					return true;
+				{
+					o.setStunned(true);
+					return false;
+				}
 			}
 
 			int cx = o.getWeapon().getX(), cy = o.getWeapon().getY();

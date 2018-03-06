@@ -38,21 +38,20 @@ public class Hero extends Entity {
 		
 		if(getLevel().getMap()[y][x] == 'I' && key == 1) {
 			key = 2;
-			updateIcon('H');
+			updateIcon('A');
 			return false;
 		}
 		else if(getLevel().getMap()[y][x] == 'k') {
 			key = 1;
 		}
-		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
-			return false;
-		else if(getLevel().getMap()[y][x] == 'g')
+		else if (getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I'
+				|| getLevel().getMap()[y][x] == 'g' || getLevel().getMap()[y][x] == '8')
 			return false;
 		
 		if(getLevel().getID() == 2 && getKey() == 1)
 			updateIcon('K');
 		else
-			updateIcon('H');
+			updateIcon('A');
 		
 		return true;
 	}

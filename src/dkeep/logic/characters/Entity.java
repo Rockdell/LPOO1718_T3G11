@@ -48,7 +48,7 @@ public abstract class Entity {
 	public abstract void erasePosition();
 	
 	//Methods to generate the next position of an entity
-	protected void generatePosition(char direction, int initial_x, int initial_y, boolean rand) {
+	protected char generatePosition(char direction, int initial_x, int initial_y, boolean rand) {
 
 		int iX = initial_x, iY = initial_y;
 
@@ -84,6 +84,8 @@ public abstract class Entity {
 			initial_x = iX;
 			initial_y = iY;
 		}
+		
+		return direction;
 	}
 	protected char generateDirection() {
 

@@ -16,7 +16,9 @@ public class Club extends Entity {
 	}
 	
 	public void attack() {
-		generatePosition(' ', wielder.getX(), wielder.getY(), true);
+		char d = generatePosition(' ', wielder.getX(), wielder.getY(), true);
+		
+		lastDirection = d;
 	}
 	
 	protected boolean checkCollision(int x, int y) {

@@ -16,7 +16,7 @@ public class Ogre extends Entity {
 	 }
 	
 	public void move() {
-		generatePosition(' ', getX(), getY(), true);
+		//generatePosition(' ', getX(), getY(), true);
 		
 		weapon.attack();
 	}

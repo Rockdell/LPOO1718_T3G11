@@ -26,24 +26,19 @@ public class Hero extends Entity {
 	}
 	
 	public void move(char direction) {
-		
-		//Erase last position
-		eraseLastPosition();
-		
+
 		int next_x = getX(), next_y = getY();
 		
 		//Generate new position
 		generatePosition(direction, next_x, next_y);
 		
-		//Save new position
-		getLevel().getMap()[getY()][getX()] = getIcon();
 	}
 	
 	protected boolean checkCollision(int x, int y) {
 		
 		if(getLevel().getMap()[y][x] == 'I' && key == 1) {
 			key = 2;
-			updateIcon('H', false);
+			updateIcon('H');
 			return false;
 		}
 		else if(getLevel().getMap()[y][x] == 'k') {
@@ -55,14 +50,18 @@ public class Hero extends Entity {
 			return false;
 		
 		if(getLevel().getID() == 2 && getKey() == 1)
-			updateIcon('K', false);
+			updateIcon('K');
 		else
-			updateIcon('H', false);
+			updateIcon('H');
 		
 		return true;
 	}
+		
+	public void drawPosition() {
+		getLevel().getMap()[getY()][getX()] = getIcon();
+	}
 	
-	protected void eraseLastPosition() {
+	public void erasePosition() {
 		
 		switch(getLevel().getID()) {
 		case 1:

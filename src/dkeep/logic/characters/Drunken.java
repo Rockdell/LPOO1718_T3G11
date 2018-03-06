@@ -33,6 +33,7 @@ public class Drunken extends Guard {
 			}
 			else
 				rounds_asleep--;
+			
 		}
 		else {
 			
@@ -50,7 +51,7 @@ public class Drunken extends Guard {
 		
 		sleeping = true;
 		setArmless(true);
-		updateIcon('g', true);
+		updateIcon('g');
 		rounds_asleep = new Random().nextInt(4) + 1;
 	}
 	
@@ -58,6 +59,6 @@ public class Drunken extends Guard {
 		
 		sleeping = false;
 		setArmless(false);
-		updateIcon('G', true);
+		updateIcon('G');
 	}
 }

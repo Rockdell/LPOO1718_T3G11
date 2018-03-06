@@ -39,16 +39,12 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
-	public void updateIcon(char i, boolean now) {
-		
+	public void updateIcon(char i) {
 		icon = i;
-		
-		if(now)
-			currentLevel.getMap()[getY()][getX()] = icon;
 	}
 	
 	//TODO move generatePosition to corresponding classes
-	protected void generatePosition(char direction, int x, int y) {
+	protected boolean generatePosition(char direction, int x, int y) {
 		
 		switch(direction) {
 		case 'w':
@@ -67,6 +63,8 @@ public abstract class Entity {
 		
 		if(checkCollision(x, y))
 			updateCoord(x, y);
+		
+		return true;
 	}
 
 	protected void generateRandomPosition(int x, int y) {
@@ -104,7 +102,9 @@ public abstract class Entity {
 
 	protected abstract boolean checkCollision(int x, int y);
 	
-	protected abstract void eraseLastPosition();
+	//Methods to draw and erase position
+	public abstract void drawPosition();
+	public abstract void erasePosition();
 	
 	protected char generateDirection() {
 

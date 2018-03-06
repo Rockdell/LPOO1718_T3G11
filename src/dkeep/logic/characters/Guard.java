@@ -32,9 +32,6 @@ public abstract class Guard extends Entity {
 		
 		char direction;
 		
-		//Erase old position
-		eraseLastPosition();
-		
 		int next_x = getX(), next_y = getY();
 		
 		if(reverse) {
@@ -57,10 +54,7 @@ public abstract class Guard extends Entity {
 		}
 	
 		//Generate new position
-		generatePosition(direction, next_x, next_y);
-		
-		//Save new position
-		getLevel().getMap()[getY()][getX()] = getIcon();		
+		generatePosition(direction, next_x, next_y);	
 	}
 	
 	public abstract void patrol();
@@ -73,7 +67,11 @@ public abstract class Guard extends Entity {
 			return true;
 	}
 	
-	protected void eraseLastPosition() {
+	public void drawPosition() {
+		getLevel().getMap()[getY()][getX()] = getIcon();	
+	}
+	
+	public void erasePosition() {
 		getLevel().getMap()[getY()][getX()] = ' ';
 	}
 	

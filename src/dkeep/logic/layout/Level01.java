@@ -1,16 +1,11 @@
 package dkeep.logic.layout;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import dkeep.logic.characters.*;
 
 public class Level01 extends Level {
 	
-	//private List<Entry<Entry<Integer, Integer>, Character>> doors;
 	private Guard guard;
 	
 	public Level01() {
@@ -21,24 +16,37 @@ public class Level01 extends Level {
 		loadGuard();
 	}
 	
-	public void updateLevel(char direction) {
-			
-		hero.move(direction);
-		guard.patrol();
+	public void updateLevel(char d) {
 		
+		//Clears current level
+		clearLevel();
+		
+		//Update level's entities
+		updateEntities(d);
+			
 		if(hero.getKey() != 0 && hero.getKey() != -1)
 			openDoors(hero.getKey());
 		
-//		for(Entry<Entry<Integer, Integer>, Character> door : doors) {
-//			map[door.getKey().getValue()][door.getKey().getKey()] = door.getValue();
-//		}
+		//Draws current level
+		drawLevel();
+	}
+	
+	protected void clearLevel() {
+		guard.erasePosition();
+		hero.erasePosition();
+	}
+	
+	protected void updateEntities(char d) {
+		guard.patrol();
+		hero.move(d);
+	}
+	
+	protected void drawLevel() {
+		guard.drawPosition();
+		hero.drawPosition();
 	}
 	
 	private void openDoors(int key) {
-		
-//		for(Entry<Entry<Integer, Integer>, Character> door : doors) {
-//			door.setValue('S');
-//		}
 
 		if(key == 1) {
 			map[1][4] = 'S';

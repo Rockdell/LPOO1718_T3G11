@@ -18,16 +18,40 @@ public class Level02 extends Level {
 		loadOgres();
 	}
 	
-	public void updateLevel(char direction) {
+	public void updateLevel(char d) {
 		
-		hero.move(direction);
+		clearLevel();
 		
-		for(Ogre o : ogres) {
-			o.move();
-		}
+		updateEntities(d);
 		
 		if(hero.getKey() != 0 && hero.getKey() != -1)
 			openDoors(hero.getKey());
+		
+		drawLevel();
+	}
+	
+	public void clearLevel() {
+
+		for(Ogre o : ogres)
+			o.erasePosition();
+		
+		hero.erasePosition();
+	}
+	
+	protected void updateEntities(char d) {
+
+		for(Ogre o : ogres)
+			o.move();
+		
+		hero.move(d);
+	}
+	
+	protected void drawLevel() {
+		
+		for(Ogre o : ogres)
+			o.drawPosition();
+
+		hero.drawPosition();
 	}
 	
 	private void openDoors(int key) {

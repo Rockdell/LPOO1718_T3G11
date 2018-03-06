@@ -17,15 +17,10 @@ public class Ogre extends Entity {
 	
 	public void move() {
 		
-		//Erase last position
-		eraseLastPosition();
-		
 		int next_x = getX(), next_y = getY();
 		
 		//Generate new position
 		generateRandomPosition(next_x, next_y);
-	
-		getLevel().getMap()[getY()][getX()] = getIcon();
 		
 		weapon.attack();
 	}
@@ -36,19 +31,26 @@ public class Ogre extends Entity {
 			return false;
 
 		if (getLevel().getMap()[y][x] == 'k' || getLevel().getMap()[y][x] == '$')
-			updateIcon('$', false);
+			updateIcon('$');
 		else
-			updateIcon('O', false);
+			updateIcon('O');
 
 		return true;
 	}
 	
-	protected void eraseLastPosition() {
+	public void drawPosition() {
+		getLevel().getMap()[getY()][getX()] = getIcon();
+		weapon.drawPosition();
+	}
+	
+	public void erasePosition() {
 			
 		//Ogre esta na posiçao da chave (independente da char atual no map)
 		if(getIcon() == '$')
 			getLevel().getMap()[getY()][getX()] = 'k';
 		else
 			getLevel().getMap()[getY()][getX()] = ' ';
+		
+		weapon.erasePosition();
 	}
 }

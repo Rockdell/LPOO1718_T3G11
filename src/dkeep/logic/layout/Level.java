@@ -16,7 +16,13 @@ public abstract class Level {
 		return mapID;
 	}
 	
-	public abstract void updateLevel(char direction);
+	public abstract void updateLevel(char d);
+	
+	//Clear, update and draw level
+	protected abstract void clearLevel();
+	protected abstract void updateEntities(char d);
+	protected abstract void drawLevel();
+	
 	
 	protected abstract boolean checkEnemy();
 	

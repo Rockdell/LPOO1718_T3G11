@@ -17,15 +17,11 @@ public class Club extends Entity {
 	
 	public void attack() {
 		
-		//Erase last position
-		eraseLastPosition();
-		
 		int next_x = wielder.getX(), next_y = wielder.getY();
 		
 		//Generate new position
 		generateRandomPosition(next_x, next_y);
 		
-		wielder.getLevel().getMap()[getY()][getX()] = getIcon();
 	}
 	
 	@Override
@@ -68,14 +64,18 @@ public class Club extends Entity {
 			return false;
 			
 		if (wielder.getLevel().getMap()[y][x] == 'k' || wielder.getLevel().getMap()[y][x] == '$')
-			updateIcon('$', false);
+			updateIcon('$');
 		else
-			updateIcon('*', false);
+			updateIcon('*');
 		
 		return true;
 	}
 	
-	protected void eraseLastPosition() {
+	public void drawPosition() {
+		wielder.getLevel().getMap()[getY()][getX()] = getIcon();
+	}
+	
+	public void erasePosition() {
 		
 		//Club esta na posiçao da chave
 		if (getIcon() == '$')

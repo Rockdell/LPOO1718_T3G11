@@ -8,7 +8,7 @@ public class Ogre extends Entity {
 	
 	public Ogre(int x, int y, Level l) {
 		super(x, y, l, 'O');
-		weapon = new Club(getX(), getY(), this);
+		weapon = new Club(this);
 	}
 	
 	 public Club getWeapon() {
@@ -16,11 +16,7 @@ public class Ogre extends Entity {
 	 }
 	
 	public void move() {
-		
-		int next_x = getX(), next_y = getY();
-		
-		//Generate new position
-		generateRandomPosition(next_x, next_y);
+		generatePosition(' ', getX(), getY(), true);
 		
 		weapon.attack();
 	}

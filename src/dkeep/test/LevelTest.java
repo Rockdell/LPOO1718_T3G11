@@ -1,0 +1,84 @@
+package dkeep.test;
+
+import dkeep.logic.characters.Guard;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.Rookie;
+import dkeep.logic.layout.Level;
+import dkeep.logic.layout.Maps;
+
+public class LevelTest extends Level {
+	
+	private Guard guard;
+	
+	public LevelTest() {
+		map = Maps.mapTest01;
+		mapID =  3;
+		hero = new Hero(1, 1, this);
+		levelStatus = status_t.ONGOING;
+		loadEnemies();
+	}
+	
+	protected void clearLevel() {
+		guard.erasePosition();
+		hero.erasePosition();
+	}
+	
+	protected void updateEntities(char d) {
+		hero.move(d);
+	}
+	
+	protected void drawEntities() {
+		guard.drawPosition();
+		hero.drawPosition();
+	}
+	
+	protected void openDoors(int key) {
+		
+		if(key == 1) {
+			map[3][0] = 'S';
+			map[4][0] = 'S';
+		}
+		
+		hero.updateKey(-1);		
+	}	
+
+	@Override
+	protected void clearEntities() {
+		hero.erasePosition();
+		guard.erasePosition();
+	}
+
+	protected void updateLevelStatus() {
+		
+		//Check if hero found the exit
+		if((hero.getY() == 2 || hero.getY() == 3) && hero.getX() == 0) {
+			levelStatus = status_t.WON;
+			return;
+		}
+		
+		//Check if the hero is in the same spot as the guard 
+		else if(hero.getX() == guard.getX() && hero.getY() == guard.getY()) {
+			levelStatus = status_t.LOST;
+			return;
+		}
+		
+		//Check if the guard caught the hero
+		int[][] adjacent = new int[][] {
+			{ guard.getY() + 1, guard.getX()},
+			{ guard.getY() - 1, guard.getX()},
+			{ guard.getY(), guard.getX() + 1},
+			{ guard.getY(), guard.getX() - 1}
+			};
+
+		for (int[] spot : adjacent) {
+			if (map[spot[0]][spot[1]] == hero.getIcon()) {
+				levelStatus = status_t.LOST;
+				return;
+			}
+		}	
+	}
+
+	protected void loadEnemies() {
+		guard = new Rookie(3, 1, this);
+	}
+}

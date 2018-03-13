@@ -4,10 +4,13 @@ import dkeep.logic.characters.Hero;
 
 public abstract class Level {
 	
+	public enum status_t { ONGOING, WON, LOST};
+	
 	protected char[][] map;
 	protected int mapID;
 	protected Hero hero;
-	
+	protected status_t levelStatus;
+
 	public char[][] getMap() {
 		return map;
 	}
@@ -16,23 +19,47 @@ public abstract class Level {
 		return mapID;
 	}
 	
-	public abstract void updateLevel(char d);
+	public Hero getHero() {
+		return hero;
+	}
+	
+	public status_t getLevelStatus() {
+		return levelStatus;
+	}
+	
+	public void updateLevel(char d) {
+		
+		//Clears current level
+		clearEntities();
+		
+		//Update level's entities
+		updateEntities(d);
+		
+		if(hero.getKey() != 0 && hero.getKey() != -1)
+			openDoors(hero.getKey());
+		
+		//Draws current level
+		drawEntities();
+		
+		updateLevelStatus();
+	}
 	
 	//Clear, update and draw level
-	protected abstract void clearLevel();
+	protected abstract void clearEntities();
 	protected abstract void updateEntities(char d);
-	protected abstract void drawLevel();
+	protected abstract void drawEntities();
 	
+	//Open doors
+	protected abstract void openDoors(int key);
 	
-	protected abstract boolean checkEnemy();
+	//Update status
+	protected abstract void updateLevelStatus();
 	
-	protected abstract boolean checkEnd();
-	
-	public int display() {
-		
-		//0 -> continue
-		//1 -> lost
-		//2 -> new map/won
+	//Load level's enemies
+	protected abstract void loadEnemies();
+
+	//Display level
+	public void display() {
 		
 		//Clear console
 		for(int i = 0; i < 10; i++)
@@ -47,13 +74,6 @@ public abstract class Level {
 			}
 			
 			System.out.println();
-		}	
-		
-		if(checkEnemy())
-			return 1;
-		else if(checkEnd())
-			return 2;
-		else
-			return 0;
+		}
 	}		
 }

@@ -11,21 +11,21 @@ public abstract class Guard extends Entity {
 	private List<Character> movingPatternReverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
 	private int nextMove;
 	private boolean reverse;
-	private boolean armless;
+	private boolean harmless;
 	
 	public Guard(int x, int y, Level l) {
 		super(x, y, l, 'G');
 		nextMove = 0;
 		reverse = false;
-		armless = false;
+		harmless = false;
 	}
 	
-	public boolean getArmless() {
-		return armless;
+	public boolean getHarmless() {
+		return harmless;
 	}
 	
-	public void setArmless(boolean armless) {
-		this.armless = armless;
+	public void setHarmless(boolean armless) {
+		this.harmless = armless;
 	}
 	
 	protected void move() {

@@ -15,23 +15,12 @@ public class Level02 extends Level {
 		map = Maps.map02;
 		mapID = 2;
 		hero = new Hero(1, 1, this);
+		levelStatus = status_t.ONGOING;
 		hero.updateIcon('A');
-		loadOgres();
+		loadEnemies();
 	}
 	
-	public void updateLevel(char d) {
-		
-		clearLevel();
-		
-		updateEntities(d);
-		
-		if(hero.getKey() != 0 && hero.getKey() != -1)
-			openDoors(hero.getKey());
-		
-		drawLevel();
-	}
-	
-	public void clearLevel() {
+	public void clearEntities() {
 
 		for(Ogre o : ogres)
 			o.erasePosition();
@@ -47,7 +36,7 @@ public class Level02 extends Level {
 		hero.move(d);
 	}
 	
-	protected void drawLevel() {
+	protected void drawEntities() {
 		
 		for(Ogre o : ogres)
 			o.drawPosition();
@@ -55,7 +44,7 @@ public class Level02 extends Level {
 		hero.drawPosition();
 	}
 	
-	private void openDoors(int key) {
+	protected void openDoors(int key) {
 
 		if(key == 2) {
 			map[1][0] = 'S';
@@ -63,25 +52,31 @@ public class Level02 extends Level {
 		}
 	}
 	
-	protected boolean checkEnemy() {
+	protected void updateLevelStatus() {
+		
+		if(hero.getY() == 1 && hero.getX() == 0) {
+			levelStatus = status_t.WON;
+			return;
+		}
 		
 		for(Ogre o : ogres) {
 			
 			if(o.getStunned())
-				return false;
+				continue;
 
-			if ((hero.getX() == o.getX() && hero.getY() == o.getY())
-					|| (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY()))
-				return true;
+			if ((hero.getX() == o.getX() && hero.getY() == o.getY()) || (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY())) {
+				levelStatus = status_t.LOST;
+				return;
+			}
 
 			int[][] adjacent = new int[][] { { o.getY() + 1, o.getX() }, { o.getY() - 1, o.getX() },
 					{ o.getY(), o.getX() + 1 }, { o.getY(), o.getX() - 1 } };
 
 			for (int[] spot : adjacent) {
-				if (map[spot[0]][spot[1]] == hero.getIcon())
-				{
+				
+				if (map[spot[0]][spot[1]] == hero.getIcon()) {
 					o.setStunned(true);
-					return false;
+					continue;
 				}
 			}
 
@@ -119,22 +114,15 @@ public class Level02 extends Level {
 			}
 
 			for (int[] spot : adjacent_club) {
-				if (map[spot[0]][spot[1]] == hero.getIcon())
-					return true;
+				if (map[spot[0]][spot[1]] == hero.getIcon()) {
+					levelStatus = status_t.LOST;
+					return;
+				}
 			}
 		}
-		
-		return false;
 	}
 	
-	protected boolean checkEnd() {
-		if(hero.getY() == 1 && hero.getX() == 0)
-			return true;
-		else
-			return false;
-	}
-	
-	private void loadOgres() {
+	protected void loadEnemies() {
 		
 		ogres = new ArrayList<Ogre>();
 		

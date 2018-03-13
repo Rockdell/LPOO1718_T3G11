@@ -50,7 +50,7 @@ public class Drunken extends Guard {
 	private void fallAsleep() {
 		
 		sleeping = true;
-		setArmless(true);
+		setHarmless(true);
 		updateIcon('g');
 		rounds_asleep = new Random().nextInt(4) + 1;
 	}
@@ -58,7 +58,7 @@ public class Drunken extends Guard {
 	private void wakeUp() {
 		
 		sleeping = false;
-		setArmless(false);
+		setHarmless(false);
 		updateIcon('G');
 	}
 }

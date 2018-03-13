@@ -1,4 +1,5 @@
 package dkeep.cli;
+
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
@@ -10,15 +11,18 @@ public class Game {
 	
 	public static void main(String[] args) {
 		
-		Game newGame = new Game();
+		Game newGame = new Game(1);
 		
 		newGame.startGame();
 	}
 	
-	public Game() {
-		
-		loadLevel(2);
+	public Game(int id) {
+		loadLevel(id);
 		is = new InputScanner();
+	}
+	
+	public Level getCurrentLevel() {
+		return level;
 	}
 	
 	private void loadLevel(int id) {
@@ -32,27 +36,27 @@ public class Game {
 	public void startGame() {
 		
 		boolean stopGame = false;
-		boolean wonGame = false;
 		while(!stopGame) {
 			
-			//Display map every iteration
-			switch(level.display()) {
-			case 0:
+			//Display the current level
+			level.display();
+			
+			//Check level's status
+			switch(level.getLevelStatus()) {
+			case ONGOING:
 				break;
-			case 1:
-				stopGame = true;
-				continue;
-			case 2:
-				if(level.getID() == 1) {
-					loadLevel(2);
-					continue;
-				}
-				else if(level.getID() == 2) {
+			case WON:
+				if(level.getID() == 1)
+					loadLevel(level.getID() + 1);
+				else {
+					System.out.println("You win!");
 					stopGame = true;
-					wonGame = true;
-					continue;
 				}
-				//Add more levels if necessary
+				continue;
+			case LOST:
+				System.out.println("You lose!");
+				stopGame = true;
+				continue;				
 			}
 			
 			//Read input
@@ -61,10 +65,5 @@ public class Game {
 			//Move entities
 			level.updateLevel(input);
 		}
-		
-		if(wonGame)
-			System.out.println("You win!");
-		else
-			System.out.println("You lose!");
 	}
 }

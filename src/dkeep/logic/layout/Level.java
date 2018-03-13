@@ -2,7 +2,7 @@ package dkeep.logic.layout;
 
 import dkeep.logic.characters.Hero;
 
-public abstract class Level {
+public abstract class Level implements ILevelLogic {
 	
 	public enum status_t { ONGOING, WON, LOST};
 	
@@ -10,6 +10,10 @@ public abstract class Level {
 	protected int mapID;
 	protected Hero hero;
 	protected status_t levelStatus;
+	
+	public Level() {
+		levelStatus = status_t.ONGOING;
+	}
 
 	public char[][] getMap() {
 		return map;
@@ -35,28 +39,13 @@ public abstract class Level {
 		//Update level's entities
 		updateEntities(d);
 		
-		if(hero.getKey() != 0 && hero.getKey() != -1)
-			openDoors(hero.getKey());
+		updateDoors();
 		
 		//Draws current level
 		drawEntities();
 		
 		updateLevelStatus();
 	}
-	
-	//Clear, update and draw level
-	protected abstract void clearEntities();
-	protected abstract void updateEntities(char d);
-	protected abstract void drawEntities();
-	
-	//Open doors
-	protected abstract void openDoors(int key);
-	
-	//Update status
-	protected abstract void updateLevelStatus();
-	
-	//Load level's enemies
-	protected abstract void loadEnemies();
 
 	//Display level
 	public void display() {
@@ -75,5 +64,5 @@ public abstract class Level {
 			
 			System.out.println();
 		}
-	}		
+	}	
 }

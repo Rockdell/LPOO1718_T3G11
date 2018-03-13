@@ -2,7 +2,7 @@ package dkeep.logic.layout;
 
 public class Maps {
 
-	public static char[][] map01 = {
+	public static char[][] dungeon = {
 			{'X','X','X','X','X','X','X','X','X','X'},
 			{'X','H',' ',' ','I',' ','X',' ','G','X'},
 			{'X','X','X',' ','X','X','X',' ',' ','X'},
@@ -15,7 +15,7 @@ public class Maps {
 			{'X','X','X','X','X','X','X','X','X','X'},
 	};
 	
-	public static char[][] map02 = {
+	public static char[][] keep = {
 			{'X','X','X','X','X','X','X','X','X'},
 			{'I','A',' ',' ','O',' ',' ','k','X'},
 			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
@@ -27,7 +27,7 @@ public class Maps {
 			{'X','X','X','X','X','X','X','X','X'},
 	};
 	
-	public static char[][] mapTest01 = {
+	public static char[][] test = {
 			{'X','X','X','X','X'},
 			{'X','H',' ','G','X'},
 			{'I',' ',' ',' ','X'},

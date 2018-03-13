@@ -3,45 +3,50 @@ package dkeep.logic.layout;
 import java.util.Random;
 
 import dkeep.logic.characters.*;
+import dkeep.logic.characters.Hero.key_t;
 
 public class Level01 extends Level {
 	
 	private Guard guard;
 	
 	public Level01() {
-		map = Maps.map01;
+		
+		map = Maps.dungeon;
 		mapID =  1;
 		hero = new Hero(1, 1, this);
-		levelStatus = status_t.ONGOING;
+		
 		loadEnemies();
 	}
 	
-	protected void clearEntities() {
+	public void clearEntities() {
 		guard.erasePosition();
 		hero.erasePosition();
 	}
 	
-	protected void updateEntities(char d) {
+	public void updateEntities(char d) {
 		guard.patrol();
 		hero.move(d);
 	}
 	
-	protected void drawEntities() {
+	public void updateDoors() {
+		
+		if(hero.getKey() == key_t.NULL || hero.getKey() == key_t.UNLOCKED)
+			return;
+		
+		if(hero.getKey() == key_t.LEVER) {
+			map[5][0] = 'S';
+			map[6][0] = 'S';
+			
+			hero.updateKey(key_t.UNLOCKED);
+		}
+	}
+	
+	public void drawEntities() {
 		guard.drawPosition();
 		hero.drawPosition();
 	}
 	
-	protected void openDoors(int key) {
-
-		if(key == 1) {
-			map[5][0] = 'S';
-			map[6][0] = 'S';
-		}
-		
-		hero.updateKey(-1);
-	}
-	
-	protected void updateLevelStatus() {
+	public void updateLevelStatus() {
 		
 		//Check if hero found the exit
 		if((hero.getY() == 5 || hero.getY() == 6) && hero.getX() == 0) {
@@ -75,7 +80,7 @@ public class Level01 extends Level {
 		}
 	}
 	
-	protected void loadEnemies() {
+	public void loadEnemies() {
 		
 		int guard_type = new Random().nextInt(3);
 		

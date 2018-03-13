@@ -3,6 +3,7 @@ package dkeep.cli;
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
+import dkeep.test.LevelTest;
 
 public class Game {
 	
@@ -11,9 +12,14 @@ public class Game {
 	
 	public static void main(String[] args) {
 		
-		Game newGame = new Game(1);
+		Game newGame = new Game();
 		
 		newGame.startGame();
+	}
+	
+	public Game() {
+		loadLevel(1);
+		is = new InputScanner();
 	}
 	
 	public Game(int id) {
@@ -31,6 +37,8 @@ public class Game {
 			level = new Level01();
 		else if(id == 2)
 			level = new Level02();
+		else if(id == 3)
+			level = new LevelTest();
 	}
 	
 	public void startGame() {

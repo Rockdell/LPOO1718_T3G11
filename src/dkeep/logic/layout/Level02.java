@@ -6,17 +6,20 @@ import java.util.Random;
 
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
+import dkeep.logic.characters.Hero.key_t;
 
 public class Level02 extends Level {
 	
 	private List<Ogre> ogres;
 	
 	public Level02() {
-		map = Maps.map02;
+		
+		map = Maps.keep;
 		mapID = 2;
 		hero = new Hero(1, 1, this);
-		levelStatus = status_t.ONGOING;
+		
 		hero.updateIcon('A');
+		
 		loadEnemies();
 	}
 	
@@ -28,7 +31,7 @@ public class Level02 extends Level {
 		hero.erasePosition();
 	}
 	
-	protected void updateEntities(char d) {
+	public void updateEntities(char d) {
 
 		for(Ogre o : ogres)
 			o.move();
@@ -36,7 +39,19 @@ public class Level02 extends Level {
 		hero.move(d);
 	}
 	
-	protected void drawEntities() {
+	public void updateDoors() {
+		
+		if(hero.getKey() == key_t.NULL || hero.getKey() == key_t.UNLOCKED)
+			return;
+		
+		if(hero.getKey() == key_t.UNLOCKING) {
+			map[1][0] = 'S';
+			
+			hero.updateKey(key_t.UNLOCKED);
+		}
+	}
+	
+	public void drawEntities() {
 		
 		for(Ogre o : ogres)
 			o.drawPosition();
@@ -44,15 +59,7 @@ public class Level02 extends Level {
 		hero.drawPosition();
 	}
 	
-	protected void openDoors(int key) {
-
-		if(key == 2) {
-			map[1][0] = 'S';
-			hero.updateKey(-1);
-		}
-	}
-	
-	protected void updateLevelStatus() {
+	public void updateLevelStatus() {
 		
 		if(hero.getY() == 1 && hero.getX() == 0) {
 			levelStatus = status_t.WON;
@@ -122,7 +129,7 @@ public class Level02 extends Level {
 		}
 	}
 	
-	protected void loadEnemies() {
+	public void loadEnemies() {
 		
 		ogres = new ArrayList<Ogre>();
 		

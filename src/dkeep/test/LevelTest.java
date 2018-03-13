@@ -3,6 +3,7 @@ package dkeep.test;
 import dkeep.logic.characters.Guard;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Rookie;
+import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Maps;
 
@@ -11,44 +12,46 @@ public class LevelTest extends Level {
 	private Guard guard;
 	
 	public LevelTest() {
-		map = Maps.mapTest01;
+		map = Maps.test;
 		mapID =  3;
 		hero = new Hero(1, 1, this);
 		levelStatus = status_t.ONGOING;
 		loadEnemies();
 	}
 	
-	protected void clearLevel() {
+	public void clearLevel() {
 		guard.erasePosition();
 		hero.erasePosition();
 	}
 	
-	protected void updateEntities(char d) {
+	public void updateEntities(char d) {
 		hero.move(d);
 	}
 	
-	protected void drawEntities() {
+	public void drawEntities() {
 		guard.drawPosition();
 		hero.drawPosition();
 	}
 	
-	protected void openDoors(int key) {
+	public void updateDoors() {
 		
-		if(key == 1) {
+		if(hero.getKey() == key_t.NULL || hero.getKey() == key_t.UNLOCKED)
+			return;
+		
+		if(hero.getKey() == key_t.LEVER) {
 			map[3][0] = 'S';
 			map[4][0] = 'S';
-		}
-		
-		hero.updateKey(-1);		
-	}	
+			
+			hero.updateKey(key_t.UNLOCKED);
+		}		
+	}
 
-	@Override
-	protected void clearEntities() {
+	public void clearEntities() {
 		hero.erasePosition();
 		guard.erasePosition();
 	}
 
-	protected void updateLevelStatus() {
+	public void updateLevelStatus() {
 		
 		//Check if hero found the exit
 		if((hero.getY() == 2 || hero.getY() == 3) && hero.getX() == 0) {
@@ -78,7 +81,7 @@ public class LevelTest extends Level {
 		}	
 	}
 
-	protected void loadEnemies() {
+	public void loadEnemies() {
 		guard = new Rookie(3, 1, this);
 	}
 }

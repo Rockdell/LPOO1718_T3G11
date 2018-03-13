@@ -19,11 +19,6 @@ public class LevelTest extends Level {
 		loadEnemies();
 	}
 	
-	public void clearLevel() {
-		guard.erasePosition();
-		hero.erasePosition();
-	}
-	
 	public void updateEntities(char d) {
 		hero.move(d);
 	}

@@ -20,7 +20,7 @@ public abstract class Guard extends Entity {
 		harmless = false;
 	}
 	
-	public boolean getHarmless() {
+	public boolean isHarmless() {
 		return harmless;
 	}
 	
@@ -56,22 +56,6 @@ public abstract class Guard extends Entity {
 	
 	public abstract void patrol();
 	
-	protected boolean checkCollision(int x, int y) {
-		
-		if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
-			return false;
-		else
-			return true;
-	}
-	
-	public void drawPosition() {
-		getLevel().getMap()[getY()][getX()] = getIcon();	
-	}
-	
-	public void erasePosition() {
-		getLevel().getMap()[getY()][getX()] = ' ';
-	}
-	
 	protected void reversePath() {
 		
 		if(reverse) {
@@ -93,4 +77,20 @@ public abstract class Guard extends Entity {
 			reverse = true;
 		}
 	}
+	
+	public void drawPosition() {
+		getLevel().getMap()[getY()][getX()] = getIcon();	
+	}
+	
+	public void erasePosition() {
+		getLevel().getMap()[getY()][getX()] = ' ';
+	}
+	
+	public boolean checkCollision(int x, int y) {
+		
+		if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
+			return false;
+		else
+			return true;
+	}	
 }

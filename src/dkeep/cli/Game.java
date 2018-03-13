@@ -54,7 +54,7 @@ public class Game {
 			case ONGOING:
 				break;
 			case WON:
-				if(level.getID() == 1)
+				if(level.getID() != 2)
 					loadLevel(level.getID() + 1);
 				else {
 					System.out.println("You win!");

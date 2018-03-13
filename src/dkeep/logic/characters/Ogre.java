@@ -18,7 +18,7 @@ public class Ogre extends Entity {
 		 return weapon;
 	 }
 	 
-	 public boolean getStunned()
+	 public boolean isStunned()
 	 {
 		 return stunned;
 	 }
@@ -43,19 +43,6 @@ public class Ogre extends Entity {
 			weapon.attack();
 		}
 	}
-
-	protected boolean checkCollision(int x, int y) {
-
-		if (getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I' || getLevel().getMap()[y][x] == 'S')
-			return false;
-
-		if (getLevel().getMap()[y][x] == 'k' || getLevel().getMap()[y][x] == '$')
-			updateIcon('$');
-		else
-			updateIcon('O');
-
-		return true;
-	}
 	
 	public void drawPosition() {
 		getLevel().getMap()[getY()][getX()] = getIcon();
@@ -78,5 +65,18 @@ public class Ogre extends Entity {
 			getLevel().getMap()[getY()][getX()] = ' ';
 		
 		weapon.erasePosition();
+	}
+	
+	public boolean checkCollision(int x, int y) {
+
+		if (getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I' || getLevel().getMap()[y][x] == 'S')
+			return false;
+
+		if (getLevel().getMap()[y][x] == 'k' || getLevel().getMap()[y][x] == '$')
+			updateIcon('$');
+		else
+			updateIcon('O');
+
+		return true;
 	}
 }

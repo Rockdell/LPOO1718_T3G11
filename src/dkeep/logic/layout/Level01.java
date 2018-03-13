@@ -18,17 +18,17 @@ public class Level01 extends Level {
 		loadEnemies();
 	}
 	
-	public void clearEntities() {
+	protected void clearEntities() {
 		guard.erasePosition();
 		hero.erasePosition();
 	}
 	
-	public void updateEntities(char d) {
+	protected void updateEntities(char d) {
 		guard.patrol();
 		hero.move(d);
 	}
 	
-	public void updateDoors() {
+	protected void updateDoors() {
 		
 		if(hero.getKey() == key_t.NULL || hero.getKey() == key_t.UNLOCKED)
 			return;
@@ -41,12 +41,12 @@ public class Level01 extends Level {
 		}
 	}
 	
-	public void drawEntities() {
+	protected void drawEntities() {
 		guard.drawPosition();
 		hero.drawPosition();
 	}
 	
-	public void updateLevelStatus() {
+	protected void updateLevelStatus() {
 		
 		//Check if hero found the exit
 		if((hero.getY() == 5 || hero.getY() == 6) && hero.getX() == 0) {
@@ -55,7 +55,7 @@ public class Level01 extends Level {
 		}
 		
 		//If the guard is harmless, skip the rest
-		if(guard.getHarmless())
+		if(guard.isHarmless())
 			return;
 		
 		//Check if the hero is in the same spot as the guard 
@@ -80,7 +80,7 @@ public class Level01 extends Level {
 		}
 	}
 	
-	public void loadEnemies() {
+	protected void loadEnemies() {
 		
 		int guard_type = new Random().nextInt(3);
 		

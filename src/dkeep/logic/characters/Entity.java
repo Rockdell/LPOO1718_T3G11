@@ -6,46 +6,56 @@ import dkeep.logic.layout.Level;
 
 public abstract class Entity {
 	
-	//Fields
-	private int x;
-	private int y;
-	private Level currentLevel;
-	private char icon;
+	/**
+	 * X coordinate
+	 */
+	private int _x;
+	
+	/**
+	 * Y coordinate
+	 */
+	private int _y;
+	
+	/**
+	 * Current level of the entity.
+	 */
+	private Level _level;
+	
+	/**
+	 * Current icon of the entity
+	 */
+	private char _icon;
 	
 	//Constructor
 	public Entity(int x, int y, Level l, char i) {
-		this.x = x;
-		this.y = y;
-		currentLevel = l;
-		icon = i;
+		_x = x;
+		_y = y;
+		_level = l;
+		_icon = i;
 	}
 	
 	//Get methods
 	public int getX() {
-		return x;
+		return _x;
 	}	
 	public int getY() {
-		return y;
+		return _y;
 	}
 	public Level getLevel() {
-		return currentLevel;
+		return _level;
 	}
 	public char getIcon() {
-		return icon;
+		return _icon;
 	}
 	
 	//Set methods
 	public void updateCoord(int x, int y) {
-		this.x = x;
-		this.y = y;
+		_x = x;
+		_y = y;
 	}	
 	public void updateIcon(char i) {
-		icon = i;
+		_icon = i;
 	}
-	
-	//Methods to draw and erase position
-	public abstract void drawPosition();
-	public abstract void erasePosition();
 	
 	//Methods to generate the next position of an entity
 	protected char generatePosition(char direction, int initial_x, int initial_y, boolean rand) {
@@ -106,5 +116,21 @@ public abstract class Entity {
 		}
 	}
 	
+	/**
+	 * Draws the position of the entity on the map.
+	 */
+	protected abstract void drawPosition();
+	
+	/**
+	 * Erases the position of the entity on the map.
+	 */
+	protected abstract void erasePosition();
+	
+	/**
+	 * Checks if it's possible for the entity to move to a certain position.
+	 * @param x X coordinate of the new possible position.
+	 * @param y Y coordinate of the new possible position.
+	 * @return Returns true if it's possible to move to that position, or false otherwise.
+	 */
 	protected abstract boolean checkCollision(int x, int y);
 }

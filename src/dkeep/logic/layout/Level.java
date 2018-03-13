@@ -2,7 +2,7 @@ package dkeep.logic.layout;
 
 import dkeep.logic.characters.Hero;
 
-public abstract class Level implements ILevelLogic {
+public abstract class Level {
 	
 	public enum status_t { ONGOING, WON, LOST};
 	
@@ -64,5 +64,36 @@ public abstract class Level implements ILevelLogic {
 			
 			System.out.println();
 		}
-	}	
+	}
+	
+	/**
+	 * Clears the all entities from the level.
+	 */
+	protected abstract void clearEntities();
+	
+	/**
+	 * Updates the entities from the level.
+	 * @param d
+	 */
+	protected abstract void updateEntities(char d);
+	
+	/**
+	 * Updates the doors from the level.
+	 */
+	protected abstract void updateDoors();
+	
+	/**
+	 * Draws the entities from the level.
+	 */
+	protected abstract void drawEntities();
+	
+	/**
+	 * Updates level status.
+	 */
+	protected abstract void updateLevelStatus();
+	
+	/**
+	 * Load enemies into the level.
+	 */
+	protected abstract void loadEnemies();
 }

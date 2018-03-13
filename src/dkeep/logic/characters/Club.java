@@ -21,19 +21,6 @@ public class Club extends Entity {
 		lastDirection = d;
 	}
 	
-	protected boolean checkCollision(int x, int y) {
-		
-		if (wielder.getLevel().getMap()[y][x] == 'X' || wielder.getLevel().getMap()[y][x] == 'I' || wielder.getLevel().getMap()[y][x] == 'S')
-			return false;
-			
-		if (wielder.getLevel().getMap()[y][x] == 'k' || wielder.getLevel().getMap()[y][x] == '$')
-			updateIcon('$');
-		else
-			updateIcon('*');
-		
-		return true;
-	}
-	
 	public void drawPosition() {
 		wielder.getLevel().getMap()[getY()][getX()] = getIcon();
 	}
@@ -45,5 +32,18 @@ public class Club extends Entity {
 			wielder.getLevel().getMap()[getY()][getX()] = 'k';
 		else if(wielder.getLevel().getMap()[getY()][getX()] != 'O')
 			wielder.getLevel().getMap()[getY()][getX()] = ' ';
+	}
+	
+	public boolean checkCollision(int x, int y) {
+		
+		if (wielder.getLevel().getMap()[y][x] == 'X' || wielder.getLevel().getMap()[y][x] == 'I' || wielder.getLevel().getMap()[y][x] == 'S')
+			return false;
+			
+		if (wielder.getLevel().getMap()[y][x] == 'k' || wielder.getLevel().getMap()[y][x] == '$')
+			updateIcon('$');
+		else
+			updateIcon('*');
+		
+		return true;
 	}
 }

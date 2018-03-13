@@ -23,7 +23,7 @@ public class Level02 extends Level {
 		loadEnemies();
 	}
 	
-	public void clearEntities() {
+	protected void clearEntities() {
 
 		for(Ogre o : ogres)
 			o.erasePosition();
@@ -31,7 +31,7 @@ public class Level02 extends Level {
 		hero.erasePosition();
 	}
 	
-	public void updateEntities(char d) {
+	protected void updateEntities(char d) {
 
 		for(Ogre o : ogres)
 			o.move();
@@ -39,7 +39,7 @@ public class Level02 extends Level {
 		hero.move(d);
 	}
 	
-	public void updateDoors() {
+	protected void updateDoors() {
 		
 		if(hero.getKey() == key_t.NULL || hero.getKey() == key_t.UNLOCKED)
 			return;
@@ -51,7 +51,7 @@ public class Level02 extends Level {
 		}
 	}
 	
-	public void drawEntities() {
+	protected void drawEntities() {
 		
 		for(Ogre o : ogres)
 			o.drawPosition();
@@ -59,7 +59,7 @@ public class Level02 extends Level {
 		hero.drawPosition();
 	}
 	
-	public void updateLevelStatus() {
+	protected void updateLevelStatus() {
 		
 		if(hero.getY() == 1 && hero.getX() == 0) {
 			levelStatus = status_t.WON;
@@ -68,7 +68,7 @@ public class Level02 extends Level {
 		
 		for(Ogre o : ogres) {
 			
-			if(o.getStunned())
+			if(o.isStunned())
 				continue;
 
 			if ((hero.getX() == o.getX() && hero.getY() == o.getY()) || (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY())) {
@@ -129,7 +129,7 @@ public class Level02 extends Level {
 		}
 	}
 	
-	public void loadEnemies() {
+	protected void loadEnemies() {
 		
 		ogres = new ArrayList<Ogre>();
 		

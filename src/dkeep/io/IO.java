@@ -1,6 +1,6 @@
 package dkeep.io;
 
-public interface IInputOutput {
+public interface IO {
 
 	char read();
 	

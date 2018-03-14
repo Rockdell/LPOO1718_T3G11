@@ -9,9 +9,11 @@ public abstract class Level {
 	 * Level's possible status.
 	 */
 	public enum status_t { 
-		/** Game is ongoing. */ ONGOING,
-		/** Won the age. */ WON, 
-		/** Lost the game. */ LOST
+		/** Level is ongoing. */ 	ONGOING,
+		/** Cleared the area. */ 	PROCEED, 
+		/** Caught by an enemy. */ 	CAUGHT,
+		/** Killed by an enemy. */ 	KILLED,
+		/** Won the game. */ 		WON
 		};
 	
 	/**
@@ -69,6 +71,10 @@ public abstract class Level {
 		return levelStatus;
 	}
 	
+	public void setLevelStatus(status_t s) {
+		levelStatus = s;
+	}
+	
 	/**
 	 * Updates the level and its entities.
 	 * @param d Direction for the hero.
@@ -106,6 +112,24 @@ public abstract class Level {
 			}
 			
 			Game.io.write("\n");
+		}
+	}
+	
+	public String endgameSummary() {
+		
+		switch(levelStatus) {
+		case ONGOING:
+			return "Moving ";
+		case PROCEED:
+			return "You cleared the area!";
+		case CAUGHT:
+			return "You got caught by the enemy!";
+		case KILLED:
+			return "You got killed by the enemy!";
+		case WON:
+			return "You won!";
+		default:
+			return "";
 		}
 	}
 	

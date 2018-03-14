@@ -72,6 +72,7 @@ public class Application {
 		frame.getContentPane().add(lblGuardPersonality);
 		
 		tfNrOgres = new JTextField();
+		tfNrOgres.setText("1");
 		springLayout.putConstraint(SpringLayout.NORTH, tfNrOgres, 10, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, tfNrOgres, 32, SpringLayout.EAST, lblNrOgres);
 		springLayout.putConstraint(SpringLayout.EAST, tfNrOgres, -377, SpringLayout.EAST, frame.getContentPane());
@@ -158,6 +159,11 @@ public class Application {
 				//Update status
 				lblStatus.setText("Click the direction buttons to move the hero!");
 				
+				if(Integer.parseInt(tfNrOgres.getText()) < 1)
+					tfNrOgres.setText("1");
+				else if(Integer.parseInt(tfNrOgres.getText()) > 5)
+					tfNrOgres.setText("5");
+				
 				g = new Game(new ApplicationIO(taGame), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
 	
 				g.getCurrentLevel().display();
@@ -169,6 +175,10 @@ public class Application {
 		btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				//Update status
+				lblStatus.setText("Exiting program!");
+				
 				System.exit(0);
 			}
 		});
@@ -181,9 +191,14 @@ public class Application {
 				if(!btnUp.isEnabled())
 					return;
 				
+				//Update status
+				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "up!");
+				
 				ApplicationIO.input = 'w';
 				
-				g.tickGame();
+				if(g.tickGame()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				}
 			}
 		});
 		
@@ -195,9 +210,14 @@ public class Application {
 				if(!btnDown.isEnabled())
 					return;
 				
+				//Update status
+				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "down!");
+				
 				ApplicationIO.input = 's';
 				
-				g.tickGame();
+				if(g.tickGame()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				}
 			}
 		});
 		
@@ -209,9 +229,14 @@ public class Application {
 				if(!btnLeft.isEnabled())
 					return;
 				
+				//Update status
+				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "left!");
+				
 				ApplicationIO.input = 'a';
 				
-				g.tickGame();
+				if(g.tickGame()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				}
 			}
 		});
 		
@@ -223,8 +248,14 @@ public class Application {
 				if(!btnRight.isEnabled())
 					return;
 				
+				//Update status
+				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "right!");
+				
 				ApplicationIO.input = 'd';
-				g.tickGame();
+				
+				if(g.tickGame()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				}
 			}
 		});
 	}

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import dkeep.cli.Game;
 
-public class ConsoleIO implements IInputOutput {
+public class ConsoleIO implements IO {
 
 	private Scanner is;
 	

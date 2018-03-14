@@ -68,7 +68,7 @@ public class Level02 extends Level {
 	protected void updateLevelStatus() {
 		
 		if(hero.getY() == 1 && hero.getX() == 0) {
-			levelStatus = status_t.WON;
+			levelStatus = status_t.PROCEED;
 			return;
 		}
 		
@@ -78,7 +78,7 @@ public class Level02 extends Level {
 				continue;
 
 			if ((hero.getX() == o.getX() && hero.getY() == o.getY()) || (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY())) {
-				levelStatus = status_t.LOST;
+				levelStatus = status_t.CAUGHT;
 				return;
 			}
 
@@ -128,7 +128,7 @@ public class Level02 extends Level {
 
 			for (int[] spot : adjacent_club) {
 				if (map[spot[0]][spot[1]] == hero.getIcon()) {
-					levelStatus = status_t.LOST;
+					levelStatus = status_t.KILLED;
 					return;
 				}
 			}

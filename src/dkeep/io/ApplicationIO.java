@@ -2,7 +2,7 @@ package dkeep.io;
 
 import javax.swing.JTextArea;
 
-public class ApplicationIO implements IInputOutput {
+public class ApplicationIO implements IO {
 	
 	private JTextArea console;
 	static public char input = 'n';

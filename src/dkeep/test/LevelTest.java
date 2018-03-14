@@ -15,7 +15,7 @@ public class LevelTest extends Level {
 	private Guard guard;
 	
 	public LevelTest() throws IOException, FileNotFoundException {
-		map = loadMap();
+		loadMap();
 		mapID =  3;
 		hero = new Hero(1, 1, this);
 		levelStatus = status_t.ONGOING;

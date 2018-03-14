@@ -5,19 +5,32 @@ import dkeep.logic.layout.Level;
 
 public class Drunken extends Guard {
 
-	private boolean sleeping;
+	/**
+	 * True if the guard is sleeping, false otherwise.
+	 */
+	private boolean isSleeping;
+	
+	/**
+	 * Number of rounds the guard is going to be asleep.
+	 */
 	private int rounds_asleep;
 	
+	/**
+	 * Creates an object Drunken.
+	 * @param x X-position of the guard.
+	 * @param y Y-position of the guard.
+	 * @param l Current level.
+	 */
 	public Drunken(int x, int y, Level l) {
 		super(x, y, l);
-		sleeping = false;
+		isSleeping = false;
 		rounds_asleep = 0;
 	}
 	
 	public void patrol() {
 		
 		//Is the guard sleeping?
-		if(sleeping) {
+		if(isSleeping) {
 			
 			if(rounds_asleep == 0) {
 				
@@ -47,17 +60,23 @@ public class Drunken extends Guard {
 		}
 	}
 	
+	/**
+	 * Guard falls asleep.
+	 */
 	private void fallAsleep() {
 		
-		sleeping = true;
+		isSleeping = true;
 		setHarmless(true);
 		updateIcon('g');
 		rounds_asleep = new Random().nextInt(4) + 1;
 	}
 	
+	/**
+	 * Guard wakes up.
+	 */
 	private void wakeUp() {
 		
-		sleeping = false;
+		isSleeping = false;
 		setHarmless(false);
 		updateIcon('G');
 	}

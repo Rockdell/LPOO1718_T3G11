@@ -7,12 +7,37 @@ import dkeep.logic.layout.Level;
 
 public abstract class Guard extends Entity {
 	
+	/**
+	 * Regular movement pattern.
+	 */
 	private List<Character> movingPattern = Arrays.asList('a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w');
+	
+	/**
+	 * Inverse movement pattern.
+	 */
 	private List<Character> movingPatternReverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
+	
+	/**
+	 * Index of the next movement.
+	 */
 	private int nextMove;
+	
+	/**
+	 * True if guard is moving in reverse, false otherwise.
+	 */
 	private boolean reverse;
+	
+	/**
+	 * True if guard is harmless, false otherwise.
+	 */
 	private boolean harmless;
 	
+	/**
+	 * Creates an object Guard.
+	 * @param x X-position of the guard.
+	 * @param y Y-position of the guard.
+	 * @param l Current level.
+	 */
 	public Guard(int x, int y, Level l) {
 		super(x, y, l, 'G');
 		nextMove = 0;
@@ -20,14 +45,24 @@ public abstract class Guard extends Entity {
 		harmless = false;
 	}
 	
-	public boolean getHarmless() {
+	/**
+	 * @return True if guard is harmless, false otherwise.
+	 */
+	public boolean isHarmless() {
 		return harmless;
 	}
 	
-	public void setHarmless(boolean armless) {
-		this.harmless = armless;
+	/**
+	 * Sets the guard as harmless/not-harmless.
+	 * @param harmless True to make guard harmless, false otherwise.
+	 */
+	public void setHarmless(boolean harmless) {
+		this.harmless = harmless;
 	}
 	
+	/**
+	 * Move the guard.
+	 */
 	protected void move() {
 		
 		char direction;
@@ -54,24 +89,14 @@ public abstract class Guard extends Entity {
 		generatePosition(direction, getX(), getY(), false);
 	}
 	
+	/**
+	 * Patrol the level.
+	 */
 	public abstract void patrol();
 	
-	protected boolean checkCollision(int x, int y) {
-		
-		if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
-			return false;
-		else
-			return true;
-	}
-	
-	public void drawPosition() {
-		getLevel().getMap()[getY()][getX()] = getIcon();	
-	}
-	
-	public void erasePosition() {
-		getLevel().getMap()[getY()][getX()] = ' ';
-	}
-	
+	/**
+	 * Reverse the movement of the guard.
+	 */
 	protected void reversePath() {
 		
 		if(reverse) {
@@ -93,4 +118,20 @@ public abstract class Guard extends Entity {
 			reverse = true;
 		}
 	}
+	
+	public void drawPosition() {
+		getLevel().getMap()[getY()][getX()] = getIcon();	
+	}
+	
+	public void erasePosition() {
+		getLevel().getMap()[getY()][getX()] = ' ';
+	}
+	
+	public boolean checkCollision(int x, int y) {
+		
+		if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
+			return false;
+		else
+			return true;
+	}	
 }

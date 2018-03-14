@@ -74,6 +74,8 @@ public class Hero extends Entity {
 		case 2:
 			getLevel().getMap()[getY()][getX()] = ' ';
 			break;
+		case 3:
+			getLevel().getMap()[getY()][getX()] = ' ';
 		}
 	}
 	
@@ -86,6 +88,9 @@ public class Hero extends Entity {
 			else if (getLevel().getID() == 2) {
 				key = key_t.KEY;
 				updateIcon('K');
+			}
+			else if (getLevel().getID() == 3) {
+				key = key_t.LEVER;
 			}
 		}
 		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'g' || getLevel().getMap()[y][x] == '8')

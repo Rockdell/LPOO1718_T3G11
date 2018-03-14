@@ -44,13 +44,13 @@ public abstract class Level {
 
 		char[][] test;
 
-		try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\pedro\\git\\2LPOO-DungeonKeep\\maps.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
 
 			int i = 0;
 
 			String firstLine = br.readLine();
 			
-			System.out.println(firstLine);
+//			System.out.println(firstLine);
 
 			String[] parts = firstLine.split("-");
 			String lines = parts[0];
@@ -62,7 +62,7 @@ public abstract class Level {
 			test = new char[l][c];
 
 			for (String line; (line = br.readLine()) != null;) {
-				System.out.println(line);
+//				System.out.println(line);
 				char[] tmp = line.toCharArray();
 				test[i] = tmp;
 
@@ -70,15 +70,15 @@ public abstract class Level {
 			}
 		}
 
-		for (int i = 0; i < test.length; i++) {
-
-			for (int j = 0; j < test[i].length; j++) {
-
-				System.out.print(test[i][j] + " ");
-			}
-
-			System.out.println();
-		}
+//		for (int i = 0; i < test.length; i++) {
+//
+//			for (int j = 0; j < test[i].length; j++) {
+//
+//				System.out.print(test[i][j] + " ");
+//			}
+//
+//			System.out.println();
+//		}
 
 		map = test;
 	}

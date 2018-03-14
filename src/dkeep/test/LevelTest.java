@@ -37,8 +37,8 @@ public class LevelTest extends Level {
 			return;
 		
 		if(hero.getKey() == key_t.LEVER) {
+			map[2][0] = 'S';
 			map[3][0] = 'S';
-			map[4][0] = 'S';
 			
 			hero.updateKey(key_t.UNLOCKED);
 		}		

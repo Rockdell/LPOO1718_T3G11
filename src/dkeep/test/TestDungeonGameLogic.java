@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import dkeep.cli.Game;
+import dkeep.io.ConsoleIO;
 import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
 
@@ -16,7 +17,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
 		
-		Game test1 = new Game(3);
+		Game test1 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(1, test1.getCurrentLevel().getHero().getY());
@@ -31,7 +32,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroMovesAgainstWall() throws IOException, FileNotFoundException {
 		
-		Game test2 = new Game(3);
+		Game test2 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(1, test2.getCurrentLevel().getHero().getX());
 		assertEquals(1, test2.getCurrentLevel().getHero().getY());
@@ -45,7 +46,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroCaughtByGuard() throws IOException, FileNotFoundException {
 		
-		Game test2 = new Game(3);
+		Game test2 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(status_t.ONGOING, test2.getCurrentLevel().getLevelStatus());
 		
@@ -57,7 +58,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroFailsToLeave() throws IOException, FileNotFoundException {
 		
-		Game test3 = new Game(3);
+		Game test3 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(status_t.ONGOING, test3.getCurrentLevel().getLevelStatus());
 		
@@ -70,7 +71,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroPicksUpKeyAndOpensDoors() throws IOException, FileNotFoundException {
 		
-		Game test4 = new Game(3);
+		Game test4 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(key_t.NULL, test4.getCurrentLevel().getHero().getKey());
 		
@@ -85,7 +86,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroOpensDoorsAndLeavesRoom() throws IOException, FileNotFoundException {
 		
-		Game test5 = new Game(3);
+		Game test5 = new Game(new ConsoleIO(), "Rookie", 3, 3);
 		
 		assertEquals(status_t.ONGOING, test5.getCurrentLevel().getLevelStatus());
 		

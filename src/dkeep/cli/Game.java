@@ -46,6 +46,15 @@ public class Game {
 		loadLevel(1);
 	}
 	
+	public Game(IO io, String gP, int nO, int id) throws IOException, FileNotFoundException {
+
+		Game.guardPersonality = gP;
+		Game.nrOgres = nO;
+		Game.io = io;
+
+		loadLevel(id);
+	}
+	
 	/**
 	 * Creates an object Game.
 	 * @param id Level to start the game with.

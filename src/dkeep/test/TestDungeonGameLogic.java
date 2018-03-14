@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import dkeep.cli.Game;
+import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
 
 public class TestDungeonGameLogic {
@@ -20,14 +21,16 @@ public class TestDungeonGameLogic {
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(1, test1.getCurrentLevel().getHero().getY());
 		
+		test1.getCurrentLevel().display();
 		test1.getCurrentLevel().updateLevel('s');
+		test1.getCurrentLevel().display();
 		
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(2, test1.getCurrentLevel().getHero().getY());
 	}
 	
 	@Test
-	public void heroMovesAgainstWall() {
+	public void heroMovesAgainstWall() throws IOException, FileNotFoundException {
 		
 		Game test2 = new Game(3);
 		
@@ -39,9 +42,9 @@ public class TestDungeonGameLogic {
 		assertEquals(1, test2.getCurrentLevel().getHero().getX());
 		assertEquals(1, test2.getCurrentLevel().getHero().getY());
 	}
-	
+
 	@Test
-	public void heroCaughtByGuard() {
+	public void heroCaughtByGuard() throws IOException, FileNotFoundException {
 		
 		Game test2 = new Game(3);
 		
@@ -53,7 +56,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroFailsToLeave() {
+	public void heroFailsToLeave() throws IOException, FileNotFoundException {
 		
 		Game test3 = new Game(3);
 		
@@ -66,20 +69,20 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroPicksUpKeyAndOpensDoors() {
+	public void heroPicksUpKeyAndOpensDoors() throws IOException, FileNotFoundException {
 		
 		Game test4 = new Game(3);
 		
-		assertEquals(0, test4.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.NULL, test4.getCurrentLevel().getHero().getKey());
 		
 		test4.getCurrentLevel().updateLevel('s');
 		test4.getCurrentLevel().updateLevel('s');
 		
-		assertEquals(-1, test4.getCurrentLevel().getHero().getKey());	
+		assertEquals(key_t.UNLOCKED, test4.getCurrentLevel().getHero().getKey());	
 	}
 	
 	@Test
-	public void heroOpensDoorsAndLeavesRoom() {
+	public void heroOpensDoorsAndLeavesRoom() throws IOException, FileNotFoundException {
 		
 		Game test5 = new Game(3);
 		
@@ -91,6 +94,5 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(status_t.WON, test5.getCurrentLevel().getLevelStatus());
 	}
-	
 	
 }

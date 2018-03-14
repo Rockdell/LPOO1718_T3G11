@@ -17,21 +17,46 @@ public abstract class Level implements ILevelLogic {
 	protected int mapID;
 	protected Hero hero;
 	protected status_t levelStatus;
-	
-	public char[][] loadMap() throws IOException, FileNotFoundException
-	{
-		List<char[]> map = new ArrayList<char[]>();
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
-		    for(String line; (line = br.readLine()) != null; ) {
-		    	
-		    	for (int i = 0; i < line.length(); i++) {
-		            char[] tmp = line.toCharArray();
-		            map.add(tmp);
-		            }
-		        }
-		    }
-		return (char[][]) map.toArray();
+
+	public char[][] loadMap() throws IOException, FileNotFoundException {
+
+		char[][] test;
+
+		try (BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
+
+			int i = 0;
+
+			String firstLine = br.readLine();
+
+			String[] parts = firstLine.split("-");
+			String lines = parts[0];
+			String columns = parts[1];
+
+			int l = Integer.parseInt(lines);
+			int c = Integer.parseInt(columns);
+
+			test = new char[l][c];
+
+			for (String line; (line = br.readLine()) != null;) {
+
+				char[] tmp = line.toCharArray();
+				test[i] = tmp;
+
+				i++;
+			}
+		}
+
+//		for (int i = 0; i < test.length; i++) {
+//
+//			for (int j = 0; j < test[i].length; j++) {
+//
+//				System.out.print(test[i][j] + " ");
+//			}
+//
+//			System.out.println();
+//		}
+
+		return test;
 	}
 	
 	public Level() {

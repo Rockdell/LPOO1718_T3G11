@@ -1,6 +1,7 @@
 package dkeep.test;
 
 import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 import dkeep.logic.characters.Guard;
@@ -8,14 +9,13 @@ import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Rookie;
 import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level;
-import dkeep.logic.layout.Maps;
 
 public class LevelTest extends Level {
 	
 	private Guard guard;
 	
 	public LevelTest() throws IOException, FileNotFoundException {
-		loadMap();
+		loadMap(3);
 		mapID =  3;
 		hero = new Hero(1, 1, this);
 		levelStatus = status_t.ONGOING;

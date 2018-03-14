@@ -1,3 +1,29 @@
+Map1
+10-10
+XXXXXXXXXX
+XH  I X GX
+XXX XXX  X
+X I I X  X
+XXX XXX  X
+I        X
+I        X
+XXX XXXX X
+X I I Xk X
+XXXXXXXXXX
+
+Map2
+9-9
+XXXXXXXXX
+IA  O  kX
+X       X
+X       X
+X       X
+X       X
+X       X
+X       X
+XXXXXXXXX
+
+Map3
 5-5
 XXXXX
 XH GX

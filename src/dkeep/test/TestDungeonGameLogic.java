@@ -21,6 +21,7 @@ public class TestDungeonGameLogic {
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(1, test1.getCurrentLevel().getHero().getY());
 		
+		test1.getCurrentLevel().display();
 		test1.getCurrentLevel().updateLevel('s');
 		
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());

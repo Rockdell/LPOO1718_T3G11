@@ -1,5 +1,7 @@
 package dkeep.logic.layout;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 
 import dkeep.logic.characters.*;
@@ -15,9 +17,9 @@ public class Level01 extends Level {
 	/**
 	 * Creates an object Level01.
 	 */
-	public Level01() {
+	public Level01() throws IOException, FileNotFoundException {
 		
-		map = Maps.dungeon;
+		loadMap(1);
 		mapID =  1;
 		hero = new Hero(1, 1, this);
 		

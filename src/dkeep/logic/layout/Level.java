@@ -1,11 +1,10 @@
 package dkeep.logic.layout;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import dkeep.logic.characters.Hero;
 
@@ -40,18 +39,38 @@ public abstract class Level {
 	 */
 	protected status_t levelStatus;
 
-	public void loadMap() throws IOException, FileNotFoundException {
+	
+	/**
+	 * Loads Level's map accordingly
+	 * @param mapID ID of the wanted map
+	 * @return Returns a char[][] with the map
+	 */
+	public void loadMap(int mapID) throws IOException, FileNotFoundException {
 
 		char[][] test;
+		boolean found = false;
 
+		//Tries reading the file
 		try (BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
 
-			int i = 0;
-
-			String firstLine = br.readLine();
+			//Searches for the correct map in maps.txt
+			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
+				if(mapSearch.equals("Map" + mapID))
+				{
+					found = true;
+					break;
+				}
+			}
 			
-//			System.out.println(firstLine);
+			//Checks if the map was found
+			if(!found)
+				return;	
 
+			//If it was found starts retrieving it
+			int i = 0;
+			String firstLine = br.readLine();
+
+			//Checks how many lines and columns the map is composed of
 			String[] parts = firstLine.split("-");
 			String lines = parts[0];
 			String columns = parts[1];
@@ -61,24 +80,16 @@ public abstract class Level {
 
 			test = new char[l][c];
 
-			for (String line; (line = br.readLine()) != null;) {
-//				System.out.println(line);
+			//Creates an array representing the map
+			for (String line; (line = br.readLine()) != null; i++) {
+				
+				if(line.equals(""))
+					break;
+					
 				char[] tmp = line.toCharArray();
 				test[i] = tmp;
-
-				i++;
 			}
 		}
-
-//		for (int i = 0; i < test.length; i++) {
-//
-//			for (int j = 0; j < test[i].length; j++) {
-//
-//				System.out.print(test[i][j] + " ");
-//			}
-//
-//			System.out.println();
-//		}
 
 		map = test;
 	}

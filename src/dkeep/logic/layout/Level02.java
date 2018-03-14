@@ -10,8 +10,14 @@ import dkeep.logic.characters.Hero.key_t;
 
 public class Level02 extends Level {
 	
+	/**
+	 * Level's ogres.
+	 */
 	private List<Ogre> ogres;
 	
+	/**
+	 * Creates an object Level02.
+	 */
 	public Level02() {
 		
 		map = Maps.keep;

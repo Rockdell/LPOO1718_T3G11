@@ -7,7 +7,14 @@ import dkeep.test.LevelTest;
 
 public class Game {
 	
+	/**
+	 * Loaded level.
+	 */
 	private Level level;
+	
+	/**
+	 * Keyboard scanner.
+	 */
 	private InputScanner is;
 	
 	public static void main(String[] args) {
@@ -17,20 +24,34 @@ public class Game {
 		newGame.startGame();
 	}
 	
+	/**
+	 * Creates an object Game.
+	 */
 	public Game() {
 		loadLevel(1);
 		is = new InputScanner();
 	}
 	
+	/**
+	 * Creates an object Game.
+	 * @param id Level to start the game with.
+	 */
 	public Game(int id) {
 		loadLevel(id);
 		is = new InputScanner();
 	}
 	
+	/**
+	 * @return Loaded level.
+	 */
 	public Level getCurrentLevel() {
 		return level;
 	}
 	
+	/**
+	 * Loads a level into the game.
+	 * @param id Level to load.
+	 */
 	private void loadLevel(int id) {
 		
 		if(id == 1)
@@ -41,6 +62,9 @@ public class Game {
 			level = new LevelTest();
 	}
 	
+	/**
+	 * Starts the game.
+	 */
 	public void startGame() {
 		
 		boolean stopGame = false;

@@ -6,23 +6,52 @@ import dkeep.logic.layout.Level;
 
 public class Hero extends Entity {
 	
-	public enum key_t { NULL, KEY, LEVER, UNLOCKING, UNLOCKED }
+	/**
+	 *	Key' possible states.
+	 */
+	public enum key_t { 
+		/** No key */ NULL,
+		/** Got key. */ KEY, 
+		/** Touched lever. */ LEVER, 
+		/** Unlocking exit. */ UNLOCKING,
+		/** Exit is unlocked. */ UNLOCKED 
+		};
 	
+	/**
+	 * Key state.
+	 */
 	private key_t key;
 	
+	/**
+	 * Creates an object Hero.
+	 * @param x X-position of the hero.
+	 * @param y Y-position of the hero.
+	 * @param l Current level.
+	 */
 	public Hero(int x, int y, Level l) {
 		super(x, y, l, 'H');
 		key = key_t.NULL;
 	}
 	
+	/**
+	 * @return Key's state.
+	 */
 	public key_t getKey() {
 		return key;
 	}
 	
+	/**
+	 * Updates key's value.
+	 * @param k New key value.
+	 */
 	public void updateKey(key_t k) {
 		key = k;
 	}
 	
+	/**
+	 * Moves the hero.
+	 * @param direction Direction to move.
+	 */
 	public void move(char direction) {
 		generatePosition(direction, getX(), getY(), false);
 	}

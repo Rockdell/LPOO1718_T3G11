@@ -9,55 +9,91 @@ public abstract class Entity {
 	/**
 	 * X coordinate
 	 */
-	private int _x;
+	private int x;
 	
 	/**
 	 * Y coordinate
 	 */
-	private int _y;
+	private int y;
 	
 	/**
-	 * Current level of the entity.
+	 * Level of the entity.
 	 */
-	private Level _level;
+	private Level currentLevel;
 	
 	/**
-	 * Current icon of the entity
+	 * Icon of the entity
 	 */
-	private char _icon;
+	private char icon;
 	
-	//Constructor
+	/**
+	 * Creates an object Entity.
+	 * @param x X-position of the entity.
+	 * @param y Y-position of the entity.
+	 * @param l Current level.
+	 * @param i
+	 */
 	public Entity(int x, int y, Level l, char i) {
-		_x = x;
-		_y = y;
-		_level = l;
-		_icon = i;
+		this.x = x;
+		this.y = y;
+		currentLevel = l;
+		icon = i;
 	}
 	
-	//Get methods
+	/**
+	 * @return X coordinate.
+	 */
 	public int getX() {
-		return _x;
-	}	
+		return x;
+	}
+	
+	/**
+	 * @return Y coordinate.
+	 */
 	public int getY() {
-		return _y;
+		return y;
 	}
+	
+	/**
+	 * @return Level of the entity.
+	 */
 	public Level getLevel() {
-		return _level;
+		return currentLevel;
 	}
+	
+	/**
+	 * @return Icon of the entity.
+	 */
 	public char getIcon() {
-		return _icon;
+		return icon;
 	}
 	
-	//Set methods
+	/**
+	 * Updates the coordinates of the entity.
+	 * @param x New x-position.
+	 * @param y New y-position.
+	 */
 	public void updateCoord(int x, int y) {
-		_x = x;
-		_y = y;
-	}	
-	public void updateIcon(char i) {
-		_icon = i;
+		this.x = x;
+		this.y = y;
 	}
 	
-	//Methods to generate the next position of an entity
+	/**
+	 * Update icon of the entity.
+	 * @param i New icon.
+	 */
+	public void updateIcon(char i) {
+		icon = i;
+	}
+	
+	/**
+	 * Generates a new position for the entity, randomly or not.
+	 * @param direction 
+	 * @param initial_x Initial x-position of the entity.
+	 * @param initial_y Initial y-position of the entity.
+	 * @param rand True to randomly generate a direction, false otherwise.
+	 * @return Last movement of the entity.
+	 */
 	protected char generatePosition(char direction, int initial_x, int initial_y, boolean rand) {
 
 		int iX = initial_x, iY = initial_y;
@@ -97,6 +133,11 @@ public abstract class Entity {
 		
 		return direction;
 	}
+	
+	/**
+	 * Generates a direction to be used in generatePosition.
+	 * @return Direction generated.
+	 */
 	protected char generateDirection() {
 
 		// Random number between 0 and 3;

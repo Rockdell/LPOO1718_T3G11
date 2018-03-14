@@ -4,33 +4,74 @@ import dkeep.logic.characters.Hero;
 
 public abstract class Level {
 	
-	public enum status_t { ONGOING, WON, LOST};
+	/**
+	 * Level's possible status.
+	 */
+	public enum status_t { 
+		/** Game is ongoing. */ ONGOING,
+		/** Won the age. */ WON, 
+		/** Lost the game. */ LOST
+		};
 	
+	/**
+	 * Level's map.
+	 */
 	protected char[][] map;
+	
+	/**
+	 * Map's ID.
+	 */
 	protected int mapID;
+	
+	/**
+	 * Level's hero.
+	 */
 	protected Hero hero;
+	
+	/**
+	 * Level's status.
+	 */
 	protected status_t levelStatus;
 	
+	/**
+	 * Creates an object Level.
+	 */
 	public Level() {
 		levelStatus = status_t.ONGOING;
 	}
 
+	/**
+	 * @return Level's map.
+	 */
 	public char[][] getMap() {
 		return map;
 	}
 	
+	/**
+	 * @return Map's ID.
+	 */
 	public int getID() {
 		return mapID;
 	}
 	
+	/**
+	 * @return Level's hero.
+	 */
 	public Hero getHero() {
 		return hero;
 	}
 	
+	/**
+	 * @return Level's status.
+	 */
 	public status_t getLevelStatus() {
 		return levelStatus;
 	}
 	
+	/**
+	 * Updates the level and its entities.
+	 * @param d Direction for the hero.
+	 */
 	public void updateLevel(char d) {
 		
 		//Clears current level
@@ -39,6 +80,7 @@ public abstract class Level {
 		//Update level's entities
 		updateEntities(d);
 		
+		//Update level's doors
 		updateDoors();
 		
 		//Draws current level
@@ -47,7 +89,9 @@ public abstract class Level {
 		updateLevelStatus();
 	}
 
-	//Display level
+	/**
+	 * Display the level.
+	 */
 	public void display() {
 		
 		//Clear console

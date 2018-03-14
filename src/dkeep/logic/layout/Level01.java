@@ -7,8 +7,14 @@ import dkeep.logic.characters.Hero.key_t;
 
 public class Level01 extends Level {
 	
+	/**
+	 * Level's guard.
+	 */
 	private Guard guard;
 	
+	/**
+	 * Creates an object Level01.
+	 */
 	public Level01() {
 		
 		map = Maps.dungeon;

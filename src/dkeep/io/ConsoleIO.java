@@ -1,18 +1,22 @@
-package dkeep.cli;
+package dkeep.io;
 
 import java.util.Scanner;
 
-public class InputScanner {
+import dkeep.cli.Game;
+
+public class ConsoleIO implements IInputOutput {
 
 	private Scanner is;
 	
-	public InputScanner() {
+	public ConsoleIO() {
 		is = new Scanner(System.in);
 	}
 	
-	public char readInput() {
-		
-		System.out.print("\nCommand: ");
+	public void write(String out) {
+		System.out.print(out);
+	}
+	
+	public char read() {
 		
 		char input = is.next().charAt(0);
 		input = Character.toLowerCase(input);
@@ -21,7 +25,13 @@ public class InputScanner {
 		if(input == 'w' || input == 's' || input == 'a' || input == 'd')
 			return input;
 		else
-			return readInput();
+			return read();
+	}
+	
+	public void clearConsole() {
+
+		for(int i = 0; i < 10; i++)
+			Game.io.write("\n");
 	}
 	
 	public void finalize() {

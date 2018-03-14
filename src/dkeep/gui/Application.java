@@ -3,24 +3,26 @@ package dkeep.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 import javax.swing.SpringLayout;
+
+import dkeep.cli.Game;
+import dkeep.io.ApplicationIO;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Application {
 
 	private JFrame frame;
 	private JTextField tfNrOgres;
+	private Game g;
 
 	/**
 	 * Launch the application.
@@ -135,5 +137,95 @@ public class Application {
 		springLayout.putConstraint(SpringLayout.SOUTH, lblStatus, -31, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -162, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(lblStatus);
+		
+		//Event Handling
+		
+		//START BUTTON
+		btnStartGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if(!btnStartGame.isEnabled())
+					return;
+				
+				//Update buttons
+				btnStartGame.setEnabled(false);
+				btnUp.setEnabled(true);
+				btnDown.setEnabled(true);
+				btnLeft.setEnabled(true);
+				btnRight.setEnabled(true);
+				
+				//Update status
+				lblStatus.setText("Click the direction buttons to move the hero!");
+				
+				g = new Game(new ApplicationIO(taGame), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
+	
+				g.getCurrentLevel().display();
+				
+			}
+		});
+		
+		//EXIT BUTTON
+		btnExitGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		//UP BUTTON
+		btnUp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if(!btnUp.isEnabled())
+					return;
+				
+				ApplicationIO.input = 'w';
+				
+				g.tickGame();
+			}
+		});
+		
+		//DOWN BUTTON
+		btnDown.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(!btnDown.isEnabled())
+					return;
+				
+				ApplicationIO.input = 's';
+				
+				g.tickGame();
+			}
+		});
+		
+		//LEFT BUTTON
+		btnLeft.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(!btnLeft.isEnabled())
+					return;
+				
+				ApplicationIO.input = 'a';
+				
+				g.tickGame();
+			}
+		});
+		
+		//RIGHT BUTTON
+		btnRight.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(!btnRight.isEnabled())
+					return;
+				
+				ApplicationIO.input = 'd';
+				g.tickGame();
+			}
+		});
 	}
 }

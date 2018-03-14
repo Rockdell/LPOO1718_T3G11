@@ -1,5 +1,6 @@
 package dkeep.logic.layout;
 
+import dkeep.cli.Game;
 import dkeep.logic.characters.Hero;
 
 public abstract class Level {
@@ -94,19 +95,17 @@ public abstract class Level {
 	 */
 	public void display() {
 		
-		//Clear console
-		for(int i = 0; i < 10; i++)
-			System.out.print("\n");
+		Game.io.clearConsole();
 		
 		//Display map
 		for(int i = 0; i < map.length; i++) {
 			
 			for(int j = 0; j < map[i].length; j++) {
 				
-				System.out.print(map[i][j] + " ");
+				Game.io.write(map[i][j] + " ");
 			}
 			
-			System.out.println();
+			Game.io.write("\n");
 		}
 	}
 	

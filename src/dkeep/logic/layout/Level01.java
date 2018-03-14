@@ -1,7 +1,6 @@
 package dkeep.logic.layout;
 
-import java.util.Random;
-
+import dkeep.cli.Game;
 import dkeep.logic.characters.*;
 import dkeep.logic.characters.Hero.key_t;
 
@@ -87,17 +86,15 @@ public class Level01 extends Level {
 	}
 	
 	protected void loadEnemies() {
-		
-		int guard_type = new Random().nextInt(3);
-		
-		switch(guard_type) {
-		case 0:
+
+		switch(Game.guardPersonality) {
+		case "Rookie":
 			guard = new Rookie(8, 1, this);
 			break;
-		case 1:
+		case "Drunken":
 			guard = new Drunken(8, 1, this);
 			break;
-		case 2:
+		case "Suspicious":
 			guard = new Suspicious(8, 1, this);
 			break;
 			

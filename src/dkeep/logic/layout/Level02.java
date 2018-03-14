@@ -2,8 +2,8 @@ package dkeep.logic.layout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import dkeep.cli.Game;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
 import dkeep.logic.characters.Hero.key_t;
@@ -139,9 +139,7 @@ public class Level02 extends Level {
 		
 		ogres = new ArrayList<Ogre>();
 		
-		Random random = new Random();
-		
-		int nrOgres = random.nextInt(3) + 1;
+		int nrOgres = Game.nrOgres;
 		
 		while(nrOgres > 0) {
 			ogres.add(new Ogre(4, 1, this));

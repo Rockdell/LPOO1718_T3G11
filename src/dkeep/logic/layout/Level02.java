@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import dkeep.cli.Game;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
 import dkeep.logic.characters.Hero.key_t;
@@ -70,7 +70,7 @@ public class Level02 extends Level {
 	protected void updateLevelStatus() {
 		
 		if(hero.getY() == 1 && hero.getX() == 0) {
-			levelStatus = status_t.WON;
+			levelStatus = status_t.PROCEED;
 			return;
 		}
 		
@@ -80,7 +80,7 @@ public class Level02 extends Level {
 				continue;
 
 			if ((hero.getX() == o.getX() && hero.getY() == o.getY()) || (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY())) {
-				levelStatus = status_t.LOST;
+				levelStatus = status_t.CAUGHT;
 				return;
 			}
 
@@ -130,7 +130,7 @@ public class Level02 extends Level {
 
 			for (int[] spot : adjacent_club) {
 				if (map[spot[0]][spot[1]] == hero.getIcon()) {
-					levelStatus = status_t.LOST;
+					levelStatus = status_t.KILLED;
 					return;
 				}
 			}
@@ -141,9 +141,7 @@ public class Level02 extends Level {
 		
 		ogres = new ArrayList<Ogre>();
 		
-		Random random = new Random();
-		
-		int nrOgres = random.nextInt(3) + 1;
+		int nrOgres = Game.nrOgres;
 		
 		while(nrOgres > 0) {
 			ogres.add(new Ogre(4, 1, this));

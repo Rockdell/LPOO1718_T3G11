@@ -1,5 +1,6 @@
 package dkeep.logic.layout;
 
+import dkeep.cli.Game;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
@@ -58,7 +59,7 @@ public class Level01 extends Level {
 		
 		//Check if hero found the exit
 		if((hero.getY() == 5 || hero.getY() == 6) && hero.getX() == 0) {
-			levelStatus = status_t.WON;
+			levelStatus = status_t.PROCEED;
 			return;
 		}
 		
@@ -68,7 +69,7 @@ public class Level01 extends Level {
 		
 		//Check if the hero is in the same spot as the guard 
 		else if(hero.getX() == guard.getX() && hero.getY() == guard.getY()) {
-			levelStatus = status_t.LOST;
+			levelStatus = status_t.CAUGHT;
 			return;
 		}
 		
@@ -82,27 +83,24 @@ public class Level01 extends Level {
 
 		for (int[] spot : adjacent) {
 			if (map[spot[0]][spot[1]] == hero.getIcon()) {
-				levelStatus = status_t.LOST;
+				levelStatus = status_t.CAUGHT;
 				return;
 			}
 		}
 	}
 	
 	protected void loadEnemies() {
-		
-		int guard_type = new Random().nextInt(3);
-		
-		switch(guard_type) {
-		case 0:
+
+		switch(Game.guardPersonality) {
+		case "Rookie":
 			guard = new Rookie(8, 1, this);
 			break;
-		case 1:
+		case "Drunken":
 			guard = new Drunken(8, 1, this);
 			break;
-		case 2:
+		case "Suspicious":
 			guard = new Suspicious(8, 1, this);
 			break;
-			
 		default:
 			guard = new Rookie(0, 0, null);				
 		}

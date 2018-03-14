@@ -1,10 +1,13 @@
 package dkeep.cli;
 
+import dkeep.io.ConsoleIO;
+import dkeep.io.IO;
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
 
 import dkeep.logic.layout.Level;
+import dkeep.logic.layout.Level.status_t;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
 import dkeep.test.LevelTest;
@@ -16,24 +19,31 @@ public class Game {
 	 */
 	private Level level;
 	
+	static public String guardPersonality;
+	static public int nrOgres;
+	
 	/**
-	 * Keyboard scanner.
+	 * Input scanner.
 	 */
-	private InputScanner is;
+	static public IO io;
 	
 	public static void main(String[] args)  throws IOException, FileNotFoundException{
 		
-		Game newGame = new Game();
+		Game g = new Game(new ConsoleIO(), "Rookie", 3);
 		
-		newGame.startGame();
+		g.startGame();
 	}
 	
 	/**
 	 * Creates an object Game.
 	 */
-	public Game()  throws IOException, FileNotFoundException{
+	public Game(IO io, String gP, int nO) {
+		
+		Game.guardPersonality = gP;
+		Game.nrOgres = nO;
+		Game.io = io;
+		
 		loadLevel(1);
-		is = new InputScanner();
 	}
 	
 	/**
@@ -42,7 +52,6 @@ public class Game {
 	 */
 	public Game(int id) throws IOException, FileNotFoundException {
 		loadLevel(id);
-		is = new InputScanner();
 	}
 	
 	/**
@@ -51,7 +60,7 @@ public class Game {
 	public Level getCurrentLevel() {
 		return level;
 	}
-	
+
 	/**
 	 * Loads a level into the game.
 	 * @param id Level to load.
@@ -64,42 +73,61 @@ public class Game {
 			level = new Level02();
 		else if(id == 3)
 			level = new LevelTest();
+		
+		//Display the initial level
+		level.display();
 	}
 	
 	/**
-	 * Starts the game.
+	 * Starts the game (for console).
 	 */
 	public void startGame() throws IOException, FileNotFoundException {
 		
-		boolean stopGame = false;
-		while(!stopGame) {
-			
-			//Display the current level
-			level.display();
-			
-			//Check level's status
-			switch(level.getLevelStatus()) {
-			case ONGOING:
-				break;
-			case WON:
-				if(level.getID() != 2)
-					loadLevel(level.getID() + 1);
-				else {
-					System.out.println("You win!");
-					stopGame = true;
-				}
-				continue;
-			case LOST:
-				System.out.println("You lose!");
-				stopGame = true;
-				continue;				
-			}
-			
-			//Read input
-			char input = is.readInput();
-			
-			//Move entities
-			level.updateLevel(input);
+		boolean over =  false;
+		do {
+			over = tickGame();
 		}
+		while(!over);
+	}
+	
+	/**
+	 * Ticks the game.
+	 * @return True if won/lost, false if ongoing.
+	 */
+	public boolean tickGame() {
+		
+		if(level.getLevelStatus() != status_t.ONGOING)
+			return true;
+		
+		//Read input
+		char input = io.read();
+		
+		//Move entities
+		level.updateLevel(input);
+		
+		//Display the current level
+		level.display();
+		
+		//Check level's status
+		switch(level.getLevelStatus()) {
+		case ONGOING:
+			break;
+		case PROCEED:
+			if(level.getID() < 2)
+				loadLevel(level.getID() + 1);
+			else {
+				level.setLevelStatus(status_t.WON);
+				return true;
+			}
+			break;
+		case CAUGHT:
+			return true;
+		case KILLED:
+			return true;
+		case WON:
+			return true;
+		}
+		
+		return false;
 	}
 }

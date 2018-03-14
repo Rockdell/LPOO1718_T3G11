@@ -1,5 +1,6 @@
 package dkeep.logic.layout;
 
+import dkeep.cli.Game;
 import java.io.BufferedReader;
 
 import java.io.FileNotFoundException;
@@ -14,9 +15,11 @@ public abstract class Level {
 	 * Level's possible status.
 	 */
 	public enum status_t { 
-		/** Game is ongoing. */ ONGOING,
-		/** Won the age. */ WON, 
-		/** Lost the game. */ LOST
+		/** Level is ongoing. */ 	ONGOING,
+		/** Cleared the area. */ 	PROCEED, 
+		/** Caught by an enemy. */ 	CAUGHT,
+		/** Killed by an enemy. */ 	KILLED,
+		/** Won the game. */ 		WON
 		};
 	
 	/**
@@ -129,6 +132,10 @@ public abstract class Level {
 		return levelStatus;
 	}
 	
+	public void setLevelStatus(status_t s) {
+		levelStatus = s;
+	}
+	
 	/**
 	 * Updates the level and its entities.
 	 * @param d Direction for the hero.
@@ -155,19 +162,35 @@ public abstract class Level {
 	 */
 	public void display() {
 		
-		//Clear console
-		for(int i = 0; i < 10; i++)
-			System.out.print("\n");
+		Game.io.clearConsole();
 		
 		//Display map
 		for(int i = 0; i < map.length; i++) {
 			
 			for(int j = 0; j < map[i].length; j++) {
 				
-				System.out.print(map[i][j] + " ");
+				Game.io.write(map[i][j] + " ");
 			}
 			
-			System.out.println();
+			Game.io.write("\n");
+		}
+	}
+	
+	public String endgameSummary() {
+		
+		switch(levelStatus) {
+		case ONGOING:
+			return "Moving ";
+		case PROCEED:
+			return "You cleared the area!";
+		case CAUGHT:
+			return "You got caught by the enemy!";
+		case KILLED:
+			return "You got killed by the enemy!";
+		case WON:
+			return "You won!";
+		default:
+			return "";
 		}
 	}
 	

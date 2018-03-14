@@ -1,5 +1,12 @@
 package dkeep.logic.layout;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import dkeep.logic.characters.Hero;
 
 public abstract class Level implements ILevelLogic {
@@ -10,6 +17,22 @@ public abstract class Level implements ILevelLogic {
 	protected int mapID;
 	protected Hero hero;
 	protected status_t levelStatus;
+	
+	public char[][] loadMap() throws IOException, FileNotFoundException
+	{
+		List<char[]> map = new ArrayList<char[]>();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
+		    for(String line; (line = br.readLine()) != null; ) {
+		    	
+		    	for (int i = 0; i < line.length(); i++) {
+		            char[] tmp = line.toCharArray();
+		            map.add(tmp);
+		            }
+		        }
+		    }
+		return (char[][]) map.toArray();
+	}
 	
 	public Level() {
 		levelStatus = status_t.ONGOING;

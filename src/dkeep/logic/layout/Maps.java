@@ -1,7 +1,7 @@
 package dkeep.logic.layout;
 
 public class Maps {
-
+	
 	public static char[][] dungeon = {
 			{'X','X','X','X','X','X','X','X','X','X'},
 			{'X','H',' ',' ','I',' ','X',' ','G','X'},

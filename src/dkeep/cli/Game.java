@@ -1,5 +1,8 @@
 package dkeep.cli;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
@@ -10,19 +13,19 @@ public class Game {
 	private Level level;
 	private InputScanner is;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args)  throws IOException, FileNotFoundException{
 		
 		Game newGame = new Game();
 		
 		newGame.startGame();
 	}
 	
-	public Game() {
+	public Game()  throws IOException, FileNotFoundException{
 		loadLevel(1);
 		is = new InputScanner();
 	}
 	
-	public Game(int id) {
+	public Game(int id) throws IOException, FileNotFoundException {
 		loadLevel(id);
 		is = new InputScanner();
 	}
@@ -31,7 +34,7 @@ public class Game {
 		return level;
 	}
 	
-	private void loadLevel(int id) {
+	private void loadLevel(int id) throws IOException, FileNotFoundException {
 		
 		if(id == 1)
 			level = new Level01();
@@ -41,7 +44,7 @@ public class Game {
 			level = new LevelTest();
 	}
 	
-	public void startGame() {
+	public void startGame() throws IOException, FileNotFoundException {
 		
 		boolean stopGame = false;
 		while(!stopGame) {

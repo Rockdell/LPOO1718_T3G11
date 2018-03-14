@@ -2,6 +2,9 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.junit.Test;
 
 import dkeep.cli.Game;
@@ -10,7 +13,7 @@ import dkeep.logic.layout.Level.status_t;
 public class TestDungeonGameLogic {
 	
 	@Test
-	public void moveHeroIntoFreeCell() {
+	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
 		
 		Game test1 = new Game(3);
 		

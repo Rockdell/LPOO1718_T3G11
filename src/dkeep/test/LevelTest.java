@@ -59,7 +59,7 @@ public class LevelTest extends Level {
 		
 		//Check if the hero is in the same spot as the guard 
 		else if(hero.getX() == guard.getX() && hero.getY() == guard.getY()) {
-			levelStatus = status_t.LOST;
+			levelStatus = status_t.CAUGHT;
 			return;
 		}
 		
@@ -73,7 +73,7 @@ public class LevelTest extends Level {
 
 		for (int[] spot : adjacent) {
 			if (map[spot[0]][spot[1]] == hero.getIcon()) {
-				levelStatus = status_t.LOST;
+				levelStatus = status_t.CAUGHT;
 				return;
 			}
 		}	

@@ -51,7 +51,7 @@ public class TestDungeonGameLogic {
 		
 		test2.getCurrentLevel().updateLevel('d');
 		
-		assertEquals(status_t.LOST, test2.getCurrentLevel().getLevelStatus());
+		assertEquals(status_t.CAUGHT, test2.getCurrentLevel().getLevelStatus());
 	}
 	
 	@Test

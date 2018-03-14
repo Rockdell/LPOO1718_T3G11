@@ -80,7 +80,7 @@ public class Level02 extends Level {
 				continue;
 
 			if ((hero.getX() == o.getX() && hero.getY() == o.getY()) || (hero.getX() == o.getWeapon().getX() && hero.getY() == o.getWeapon().getY())) {
-				levelStatus = status_t.CAUGHT;
+				levelStatus = status_t.KILLED;
 				return;
 			}
 

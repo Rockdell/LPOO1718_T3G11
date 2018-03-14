@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class Application {
 
@@ -164,7 +165,11 @@ public class Application {
 				else if(Integer.parseInt(tfNrOgres.getText()) > 5)
 					tfNrOgres.setText("5");
 				
-				g = new Game(new ApplicationIO(taGame), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
+				try {
+					g = new Game(new ApplicationIO(taGame), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
+				} catch (NumberFormatException | IOException e) {
+					e.printStackTrace();
+				}
 	
 				g.getCurrentLevel().display();
 				
@@ -196,8 +201,12 @@ public class Application {
 				
 				ApplicationIO.input = 'w';
 				
-				if(g.tickGame()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				try {
+					if(g.tickGame()) {
+						lblStatus.setText(g.getCurrentLevel().endgameSummary());
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		});
@@ -215,8 +224,12 @@ public class Application {
 				
 				ApplicationIO.input = 's';
 				
-				if(g.tickGame()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				try {
+					if(g.tickGame()) {
+						lblStatus.setText(g.getCurrentLevel().endgameSummary());
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -234,8 +247,12 @@ public class Application {
 				
 				ApplicationIO.input = 'a';
 				
-				if(g.tickGame()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				try {
+					if(g.tickGame()) {
+						lblStatus.setText(g.getCurrentLevel().endgameSummary());
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -253,8 +270,12 @@ public class Application {
 				
 				ApplicationIO.input = 'd';
 				
-				if(g.tickGame()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				try {
+					if(g.tickGame()) {
+						lblStatus.setText(g.getCurrentLevel().endgameSummary());
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});

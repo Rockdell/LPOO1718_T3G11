@@ -27,7 +27,7 @@ public class Game {
 	 */
 	static public IO io;
 	
-	public static void main(String[] args)  throws IOException, FileNotFoundException{
+	public static void main(String[] args) throws IOException, FileNotFoundException {
 		
 		Game g = new Game(new ConsoleIO(), "Rookie", 3);
 		
@@ -37,7 +37,7 @@ public class Game {
 	/**
 	 * Creates an object Game.
 	 */
-	public Game(IO io, String gP, int nO) {
+	public Game(IO io, String gP, int nO) throws IOException, FileNotFoundException {
 		
 		Game.guardPersonality = gP;
 		Game.nrOgres = nO;
@@ -94,7 +94,7 @@ public class Game {
 	 * Ticks the game.
 	 * @return True if won/lost, false if ongoing.
 	 */
-	public boolean tickGame() {
+	public boolean tickGame() throws IOException, FileNotFoundException {
 		
 		if(level.getLevelStatus() != status_t.ONGOING)
 			return true;

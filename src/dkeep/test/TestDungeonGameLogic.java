@@ -14,6 +14,7 @@ import dkeep.logic.layout.Level.status_t;
 
 public class TestDungeonGameLogic {
 	
+	//Dungeon Tests
 	@Test
 	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
 		
@@ -95,6 +96,14 @@ public class TestDungeonGameLogic {
 		test5.getCurrentLevel().updateLevel('a');
 		
 		assertEquals(status_t.WON, test5.getCurrentLevel().getLevelStatus());
+	}
+	
+	//Keep Tests
+	@Test void heroKilledByOgre() throws IOException, FileNotFoundException {
+		
+		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+	
+	
 	}
 	
 }

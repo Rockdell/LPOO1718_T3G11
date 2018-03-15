@@ -30,3 +30,12 @@ XH GX
 I   X
 Ik  X
 XXXXX
+
+Map4
+6-6
+XXXXXX
+XA O X
+X    X
+X    X
+I   kX
+XXXXXX

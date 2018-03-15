@@ -32,10 +32,10 @@ Ik  X
 XXXXX
 
 Map4
-6-6
-XXXXXX
-XA O X
-X    X
-X    X
-I   kX
-XXXXXX
+6-8
+XXXXXXXX
+XA  O  X
+X      X
+X      X
+I   k  X
+XXXXXXXX

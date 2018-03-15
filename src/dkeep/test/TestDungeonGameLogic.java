@@ -99,10 +99,19 @@ public class TestDungeonGameLogic {
 	}
 	
 	//Keep Tests
-	@Test void heroKilledByOgre() throws IOException, FileNotFoundException {
+	@Test 
+	public void heroKilledByOgre() throws IOException, FileNotFoundException {
 		
+		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
 		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
 	
+		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
+		
+		test.getCurrentLevel().updateLevel('d');
+		test.getCurrentLevel().updateLevel('d');
+		
+		assertEquals(status_t.KILLED, test.getCurrentLevel().getLevelStatus());
+		
 	
 	}
 	

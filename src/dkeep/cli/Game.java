@@ -1,6 +1,7 @@
 package dkeep.cli;
 
 import dkeep.io.ConsoleIO;
+
 import dkeep.io.IO;
 import java.io.FileNotFoundException;
 
@@ -11,6 +12,7 @@ import dkeep.logic.layout.Level.status_t;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
 import dkeep.test.LevelTest;
+import dkeep.test.LevelTest2;
 
 public class Game {
 	
@@ -46,6 +48,9 @@ public class Game {
 		loadLevel(1);
 	}
 	
+	/**
+	 * Creates an object Game with custom Level.
+	 */
 	public Game(IO io, String gP, int nO, int id) throws IOException, FileNotFoundException {
 
 		Game.guardPersonality = gP;
@@ -82,6 +87,8 @@ public class Game {
 			level = new Level02();
 		else if(id == 3)
 			level = new LevelTest();
+		else if(id == 4)
+			level = new LevelTest2();
 		
 		//Display the initial level
 		level.display();

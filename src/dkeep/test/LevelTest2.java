@@ -44,7 +44,7 @@ public class LevelTest2 extends Level {
 	}
 	
 	public void drawEntities() {
-		ogre.drawPosition();
+		ogre.drawPositionWithoutSwing();
 		hero.drawPosition();
 	}
 
@@ -79,7 +79,7 @@ public class LevelTest2 extends Level {
 	}
 
 	public void loadEnemies() {
-		ogre = new Ogre(1, 4, this);
+		ogre = new Ogre(4, 1, this);
 	}
 
 	

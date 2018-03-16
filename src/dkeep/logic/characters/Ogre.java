@@ -83,6 +83,17 @@ public class Ogre extends Entity {
 		}
 	}
 	
+	//Used only for tests
+	public void drawPositionWithoutSwing() {
+		getLevel().getMap()[getY()][getX()] = getIcon();
+
+		if (stunned)
+		{
+			if (roundsStunned-- == 0)
+				setStunned(false);
+		}
+	}
+	
 	public void erasePosition() {
 			
 		//Ogre esta na posi�ao da chave (independente da char atual no map)

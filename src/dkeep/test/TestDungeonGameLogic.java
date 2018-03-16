@@ -106,11 +106,45 @@ public class TestDungeonGameLogic {
 		
 		test.getCurrentLevel().updateLevel('d');
 		test.getCurrentLevel().updateLevel('d');
-		test.getCurrentLevel().display();
 		
 		assertEquals(status_t.KILLED, test.getCurrentLevel().getLevelStatus());
-		
+	}
 	
+	@Test 
+	public void heroPicksUpKey() throws IOException, FileNotFoundException {
+		
+		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
+		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+	
+		assertEquals('A', test.getCurrentLevel().getHero().getIcon());
+		
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('d');
+		test.getCurrentLevel().updateLevel('d');
+		test.getCurrentLevel().updateLevel('d');
+		test.getCurrentLevel().display();
+		
+		assertEquals('K', test.getCurrentLevel().getHero().getIcon());
+	}
+	
+	@Test 
+	public void heroFailsToLeave() throws IOException, FileNotFoundException {
+		
+		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
+		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+	
+		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
+		
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('s');
+		test.getCurrentLevel().updateLevel('a');
+		test.getCurrentLevel().display();
+		
+		assertEquals(key_t.NULL, test.getCurrentLevel().getHero().getKey());
+		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
 	}
 	
 }

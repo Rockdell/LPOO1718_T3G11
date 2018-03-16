@@ -94,6 +94,10 @@ public class Hero extends Entity {
 			else if (getLevel().getID() == 3) {
 				key = key_t.LEVER;
 			}
+			else if (getLevel().getID() == 4) {
+				key = key_t.KEY;
+				updateIcon('K');
+			}
 		}
 		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'g' || getLevel().getMap()[y][x] == '8')
 			return false;

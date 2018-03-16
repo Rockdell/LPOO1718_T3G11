@@ -76,6 +76,8 @@ public class Hero extends Entity {
 			break;
 		case 3:
 			getLevel().getMap()[getY()][getX()] = ' ';
+		case 4:
+			getLevel().getMap()[getY()][getX()] = ' ';
 		}
 	}
 	

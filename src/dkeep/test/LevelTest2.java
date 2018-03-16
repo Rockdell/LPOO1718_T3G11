@@ -17,17 +17,18 @@ public class LevelTest2 extends Level {
 		loadMap(4);
 		mapID =  4;
 		hero = new Hero(1, 1, this);
+		hero.updateIcon('A');
 		levelStatus = status_t.ONGOING;
 		loadEnemies();
 	}
 	
-	public void updateEntities(char d) {
-		hero.move(d);
+	public void clearEntities() {
+		hero.erasePosition();
+		ogre.erasePosition();
 	}
 	
-	public void drawEntities() {
-		ogre.drawPosition();
-		hero.drawPosition();
+	public void updateEntities(char d) {
+		hero.move(d);
 	}
 	
 	public void updateDoors() {
@@ -41,10 +42,10 @@ public class LevelTest2 extends Level {
 			hero.updateKey(key_t.UNLOCKED);
 		}		
 	}
-
-	public void clearEntities() {
-		hero.erasePosition();
-		ogre.erasePosition();
+	
+	public void drawEntities() {
+		ogre.drawPosition();
+		hero.drawPosition();
 	}
 
 	public void updateLevelStatus() {
@@ -70,7 +71,7 @@ public class LevelTest2 extends Level {
 			};
 
 		for (int[] spot : adjacent) {
-			if (map[spot[0]][spot[1]] == ogre.getIcon()) {
+			if (map[spot[0]][spot[1]] == hero.getIcon()) {
 				levelStatus = status_t.KILLED;
 				return;
 			}
@@ -80,8 +81,7 @@ public class LevelTest2 extends Level {
 	public void loadEnemies() {
 		ogre = new Ogre(1, 4, this);
 	}
-	
-	
+
 	
 	
 }

@@ -13,7 +13,7 @@ import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
 
 public class TestDungeonGameLogic {
-	
+	/*
 	//Dungeon Tests
 	@Test
 	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
@@ -23,7 +23,6 @@ public class TestDungeonGameLogic {
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(1, test1.getCurrentLevel().getHero().getY());
 		
-		test1.getCurrentLevel().display();
 		test1.getCurrentLevel().updateLevel('s');
 		
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
@@ -76,10 +75,8 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(key_t.NULL, test4.getCurrentLevel().getHero().getKey());
 		
-		test4.getCurrentLevel().display();
 		test4.getCurrentLevel().updateLevel('s');
 		test4.getCurrentLevel().updateLevel('s');
-		test4.getCurrentLevel().display();
 		
 		assertEquals(key_t.UNLOCKED, test4.getCurrentLevel().getHero().getKey());	
 	}
@@ -97,7 +94,7 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(status_t.WON, test5.getCurrentLevel().getLevelStatus());
 	}
-	
+	*/
 	//Keep Tests
 	@Test 
 	public void heroKilledByOgre() throws IOException, FileNotFoundException {
@@ -109,6 +106,7 @@ public class TestDungeonGameLogic {
 		
 		test.getCurrentLevel().updateLevel('d');
 		test.getCurrentLevel().updateLevel('d');
+		test.getCurrentLevel().display();
 		
 		assertEquals(status_t.KILLED, test.getCurrentLevel().getLevelStatus());
 		

@@ -91,10 +91,10 @@ public class Hero extends Entity {
 				key = key_t.KEY;
 				updateIcon('K');
 			}
-			else if (getLevel().getID() == 3) {
+			else if (getLevel().getID() == 3) { //Test Dungeon
 				key = key_t.LEVER;
 			}
-			else if (getLevel().getID() == 4) {
+			else if (getLevel().getID() == 4) { //Test Keep
 				key = key_t.KEY;
 				updateIcon('K');
 			}

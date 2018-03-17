@@ -1,6 +1,6 @@
 package dkeep.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,13 +11,14 @@ import dkeep.cli.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
+import dkeep.logic.layout.*;
 
 public class TestDungeonGameLogic {
 
 	@Test
 	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
 		
-		Game test1 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test1 = new Game(new ConsoleIO(), "Rookie", 1, 3);
 		
 		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 		assertEquals(1, test1.getCurrentLevel().getHero().getY());
@@ -31,7 +32,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroMovesAgainstWall() throws IOException, FileNotFoundException {
 		
-		Game test2 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test2 = new Game(new ConsoleIO(), "Rookie", 1, 3);
 		
 		assertEquals(1, test2.getCurrentLevel().getHero().getX());
 		assertEquals(1, test2.getCurrentLevel().getHero().getY());
@@ -45,7 +46,11 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroCaughtByGuard() throws IOException, FileNotFoundException {
 		
-		Game test2 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test2 = new Game(new ConsoleIO(), "Rookie", 1, 3);
+		LevelTest lv = (LevelTest) test2.getCurrentLevel();
+		
+		//Checks if the Guard is able to capture the Hero
+		assertEquals(false, lv.getGuard().isHarmless());
 		
 		assertEquals(status_t.ONGOING, test2.getCurrentLevel().getLevelStatus());
 		
@@ -57,7 +62,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroFailsToLeave() throws IOException, FileNotFoundException {
 		
-		Game test3 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test3 = new Game(new ConsoleIO(), "Rookie", 1, 3);
 		
 		assertEquals(status_t.ONGOING, test3.getCurrentLevel().getLevelStatus());
 		
@@ -72,7 +77,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroPicksUpKeyAndOpensDoors() throws IOException, FileNotFoundException {
 		
-		Game test4 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test4 = new Game(new ConsoleIO(), "Rookie", 1, 3);
 		
 		assertEquals('I',test4.getCurrentLevel().getMap()[2][0]);
 		assertEquals('I',test4.getCurrentLevel().getMap()[3][0]);
@@ -89,7 +94,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void heroOpensDoorsAndLeavesRoom() throws IOException, FileNotFoundException {
 		
-		Game test5 = new Game(new ConsoleIO(), "Rookie", 3, 3);
+		Game test5 = new Game(new ConsoleIO(), "Rookie", 1, 3);
 		
 		assertEquals(status_t.ONGOING, test5.getCurrentLevel().getLevelStatus());
 		

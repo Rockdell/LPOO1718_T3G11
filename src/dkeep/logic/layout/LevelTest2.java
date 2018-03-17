@@ -1,4 +1,4 @@
-package dkeep.test;
+package dkeep.logic.layout;
 
 import java.io.FileNotFoundException;
 
@@ -7,11 +7,12 @@ import java.io.IOException;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
 import dkeep.logic.characters.Hero.key_t;
-import dkeep.logic.layout.Level;
 
 public class LevelTest2 extends Level {
 
 	private Ogre ogre;
+	private boolean swing = false;
+	private boolean moveOgre = false;
 	
 	public LevelTest2() throws IOException, FileNotFoundException {
 		loadMap(4);
@@ -22,12 +23,27 @@ public class LevelTest2 extends Level {
 		loadEnemies();
 	}
 	
+	public void setSwing(boolean s)	{
+		swing = s;
+	}
+	
+	public void setMoveOgre(boolean mo)	{
+		moveOgre = mo;
+	}
+
+	public Ogre getOgre() {
+		return ogre;
+	}
+
 	public void clearEntities() {
 		hero.erasePosition();
 		ogre.erasePosition();
 	}
-	
+
 	public void updateEntities(char d) {
+		if (moveOgre)
+			ogre.move();
+
 		hero.move(d);
 	}
 	
@@ -44,7 +60,11 @@ public class LevelTest2 extends Level {
 	}
 	
 	public void drawEntities() {
-		ogre.drawPositionWithoutSwing();
+		if (swing)
+			ogre.drawPosition();
+		else
+			ogre.drawPositionWithoutSwing();
+
 		hero.drawPosition();
 	}
 

@@ -1,4 +1,4 @@
-package dkeep.test;
+package dkeep.logic.layout;
 
 import java.io.FileNotFoundException;
 
@@ -8,7 +8,6 @@ import dkeep.logic.characters.Guard;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Rookie;
 import dkeep.logic.characters.Hero.key_t;
-import dkeep.logic.layout.Level;
 
 public class LevelTest extends Level {
 	
@@ -20,6 +19,10 @@ public class LevelTest extends Level {
 		hero = new Hero(1, 1, this);
 		levelStatus = status_t.ONGOING;
 		loadEnemies();
+	}
+	
+	public Guard getGuard() {
+		return guard;
 	}
 	
 	public void updateEntities(char d) {

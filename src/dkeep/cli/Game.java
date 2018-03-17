@@ -11,8 +11,8 @@ import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level.status_t;
 import dkeep.logic.layout.Level01;
 import dkeep.logic.layout.Level02;
-import dkeep.test.LevelTest;
-import dkeep.test.LevelTest2;
+import dkeep.logic.layout.LevelTest;
+import dkeep.logic.layout.LevelTest2;
 
 public class Game {
 	

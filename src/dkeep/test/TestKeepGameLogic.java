@@ -18,7 +18,7 @@ public class TestKeepGameLogic {
 	public void heroKilledByOgre() throws IOException, FileNotFoundException {
 		
 		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
-		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+		Game test = new Game(new ConsoleIO(), "Rookie", 1, 4);
 	
 		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
 		
@@ -32,7 +32,7 @@ public class TestKeepGameLogic {
 	public void heroPicksUpKey() throws IOException, FileNotFoundException {
 		
 		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
-		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+		Game test = new Game(new ConsoleIO(), "Rookie", 1, 4);
 	
 		assertEquals('A', test.getCurrentLevel().getHero().getIcon());
 		
@@ -51,7 +51,7 @@ public class TestKeepGameLogic {
 	public void heroFailsToLeaveKeep() throws IOException, FileNotFoundException {
 		
 		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
-		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+		Game test = new Game(new ConsoleIO(), "Rookie", 1, 4);
 	
 		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
 		assertEquals(key_t.NULL, test.getCurrentLevel().getHero().getKey());
@@ -69,7 +69,7 @@ public class TestKeepGameLogic {
 	public void heroOpensDoorWithKey() throws IOException, FileNotFoundException {
 		
 		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
-		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+		Game test = new Game(new ConsoleIO(), "Rookie", 1, 4);
 	
 		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
 		
@@ -98,7 +98,7 @@ public class TestKeepGameLogic {
 	public void heroWinsTheGame() throws IOException, FileNotFoundException {
 		
 		//Calls the constructor with "Rookie" but we never use the Guard, just for the constructor only
-		Game test = new Game(new ConsoleIO(), "Rookie", 3, 4);
+		Game test = new Game(new ConsoleIO(), "Rookie", 1, 4);
 	
 		assertEquals(status_t.ONGOING, test.getCurrentLevel().getLevelStatus());
 		

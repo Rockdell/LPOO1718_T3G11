@@ -7,10 +7,10 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import dkeep.cli.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.logic.characters.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
+import dkeep.ui.cli.Game;
 
 public class TestDungeonGameLogic {
 	

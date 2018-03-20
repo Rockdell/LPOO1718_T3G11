@@ -1,6 +1,5 @@
 package dkeep.logic.layout;
 
-import dkeep.cli.Game;
 import java.io.BufferedReader;
 
 import java.io.FileNotFoundException;
@@ -8,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import dkeep.logic.characters.Hero;
+import dkeep.ui.cli.Game;
 
 public abstract class Level {
 	

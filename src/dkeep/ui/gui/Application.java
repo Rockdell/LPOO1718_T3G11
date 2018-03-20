@@ -1,4 +1,4 @@
-package dkeep.gui;
+package dkeep.ui.gui;
 
 import java.awt.EventQueue;
 
@@ -6,18 +6,25 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
 
-import dkeep.cli.Game;
 import dkeep.io.ApplicationIO;
+import dkeep.ui.cli.Game;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
-import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import javax.swing.JPanel;
+import java.awt.Font;
+import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Application {
 
@@ -59,6 +66,8 @@ public class Application {
 		frame.getContentPane().setLayout(springLayout);
 		
 		JButton btnStartGame = new JButton("Start Game");
+		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, 82, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnStartGame, 381, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnStartGame, -64, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnStartGame);
 		
@@ -89,20 +98,9 @@ public class Application {
 		frame.getContentPane().add(cbGuardPersonality);
 		
 		JButton btnExitGame = new JButton("Exit Game");
-		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 296, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, btnExitGame, 0, SpringLayout.WEST, btnStartGame);
 		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -64, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnExitGame);
-		
-		JTextArea taGame = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, taGame, 21, SpringLayout.SOUTH, cbGuardPersonality);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, 0, SpringLayout.SOUTH, taGame);
-		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, -2, SpringLayout.NORTH, taGame);
-		springLayout.putConstraint(SpringLayout.WEST, btnStartGame, 76, SpringLayout.EAST, taGame);
-		springLayout.putConstraint(SpringLayout.EAST, taGame, -257, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, taGame, 30, SpringLayout.WEST, frame.getContentPane());
-		taGame.setFont(new Font("Courier New", Font.PLAIN, 13));
-		frame.getContentPane().add(taGame);
 		
 		JButton btnUp = new JButton("Up");
 		springLayout.putConstraint(SpringLayout.EAST, btnUp, -94, SpringLayout.EAST, frame.getContentPane());
@@ -110,35 +108,55 @@ public class Application {
 		frame.getContentPane().add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
-		springLayout.putConstraint(SpringLayout.WEST, btnLeft, 31, SpringLayout.EAST, taGame);
-		springLayout.putConstraint(SpringLayout.EAST, btnLeft, -152, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnLeft, 336, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnUp, -6, SpringLayout.NORTH, btnLeft);
 		springLayout.putConstraint(SpringLayout.NORTH, btnLeft, 178, SpringLayout.NORTH, frame.getContentPane());
 		btnLeft.setEnabled(false);
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
-		springLayout.putConstraint(SpringLayout.WEST, btnDown, 89, SpringLayout.EAST, taGame);
+		springLayout.putConstraint(SpringLayout.WEST, btnDown, 394, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnDown, -94, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 66, SpringLayout.SOUTH, btnDown);
 		springLayout.putConstraint(SpringLayout.WEST, btnUp, 0, SpringLayout.WEST, btnDown);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDown, 6, SpringLayout.SOUTH, btnLeft);
 		btnDown.setEnabled(false);
 		frame.getContentPane().add(btnDown);
 		
 		JButton btnRight = new JButton("Right");
+		springLayout.putConstraint(SpringLayout.WEST, btnRight, 449, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnLeft, -39, SpringLayout.WEST, btnRight);
 		springLayout.putConstraint(SpringLayout.NORTH, btnRight, 0, SpringLayout.NORTH, btnLeft);
-		springLayout.putConstraint(SpringLayout.WEST, btnRight, 39, SpringLayout.EAST, btnLeft);
 		springLayout.putConstraint(SpringLayout.EAST, btnRight, -39, SpringLayout.EAST, frame.getContentPane());
 		btnRight.setEnabled(false);
 		frame.getContentPane().add(btnRight);
 		
 		JLabel lblStatus = new JLabel("You can start a new game!");
-		springLayout.putConstraint(SpringLayout.SOUTH, taGame, -13, SpringLayout.NORTH, lblStatus);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -13, SpringLayout.NORTH, lblStatus);
 		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 332, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblStatus, 30, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, lblStatus, -31, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -162, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(lblStatus);
+		
+		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 19, SpringLayout.SOUTH, cbGuardPersonality);
+		springLayout.putConstraint(SpringLayout.WEST, panel, 10, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, btnLeft);
+		frame.getContentPane().add(panel);
+		panel.setFocusable(true);
+		panel.requestFocusInWindow();
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
+		
+		JTextArea taGame = new JTextArea();
+		sl_panel.putConstraint(SpringLayout.EAST, taGame, 196, SpringLayout.WEST, panel);
+		taGame.setFont(new Font("Courier New", Font.PLAIN, 13));
+		sl_panel.putConstraint(SpringLayout.NORTH, taGame, 0, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, taGame, 0, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, taGame, 237, SpringLayout.NORTH, panel);
+		panel.add(taGame);
 		
 		//Event Handling
 		
@@ -156,6 +174,8 @@ public class Application {
 				btnDown.setEnabled(true);
 				btnLeft.setEnabled(true);
 				btnRight.setEnabled(true);
+				panel.setEnabled(true);
+				taGame.setEnabled(true);
 				
 				//Update status
 				lblStatus.setText("Click the direction buttons to move the hero!");
@@ -210,6 +230,7 @@ public class Application {
 				}
 			}
 		});
+		
 		
 		//DOWN BUTTON
 		btnDown.addMouseListener(new MouseAdapter() {
@@ -279,5 +300,43 @@ public class Application {
 				}
 			}
 		});
+		
+		taGame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				
+				if(!taGame.isEnabled())
+					return;
+				
+				switch(arg0.getKeyCode()) {
+				case KeyEvent.VK_UP:
+					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "up!");
+					ApplicationIO.input = 'w';
+					break;
+				case KeyEvent.VK_DOWN:
+					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "down!");
+					ApplicationIO.input = 's';
+					break;
+				case KeyEvent.VK_LEFT:
+					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "left!");
+					ApplicationIO.input = 'a';
+					break;
+				case KeyEvent.VK_RIGHT:
+					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "right!");
+					ApplicationIO.input = 'd';
+					break;
+				default:
+					
+				}
+				
+				try {
+					if(g.tickGame()) {
+						lblStatus.setText(g.getCurrentLevel().endgameSummary());
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});		
 	}
 }

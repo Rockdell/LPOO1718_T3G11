@@ -1,4 +1,4 @@
-package dkeep.cli;
+package dkeep.ui.cli;
 
 import dkeep.io.ConsoleIO;
 import dkeep.io.IO;
@@ -110,6 +110,9 @@ public class Game {
 		
 		//Read input
 		char input = io.read();
+		
+		if(input == 'n')
+			return false;
 		
 		//Move entities
 		level.updateLevel(input);

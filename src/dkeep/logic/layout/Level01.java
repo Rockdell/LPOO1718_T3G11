@@ -1,12 +1,11 @@
 package dkeep.logic.layout;
 
-import dkeep.cli.Game;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import dkeep.logic.characters.*;
 import dkeep.logic.characters.Hero.key_t;
+import dkeep.ui.cli.Game;
 
 public class Level01 extends Level {
 	

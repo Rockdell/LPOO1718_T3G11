@@ -2,7 +2,7 @@ package dkeep.io;
 
 import java.util.Scanner;
 
-import dkeep.cli.Game;
+import dkeep.ui.cli.Game;
 
 public class ConsoleIO implements IO {
 

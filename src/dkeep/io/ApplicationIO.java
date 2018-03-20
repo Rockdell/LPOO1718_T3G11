@@ -15,7 +15,7 @@ public class ApplicationIO implements IO {
 		console.append(out);
 	}
 	
-	public char read() {		
+	public char read() {	
 		return input;		
 	}
 	

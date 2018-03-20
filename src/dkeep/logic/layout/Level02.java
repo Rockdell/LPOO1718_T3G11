@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dkeep.cli.Game;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
 import dkeep.logic.characters.Hero.key_t;
+import dkeep.ui.cli.Game;
 
 public class Level02 extends Level {
 	

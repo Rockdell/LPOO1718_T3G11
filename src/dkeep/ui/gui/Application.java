@@ -139,24 +139,22 @@ public class Application {
 		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -162, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(lblStatus);
 		
-		JPanel panel = new JPanel();
+		GraphicsMap panel = new GraphicsMap();
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 19, SpringLayout.SOUTH, cbGuardPersonality);
 		springLayout.putConstraint(SpringLayout.WEST, panel, 10, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, btnExitGame);
 		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, btnLeft);
 		frame.getContentPane().add(panel);
-		panel.setFocusable(true);
-		panel.requestFocusInWindow();
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-		JTextArea taGame = new JTextArea();
-		sl_panel.putConstraint(SpringLayout.EAST, taGame, 196, SpringLayout.WEST, panel);
-		taGame.setFont(new Font("Courier New", Font.PLAIN, 13));
-		sl_panel.putConstraint(SpringLayout.NORTH, taGame, 0, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, taGame, 0, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, taGame, 237, SpringLayout.NORTH, panel);
-		panel.add(taGame);
+//		JTextArea taGame = new JTextArea();
+//		sl_panel.putConstraint(SpringLayout.SOUTH, taGame, 213, SpringLayout.NORTH, panel);
+//		sl_panel.putConstraint(SpringLayout.EAST, taGame, 196, SpringLayout.WEST, panel);
+//		taGame.setFont(new Font("Courier New", Font.PLAIN, 13));
+//		sl_panel.putConstraint(SpringLayout.NORTH, taGame, 0, SpringLayout.NORTH, panel);
+//		sl_panel.putConstraint(SpringLayout.WEST, taGame, 0, SpringLayout.WEST, panel);
+//		panel.add(taGame);
 		
 		//Event Handling
 		
@@ -175,7 +173,10 @@ public class Application {
 				btnLeft.setEnabled(true);
 				btnRight.setEnabled(true);
 				panel.setEnabled(true);
-				taGame.setEnabled(true);
+				
+				tfNrOgres.setEnabled(false);
+				cbGuardPersonality.setEnabled(false);
+				//taGame.setEnabled(true);
 				
 				//Update status
 				lblStatus.setText("Click the direction buttons to move the hero!");
@@ -186,11 +187,12 @@ public class Application {
 					tfNrOgres.setText("5");
 				
 				try {
-					g = new Game(new ApplicationIO(taGame), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
 				}
 	
+				panel.requestFocusInWindow();
 				g.getCurrentLevel().display();
 				
 			}
@@ -228,6 +230,8 @@ public class Application {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+				panel.requestFocusInWindow();
 			}
 		});
 		
@@ -252,6 +256,8 @@ public class Application {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				panel.requestFocusInWindow();
 			}
 		});
 		
@@ -275,6 +281,8 @@ public class Application {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				panel.requestFocusInWindow();
 			}
 		});
 		
@@ -298,17 +306,19 @@ public class Application {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				panel.requestFocusInWindow();
 			}
 		});
-		
-		taGame.addKeyListener(new KeyAdapter() {
+
+		panel.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				
-				if(!taGame.isEnabled())
+
+				if (!panel.isEnabled())
 					return;
-				
-				switch(arg0.getKeyCode()) {
+
+				switch (arg0.getKeyCode()) {
 				case KeyEvent.VK_UP:
 					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "up!");
 					ApplicationIO.input = 'w';
@@ -338,5 +348,6 @@ public class Application {
 				}
 			}
 		});		
+		
 	}
 }

@@ -54,7 +54,7 @@ public abstract class Level {
 		boolean found = false;
 
 		//Tries reading the file
-		try (BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
 
 			//Searches for the correct map in maps.txt
 			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
@@ -164,16 +164,18 @@ public abstract class Level {
 		
 		Game.io.clearConsole();
 		
+		Game.io.write(map);
+		
 		//Display map
-		for(int i = 0; i < map.length; i++) {
-			
-			for(int j = 0; j < map[i].length; j++) {
-				
-				Game.io.write(map[i][j] + " ");
-			}
-			
-			Game.io.write("\n");
-		}
+//		for(int i = 0; i < map.length; i++) {
+//			
+//			for(int j = 0; j < map[i].length; j++) {
+//				
+//				Game.io.write(map[i][j] + " ");
+//			}
+//			
+//			Game.io.write("\n");
+//		}
 	}
 	
 	public String endgameSummary() {

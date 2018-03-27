@@ -4,7 +4,7 @@ public interface IO {
 
 	char read();
 	
-	void write(String out);
+	void write(char[][] map);
 	
 	void clearConsole();
 	

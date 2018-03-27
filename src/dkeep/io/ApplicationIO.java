@@ -1,18 +1,20 @@
 package dkeep.io;
 
-import javax.swing.JTextArea;
+import javax.swing.JPanel;
+
+import dkeep.ui.gui.GraphicsMap;
 
 public class ApplicationIO implements IO {
 	
-	private JTextArea console;
+	private GraphicsMap display;
 	static public char input = 'n';
 
-	public ApplicationIO(JTextArea c) {
-		console = c;
+	public ApplicationIO(GraphicsMap jp) {
+		display = jp;
 	}
 	
-	public void write(String out) {
-		console.append(out);
+	public void write(char [][] map) {
+		display.append(map);
 	}
 	
 	public char read() {	
@@ -20,6 +22,6 @@ public class ApplicationIO implements IO {
 	}
 	
 	public void clearConsole() {
-		console.setText("");
+		//console.setText("");
 	}
 }

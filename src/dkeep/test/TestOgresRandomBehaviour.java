@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import dkeep.cli.Game;
+import dkeep.ui.cli.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.logic.layout.LevelTest2;
 import dkeep.logic.layout.Level.status_t;

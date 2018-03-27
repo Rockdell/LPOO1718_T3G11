@@ -71,7 +71,7 @@ public class GraphicsMap extends JPanel implements MouseListener {
 			tmp = ImageIO.read(new File(path + "/club.png"));
 			club = tmp.getScaledInstance(getWidth() / map[0].length , getHeight() / map.length, Image.SCALE_FAST);
 			
-			tmp = ImageIO.read(new File(path + "/triforce.jpg"));
+			tmp = ImageIO.read(new File(path + "/key_overlapped.png"));
 			symbol = tmp.getScaledInstance(getWidth() / map[0].length , getHeight() / map.length, Image.SCALE_FAST);
 
 		} catch (IOException e) {
@@ -85,8 +85,15 @@ public class GraphicsMap extends JPanel implements MouseListener {
 	}
 
 	public void append(char[][] m) {
-		map = m;
-		loadAssets();
+
+		if (map == null) {
+			map = m;
+			loadAssets();
+		} else if (map.length != m.length || map[0].length != m[0].length) {
+			map = m;
+			loadAssets();
+		}
+
 		repaint();
 	}
 

@@ -59,7 +59,7 @@ public class GraphicsMap extends JPanel implements MouseListener {
 			tmp = ImageIO.read(new File(path + "/chicken.png"));
 			guard = tmp.getScaledInstance(getWidth() / map[0].length , getHeight() / map.length, Image.SCALE_FAST);
 			
-			tmp = ImageIO.read(new File(path + "/bokoblin.jpg"));
+			tmp = ImageIO.read(new File(path + "/ganon.png"));
 			ogre = tmp.getScaledInstance(getWidth() / map[0].length , getHeight() / map.length, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/zzz.png"));

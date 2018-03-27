@@ -6,6 +6,7 @@ import dkeep.io.IO;
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
+import java.util.Random;
 
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level.status_t;
@@ -31,7 +32,26 @@ public class Game {
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
 		
-		Game g = new Game(new ConsoleIO(), "Rookie", 3);
+		Random rn = new Random();
+		int random_guard = rn.nextInt(3);
+		int random_ogres = rn.nextInt(5) + 1;
+		
+		String guard_type = "";
+		
+		switch(random_guard)
+		{
+		case 0:
+			guard_type = "Rookie";
+			break;
+		case 1:
+			guard_type = "Drunken";
+			break;
+		case 2:
+			guard_type = "Suspicious";
+			break;
+		}
+		
+		Game g = new Game(new ConsoleIO(), guard_type, random_ogres);
 		
 		g.startGame();
 	}

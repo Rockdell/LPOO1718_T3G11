@@ -73,6 +73,7 @@ public class EditionTable extends AbstractTableModel {
 		fireTableCellUpdated(row, col);
 	}
 
+	//TODO ALWAYS ADDS ROW AT THE END FOR NOW
 	public void addRow() {
 		
 		if(getRowCount() == 15)
@@ -97,17 +98,32 @@ public class EditionTable extends AbstractTableModel {
 		fireTableRowsDeleted(row, row);
 	}
 
-//	public void addColumn() {
-//		
-//		for(int i = 0; i < colIndexes.size(); i++) {
-//			custom_map.set(i, custom_map.get(i) + " ");
-//		}
-//		
-//		colIndexes.add(new Integer(colIndexes.get(colIndexes.size() - 1) + 1));
-//	}
-//	
-//	public void removeColumn() {
-//		colIndexes.add(new Integer(colIndexes.get(colIndexes.size() - 1) + 1));
-//	}
+	//TODO ALWAYS ADDS COLUMN AT THE END FOR NOW
+	public void addColumn() {
+		
+		//Updates colIndexes
+		colIndexes.add(new Integer(colIndexes.get(colIndexes.size() - 1) + 1));
+		
+		//Updates custom_map
+		for(int i = 0; i < custom_map.size(); i++) {
+			custom_map.set(i, custom_map.get(i) + " ");
+		}
+		
+		fireTableStructureChanged();
+	}
+	
+	//TODO ALWAYS REMOVES THE LAST COLUMN FOR NOW
+	public void removeColumn() {
+		
+		//Updates custom_map
+		for(int i = 0; i < custom_map.size(); i++) {
+			custom_map.set(i, custom_map.get(i).substring(0, custom_map.get(i).length() - 1));
+		}
+		
+		//Updates colIndexes
+		colIndexes.remove(colIndexes.size() - 1);
+		
+		fireTableStructureChanged();
+	}
 
 }

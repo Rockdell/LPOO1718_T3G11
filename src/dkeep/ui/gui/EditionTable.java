@@ -1,16 +1,28 @@
 package dkeep.ui.gui;
 
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 
 public class EditionTable extends AbstractTableModel {
 
 	private static ArrayList<String> custom_map = new ArrayList<String>();
 	private static ArrayList<Integer> colIndexes = new ArrayList<Integer>();
-
+	
+	public ArrayList<String> getMap() {
+		return custom_map;
+	}
+	
 	/**
 	 * Create the table.
 	 */
@@ -26,7 +38,6 @@ public class EditionTable extends AbstractTableModel {
 		{
 			colIndexes.add(i);
 		}
-		System.out.println(colIndexes.size());
 	}
 
 	@Override
@@ -59,7 +70,54 @@ public class EditionTable extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		return "" + custom_map.get(row).charAt(col);
+
+		String path = System.getProperty("user.dir") + "/src/miscellaneous";
+
+		switch (custom_map.get(row).charAt(col)) {
+		case 'X':
+			path += "/rock.png";
+			break;
+		case 'I':
+			path += "/bush.png";
+			break;
+		case 'H':
+			path += "/link.jpg";
+			break;
+		case 'A':
+			path += "/link_sword.jpg";
+			break;
+		case 'S':
+			// Nothing
+			break;
+		case 'G':
+			path += "/chicken.png";
+			break;
+		case 'g':
+			path += "/zzz.png";
+			break;
+		case 'k':
+			path += "/key.png";
+			break;
+		case 'K':
+			path += "/link_sword_key.jpg";
+			break;
+		case 'O':
+			path += "/ganon.png";
+			break;
+		case '8':
+			path += "/zzz.png";
+			break;
+		case '$':
+			path += "/key_overlapped.png";
+			break;
+		case '*':
+			path += "/club.png";
+			break;
+		default:
+			path += "/white.png";
+		}
+
+		return path;
 	}
 
 	@Override
@@ -76,7 +134,7 @@ public class EditionTable extends AbstractTableModel {
 	//TODO ALWAYS ADDS ROW AT THE END FOR NOW
 	public void addRow() {
 		
-		if(getRowCount() == 15)
+		if(getRowCount() >= 15)
 			return;
 		
 		String addedString = "";
@@ -91,7 +149,7 @@ public class EditionTable extends AbstractTableModel {
 
 	public void removeRow(int row) {
 		
-		if(getRowCount() == 3)
+		if(getRowCount() <= 3)
 			return;
 		
 		custom_map.remove(row);
@@ -100,6 +158,9 @@ public class EditionTable extends AbstractTableModel {
 
 	//TODO ALWAYS ADDS COLUMN AT THE END FOR NOW
 	public void addColumn() {
+		
+		if(getColumnCount() >= 15)
+			return;
 		
 		//Updates colIndexes
 		colIndexes.add(new Integer(colIndexes.get(colIndexes.size() - 1) + 1));
@@ -114,6 +175,9 @@ public class EditionTable extends AbstractTableModel {
 	
 	//TODO ALWAYS REMOVES THE LAST COLUMN FOR NOW
 	public void removeColumn() {
+		
+		if(getColumnCount() <= 3)
+			return;
 		
 		//Updates custom_map
 		for(int i = 0; i < custom_map.size(); i++) {

@@ -13,7 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class GraphicsMap extends JPanel implements MouseListener {
+public class GraphicsMap extends JPanel {
 
 	private static int x;
 	private static int y;
@@ -35,7 +35,7 @@ public class GraphicsMap extends JPanel implements MouseListener {
 	 * Create the custom JPanel.
 	 */
 	public GraphicsMap() {
-		addMouseListener(this);
+		//addMouseListener(this);
 		setBackground(Color.WHITE);
 	}
 
@@ -163,34 +163,34 @@ public class GraphicsMap extends JPanel implements MouseListener {
 			y += getHeight() / map.length;
 		}
 	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+//	
+//	@Override
+//	public void mousePressed(MouseEvent e) {
+//		
+//	}
+//
+//	@Override
+//	public void mouseClicked(MouseEvent arg0) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void mouseEntered(MouseEvent arg0) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void mouseExited(MouseEvent arg0) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void mouseReleased(MouseEvent arg0) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	
 }

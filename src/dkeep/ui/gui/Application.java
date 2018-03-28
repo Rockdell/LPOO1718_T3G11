@@ -10,26 +10,19 @@ import dkeep.io.ApplicationIO;
 import dkeep.ui.cli.Game;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import javax.swing.JPanel;
 import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
+import javax.swing.JSlider;
 
 public class Application {
 
 	private JFrame frame;
-	private JTextField tfNrOgres;
 	private Game g;
 
 	/**
@@ -60,46 +53,52 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 578, 416);
+		frame.setBounds(100, 100, 580, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
 		JButton btnStartGame = new JButton("Start Game");
-		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, 82, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnStartGame, 381, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnStartGame, -64, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnStartGame, -72, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnStartGame);
 		
 		JLabel lblNrOgres = new JLabel("Number of Ogres");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNrOgres, 13, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblNrOgres, 30, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblNrOgres);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
-		springLayout.putConstraint(SpringLayout.NORTH, lblGuardPersonality, 19, SpringLayout.SOUTH, lblNrOgres);
-		springLayout.putConstraint(SpringLayout.WEST, lblGuardPersonality, 0, SpringLayout.WEST, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.WEST, lblGuardPersonality, 30, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblNrOgres, 0, SpringLayout.NORTH, lblGuardPersonality);
 		frame.getContentPane().add(lblGuardPersonality);
 		
-		tfNrOgres = new JTextField();
-		tfNrOgres.setText("1");
-		springLayout.putConstraint(SpringLayout.NORTH, tfNrOgres, 10, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, tfNrOgres, 32, SpringLayout.EAST, lblNrOgres);
-		springLayout.putConstraint(SpringLayout.EAST, tfNrOgres, -377, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(tfNrOgres);
-		tfNrOgres.setColumns(10);
+		JSlider sliderNumberOfOgres = new JSlider();
+		sliderNumberOfOgres.setValue(1);
+		springLayout.putConstraint(SpringLayout.EAST, lblNrOgres, -6, SpringLayout.WEST, sliderNumberOfOgres);
+		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, 6, SpringLayout.SOUTH, sliderNumberOfOgres);
+		springLayout.putConstraint(SpringLayout.SOUTH, sliderNumberOfOgres, 76, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, sliderNumberOfOgres, 417, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, sliderNumberOfOgres, -55, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, sliderNumberOfOgres, 0, SpringLayout.NORTH, frame.getContentPane());
+		sliderNumberOfOgres.setToolTipText("");
+		sliderNumberOfOgres.setPaintLabels(true);
+		sliderNumberOfOgres.setPaintTicks(true);
+		sliderNumberOfOgres.setMajorTickSpacing(1);
+		sliderNumberOfOgres.setMinimum(1);
+		sliderNumberOfOgres.setMaximum(5);
+		frame.getContentPane().add(sliderNumberOfOgres);
 		
 		JComboBox cbGuardPersonality = new JComboBox();
-		springLayout.putConstraint(SpringLayout.NORTH, cbGuardPersonality, 13, SpringLayout.SOUTH, tfNrOgres);
-		springLayout.putConstraint(SpringLayout.WEST, cbGuardPersonality, 29, SpringLayout.EAST, lblGuardPersonality);
-		springLayout.putConstraint(SpringLayout.EAST, cbGuardPersonality, -311, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, cbGuardPersonality, 6, SpringLayout.EAST, lblGuardPersonality);
+		springLayout.putConstraint(SpringLayout.EAST, cbGuardPersonality, -33, SpringLayout.WEST, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.NORTH, lblGuardPersonality, 3, SpringLayout.NORTH, cbGuardPersonality);
+		springLayout.putConstraint(SpringLayout.NORTH, cbGuardPersonality, 17, SpringLayout.NORTH, frame.getContentPane());
 		cbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		cbGuardPersonality.setSelectedIndex(0);
 		frame.getContentPane().add(cbGuardPersonality);
 		
 		JButton btnExitGame = new JButton("Exit Game");
 		springLayout.putConstraint(SpringLayout.WEST, btnExitGame, 0, SpringLayout.WEST, btnStartGame);
-		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -64, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -112, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -72, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnExitGame);
 		
 		JButton btnUp = new JButton("Up");
@@ -115,9 +114,9 @@ public class Application {
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
+		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 44, SpringLayout.SOUTH, btnDown);
 		springLayout.putConstraint(SpringLayout.WEST, btnDown, 394, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnDown, -94, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 66, SpringLayout.SOUTH, btnDown);
 		springLayout.putConstraint(SpringLayout.WEST, btnUp, 0, SpringLayout.WEST, btnDown);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDown, 6, SpringLayout.SOUTH, btnLeft);
 		btnDown.setEnabled(false);
@@ -132,17 +131,17 @@ public class Application {
 		frame.getContentPane().add(btnRight);
 		
 		JLabel lblStatus = new JLabel("You can start a new game!");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -13, SpringLayout.NORTH, lblStatus);
-		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 332, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblStatus, 30, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, lblStatus, -31, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -162, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 16, SpringLayout.SOUTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblStatus, -30, SpringLayout.SOUTH, frame.getContentPane());
+		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(lblStatus);
 		
 		GraphicsMap panel = new GraphicsMap();
-		springLayout.putConstraint(SpringLayout.NORTH, panel, 19, SpringLayout.SOUTH, cbGuardPersonality);
+		springLayout.putConstraint(SpringLayout.WEST, lblStatus, 7, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.WEST, btnStartGame, 43, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, -31, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 9, SpringLayout.SOUTH, cbGuardPersonality);
 		springLayout.putConstraint(SpringLayout.WEST, panel, 10, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, btnExitGame);
 		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, btnLeft);
 		frame.getContentPane().add(panel);
 		SpringLayout sl_panel = new SpringLayout();
@@ -174,20 +173,17 @@ public class Application {
 				btnRight.setEnabled(true);
 				panel.setEnabled(true);
 				
-				tfNrOgres.setEnabled(false);
+				sliderNumberOfOgres.setEnabled(false);
 				cbGuardPersonality.setEnabled(false);
 				//taGame.setEnabled(true);
 				
 				//Update status
-				lblStatus.setText("Click the direction buttons to move the hero!");
+				lblStatus.setText("Move Hero - Arrow Keys");
 				
-				if(Integer.parseInt(tfNrOgres.getText()) < 1)
-					tfNrOgres.setText("1");
-				else if(Integer.parseInt(tfNrOgres.getText()) > 5)
-					tfNrOgres.setText("5");
+//				Integer.parseInt(tfNrOgres.getText()
 				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), Integer.parseInt(tfNrOgres.getText()));
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue());
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
 				}

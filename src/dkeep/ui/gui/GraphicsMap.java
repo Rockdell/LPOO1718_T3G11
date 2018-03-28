@@ -31,6 +31,9 @@ public class GraphicsMap extends JPanel implements MouseListener {
 	private static Image club;
 	private static Image symbol;
 	
+	/**
+	 * Create the custom JPanel.
+	 */
 	public GraphicsMap() {
 		addMouseListener(this);
 		setBackground(Color.WHITE);

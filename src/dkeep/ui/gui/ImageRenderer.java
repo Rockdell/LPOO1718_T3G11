@@ -4,11 +4,9 @@ import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -24,7 +22,6 @@ public class ImageRenderer extends DefaultTableCellRenderer {
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
 		JLabel lbl = ((JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column));
-		// lbl = new JLabel(new ImageIcon((String) value));
 
 		Image im = null;
 		
@@ -35,8 +32,7 @@ public class ImageRenderer extends DefaultTableCellRenderer {
 		}
 
 		lbl = new JLabel(new ImageIcon(im));
-
+		
 		return lbl;
 	}
-
 }

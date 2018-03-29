@@ -1,18 +1,7 @@
 package dkeep.ui.gui;
 
-import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
 
 public class EditionTable extends AbstractTableModel {
 
@@ -27,6 +16,8 @@ public class EditionTable extends AbstractTableModel {
 	 * Create the table.
 	 */
 	public EditionTable() {
+		
+//		setBackground(Color.GRAY);
 		
 		//Testing
 		custom_map.add("XXX");

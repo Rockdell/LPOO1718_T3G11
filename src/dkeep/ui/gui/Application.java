@@ -5,13 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
-
 import dkeep.io.ApplicationIO;
 import dkeep.ui.cli.Game;
-
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -53,30 +53,29 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 580, 480);
+		frame.setBounds(100, 100, 600, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
 		JButton btnStartGame = new JButton("Start Game");
-		springLayout.putConstraint(SpringLayout.EAST, btnStartGame, -72, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnStartGame, -63, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnStartGame);
 		
 		JLabel lblNrOgres = new JLabel("Number of Ogres");
 		frame.getContentPane().add(lblNrOgres);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
-		springLayout.putConstraint(SpringLayout.WEST, lblGuardPersonality, 30, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, lblNrOgres, 0, SpringLayout.NORTH, lblGuardPersonality);
 		frame.getContentPane().add(lblGuardPersonality);
 		
 		JSlider sliderNumberOfOgres = new JSlider();
+		springLayout.putConstraint(SpringLayout.WEST, sliderNumberOfOgres, -150, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, sliderNumberOfOgres, -80, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, 7, SpringLayout.SOUTH, sliderNumberOfOgres);
 		sliderNumberOfOgres.setValue(1);
 		springLayout.putConstraint(SpringLayout.EAST, lblNrOgres, -6, SpringLayout.WEST, sliderNumberOfOgres);
-		springLayout.putConstraint(SpringLayout.NORTH, btnStartGame, 6, SpringLayout.SOUTH, sliderNumberOfOgres);
 		springLayout.putConstraint(SpringLayout.SOUTH, sliderNumberOfOgres, 76, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, sliderNumberOfOgres, 417, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, sliderNumberOfOgres, -55, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, sliderNumberOfOgres, 0, SpringLayout.NORTH, frame.getContentPane());
 		sliderNumberOfOgres.setToolTipText("");
 		sliderNumberOfOgres.setPaintLabels(true);
@@ -87,8 +86,9 @@ public class Application {
 		frame.getContentPane().add(sliderNumberOfOgres);
 		
 		JComboBox cbGuardPersonality = new JComboBox();
-		springLayout.putConstraint(SpringLayout.WEST, cbGuardPersonality, 6, SpringLayout.EAST, lblGuardPersonality);
-		springLayout.putConstraint(SpringLayout.EAST, cbGuardPersonality, -33, SpringLayout.WEST, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.WEST, lblGuardPersonality, -110, SpringLayout.WEST, cbGuardPersonality);
+		springLayout.putConstraint(SpringLayout.WEST, cbGuardPersonality, -230, SpringLayout.EAST, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.EAST, cbGuardPersonality, -30, SpringLayout.WEST, lblNrOgres);
 		springLayout.putConstraint(SpringLayout.NORTH, lblGuardPersonality, 3, SpringLayout.NORTH, cbGuardPersonality);
 		springLayout.putConstraint(SpringLayout.NORTH, cbGuardPersonality, 17, SpringLayout.NORTH, frame.getContentPane());
 		cbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
@@ -97,52 +97,47 @@ public class Application {
 		
 		JButton btnExitGame = new JButton("Exit Game");
 		springLayout.putConstraint(SpringLayout.WEST, btnExitGame, 0, SpringLayout.WEST, btnStartGame);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -112, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -72, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -63, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnExitGame);
 		
 		JButton btnUp = new JButton("Up");
-		springLayout.putConstraint(SpringLayout.EAST, btnUp, -94, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnUp, 125, SpringLayout.NORTH, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.WEST, btnUp, -141, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnUp, -80, SpringLayout.EAST, frame.getContentPane());
 		btnUp.setEnabled(false);
 		frame.getContentPane().add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
-		springLayout.putConstraint(SpringLayout.WEST, btnLeft, 336, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnUp, -6, SpringLayout.NORTH, btnLeft);
-		springLayout.putConstraint(SpringLayout.NORTH, btnLeft, 178, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnLeft, 140, SpringLayout.SOUTH, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.EAST, btnLeft, -121, SpringLayout.EAST, frame.getContentPane());
 		btnLeft.setEnabled(false);
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
-		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 44, SpringLayout.SOUTH, btnDown);
-		springLayout.putConstraint(SpringLayout.WEST, btnDown, 394, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnDown, -94, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnUp, 0, SpringLayout.WEST, btnDown);
-		springLayout.putConstraint(SpringLayout.NORTH, btnDown, 6, SpringLayout.SOUTH, btnLeft);
+		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 50, SpringLayout.SOUTH, btnDown);
+		springLayout.putConstraint(SpringLayout.NORTH, btnDown, 172, SpringLayout.SOUTH, lblNrOgres);
+		springLayout.putConstraint(SpringLayout.WEST, btnDown, -141, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnDown, -80, SpringLayout.EAST, frame.getContentPane());
 		btnDown.setEnabled(false);
 		frame.getContentPane().add(btnDown);
 		
 		JButton btnRight = new JButton("Right");
-		springLayout.putConstraint(SpringLayout.WEST, btnRight, 449, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnLeft, -39, SpringLayout.WEST, btnRight);
-		springLayout.putConstraint(SpringLayout.NORTH, btnRight, 0, SpringLayout.NORTH, btnLeft);
+		springLayout.putConstraint(SpringLayout.NORTH, btnRight, 140, SpringLayout.SOUTH, lblNrOgres);
 		springLayout.putConstraint(SpringLayout.EAST, btnRight, -39, SpringLayout.EAST, frame.getContentPane());
 		btnRight.setEnabled(false);
 		frame.getContentPane().add(btnRight);
 		
 		JLabel lblStatus = new JLabel("You can start a new game!");
-		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 16, SpringLayout.SOUTH, btnExitGame);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblStatus, -30, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 15, SpringLayout.SOUTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -10, SpringLayout.EAST, frame.getContentPane());
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(lblStatus);
 		
 		GraphicsMap panel = new GraphicsMap();
-		springLayout.putConstraint(SpringLayout.WEST, lblStatus, 7, SpringLayout.EAST, panel);
-		springLayout.putConstraint(SpringLayout.WEST, btnStartGame, 43, SpringLayout.EAST, panel);
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, -31, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, panel, 9, SpringLayout.SOUTH, cbGuardPersonality);
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.SOUTH, cbGuardPersonality);
 		springLayout.putConstraint(SpringLayout.WEST, panel, 10, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, btnLeft);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, -10, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel, -230, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(panel);
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
@@ -307,6 +302,22 @@ public class Application {
 			}
 		});
 
+		//When the window is resized the map is resized with it!
+		frame.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
+
+			@Override
+			public void ancestorMoved(HierarchyEvent e) {
+				
+			}
+
+			@Override
+			public void ancestorResized(HierarchyEvent e) {
+				if(g != null)
+					panel.loadAssets();
+			}
+		});
+
+		//Listener for key input
 		panel.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {

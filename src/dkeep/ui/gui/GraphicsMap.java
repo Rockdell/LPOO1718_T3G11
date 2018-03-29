@@ -1,15 +1,11 @@
 package dkeep.ui.gui;
 
 import java.awt.Color;
-
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -35,7 +31,6 @@ public class GraphicsMap extends JPanel {
 	 * Create the custom JPanel.
 	 */
 	public GraphicsMap() {
-		//addMouseListener(this);
 		setBackground(Color.WHITE);
 	}
 
@@ -163,34 +158,5 @@ public class GraphicsMap extends JPanel {
 			y += getHeight() / map.length;
 		}
 	}
-//	
-//	@Override
-//	public void mousePressed(MouseEvent e) {
-//		
-//	}
-//
-//	@Override
-//	public void mouseClicked(MouseEvent arg0) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void mouseEntered(MouseEvent arg0) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void mouseExited(MouseEvent arg0) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void mouseReleased(MouseEvent arg0) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//	
+
 }

@@ -2,8 +2,6 @@ package dkeep.io;
 
 import java.util.Scanner;
 
-import dkeep.ui.cli.Game;
-
 public class ConsoleIO implements IO {
 
 	private Scanner is;

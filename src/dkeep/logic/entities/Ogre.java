@@ -98,7 +98,7 @@ public class Ogre extends Entity {
 		
 		for(Door door : getLevel().getDoors()) {
 			
-			if(door.getCoords().equals(getCoords()))
+			if(door.getX() == x && door.getY() == y)
 				return false;
 		}
 

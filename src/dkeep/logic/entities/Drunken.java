@@ -1,7 +1,6 @@
 package dkeep.logic.entities;
 
 import java.util.Random;
-import dkeep.logic.layout.Level;
 
 public class Drunken extends Guard {
 
@@ -16,8 +15,8 @@ public class Drunken extends Guard {
 	 * @param y Y-position of the guard.
 	 * @param l Current level.
 	 */
-	public Drunken(int x, int y, Level l) {
-		super(x, y, l);
+	public Drunken(int x, int y) {
+		super(x, y);
 		isSleeping = false;
 		rounds_asleep = 0;
 	}

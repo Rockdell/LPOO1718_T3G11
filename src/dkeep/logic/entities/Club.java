@@ -1,5 +1,7 @@
 package dkeep.logic.entities;
 
+import dkeep.logic.objects.DKObject;
+
 public class Club extends Entity {
 	
 	/** Entity who holds the weapon. */
@@ -11,7 +13,7 @@ public class Club extends Entity {
 	/** Creates an object Club.
 	 * @param w Wielder of the weapon. */
 	public Club(Entity wielder) {
-		super(wielder.getX(), wielder.getY(), null, '*');
+		super(wielder.getX(), wielder.getY(), '*');
 		_wielder = wielder;
 		_lastDirection = 'n';
 	}
@@ -34,23 +36,23 @@ public class Club extends Entity {
 	}
 	
 	public void drawEntity() {
-		_wielder.getLevel().getMap()[getY()][getX()] = getIcon();
+		DKObject.level.getMap()[getY()][getX()] = getIcon();
 	}
 	
 	public void eraseEntity() {
 		
 		if (getIcon() == '$')
-			_wielder.getLevel().getMap()[getY()][getX()] = 'k';
-		else if(_wielder.getLevel().getMap()[getY()][getX()] != 'O')
-			_wielder.getLevel().getMap()[getY()][getX()] = ' ';
+			DKObject.level.getMap()[getY()][getX()] = 'k';
+		else if(DKObject.level.getMap()[getY()][getX()] != 'O')
+			DKObject.level.getMap()[getY()][getX()] = ' ';
 	}
 	
 	public boolean checkCollision(int x, int y) {
 		
-		if (_wielder.getLevel().getMap()[y][x] == 'X' || _wielder.getLevel().getMap()[y][x] == 'I' || _wielder.getLevel().getMap()[y][x] == 'S')
+		if (DKObject.level.getMap()[y][x] == 'X' || DKObject.level.getMap()[y][x] == 'I' || DKObject.level.getMap()[y][x] == 'S')
 			return false;
 			
-		if (_wielder.getLevel().getMap()[y][x] == 'k' || _wielder.getLevel().getMap()[y][x] == '$')
+		if (DKObject.level.getMap()[y][x] == 'k' || DKObject.level.getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('*');

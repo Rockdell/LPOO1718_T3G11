@@ -1,7 +1,5 @@
 package dkeep.logic.entities;
 
-import dkeep.logic.layout.Level;
-
 public class Rookie extends Guard {
 
 	/**
@@ -10,8 +8,8 @@ public class Rookie extends Guard {
 	 * @param y Y-position of the guard.
 	 * @param l Current level.
 	 */
-	public Rookie(int x, int y, Level l) {
-		super(x, y, l);
+	public Rookie(int x, int y) {
+		super(x, y);
 	}
 	
 	public void patrol() {

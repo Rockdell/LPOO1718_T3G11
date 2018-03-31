@@ -2,7 +2,6 @@ package dkeep.logic.entities;
 
 import java.util.Random;
 
-import dkeep.logic.layout.Level;
 import dkeep.logic.objects.DKObject;
 
 public abstract class Entity extends DKObject {
@@ -12,8 +11,8 @@ public abstract class Entity extends DKObject {
 	 * @param y Y-position of the entity.
 	 * @param l Current level.
 	 * @param i Icon. */
-	public Entity(int x, int y, Level level, char icon) {
-		super(x, y, level, icon);
+	public Entity(int x, int y, char icon) {
+		super(x, y, icon);
 	}
 	
 	/** Generates a new position for the entity, randomly or not.

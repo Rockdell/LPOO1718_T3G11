@@ -1,5 +1,6 @@
 package dkeep.ui.gui;
 
+import miscellaneous.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,6 +16,7 @@ public class GraphicsMap extends JPanel {
 	
 	private static Image wall;
 	private static Image door;
+	private static Image exit;
 	private static Image hero;
 	private static Image hero_weapon;
 	private static Image hero_weapon_key;
@@ -24,6 +26,7 @@ public class GraphicsMap extends JPanel {
 	private static Image key;
 	private static Image club;
 	private static Image symbol;
+	private static Image blank;
 	
 	/**
 	 * Create the custom JPanel.
@@ -46,6 +49,9 @@ public class GraphicsMap extends JPanel {
 			tmp = ImageIO.read(new File(path + "/bush.png"));
 			door = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 
+			tmp = ImageIO.read(new File(path + "/bush_exit.png"));
+			exit = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			
 			tmp = ImageIO.read(new File(path + "/link.jpg"));
 			hero = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
@@ -64,7 +70,7 @@ public class GraphicsMap extends JPanel {
 			tmp = ImageIO.read(new File(path + "/zzz.png"));
 			zzz = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
-			tmp = ImageIO.read(new File(path + "/key.png"));
+			tmp = ImageIO.read(new File(path + "/pressure_plate.jpg"));
 			key = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/club.png"));
@@ -72,7 +78,14 @@ public class GraphicsMap extends JPanel {
 			
 			tmp = ImageIO.read(new File(path + "/key_overlapped.png"));
 			symbol = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			
+			tmp = ImageIO.read(new File(path + "/white.png"));
+			blank = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 
+//			int pixel = tmp.getRGB(1, 1);
+//			Color testColor = new Color(pixel, true);
+//			System.out.println(testColor.getRed() + " + " + testColor.getGreen() + " + " + testColor.getBlue());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -113,19 +126,20 @@ public class GraphicsMap extends JPanel {
 				case 'I':
 					g.drawImage(door, x, y, this);
 					break;
+				case 'S':
+					g.drawImage(exit, x, y, this);
+					break;
 				case 'H':
 					g.drawImage(hero, x, y, this);
 					break;
 				case 'A':
 					g.drawImage(hero_weapon, x, y, this);
 					break;
-				case 'S':
-					// Nothing
-					break;
 				case 'G':
 					g.drawImage(guard, x, y, this);
 					break;
 				case 'g':
+				case '8':
 					g.drawImage(zzz, x, y, this);
 					break;
 				case 'k':
@@ -137,18 +151,19 @@ public class GraphicsMap extends JPanel {
 				case 'O':
 					g.drawImage(ogre, x, y, this);
 					break;
-				case '8':
-					g.drawImage(zzz, x, y, this);
-					break;
 				case '$':
 					g.drawImage(symbol, x, y, this);
 					break;
 				case '*':
 					g.drawImage(club, x, y, this);
 					break;
+				case ' ':
+					g.drawImage(blank, x, y, this);
+					break;
 				default:
+
 				}
-				
+
 				x += getWidth() / map[0].length;
 			}
 

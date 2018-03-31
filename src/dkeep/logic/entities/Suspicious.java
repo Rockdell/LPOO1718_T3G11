@@ -1,7 +1,5 @@
 package dkeep.logic.entities;
 
-import dkeep.logic.layout.Level;
-
 import java.util.Random;
 
 public class Suspicious extends Guard {
@@ -17,8 +15,8 @@ public class Suspicious extends Guard {
 	 * @param y Y-position of the guard.
 	 * @param l Current level.
 	 */
-	public Suspicious(int x, int y, Level l) {
-		super(x, y, l);
+	public Suspicious(int x, int y) {
+		super(x, y);
 		turnAround = nextTurnAround();
 	}
 	

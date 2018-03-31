@@ -3,8 +3,7 @@ package dkeep.logic.entities;
 import java.util.Arrays;
 import java.util.List;
 
-import dkeep.logic.layout.Level;
-import dkeep.logic.layout.Level.status_t;
+import dkeep.logic.objects.DKObject;
 
 public abstract class Guard extends Entity {
 	
@@ -27,8 +26,8 @@ public abstract class Guard extends Entity {
 	 * @param x X-position of the guard.
 	 * @param y Y-position of the guard.
 	 * @param l Current level. */
-	public Guard(int x, int y, Level l) {
-		super(x, y, l, 'G');
+	public Guard(int x, int y) {
+		super(x, y, 'G');
 		nextMove = 0;
 		reverse = false;
 		harmless = false;
@@ -99,16 +98,16 @@ public abstract class Guard extends Entity {
 	}
 	
 	public void drawEntity() {
-		getLevel().getMap()[getY()][getX()] = getIcon();	
+		DKObject.level.getMap()[getY()][getX()] = getIcon();	
 	}
 	
 	public void eraseEntity() {
-		getLevel().getMap()[getY()][getX()] = ' ';
+		DKObject.level.getMap()[getY()][getX()] = ' ';
 	}
 	
 	public boolean checkCollision(int x, int y) {
 		
-		if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'I')
+		if(DKObject.level.getMap()[y][x] == 'X' || DKObject.level.getMap()[y][x] == 'I')
 			return false;
 		else
 			return true;

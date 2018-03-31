@@ -17,8 +17,6 @@ public class EditionTable extends AbstractTableModel {
 	 */
 	public EditionTable() {
 		
-//		setBackground(Color.GRAY);
-		
 		//Testing
 		custom_map.add("XXX");
 		custom_map.add("X X");

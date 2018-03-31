@@ -1,5 +1,6 @@
 package dkeep.ui.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -59,15 +60,17 @@ public class MapCreation {
 		
 		// TODO ALTER LATER
 		table.setRowHeight(30);
+//		table.setFillsViewportHeight(true);
+		table.setGridColor(Color.BLACK);
+		table.setBackground(new Color(74, 156, 74)); //Same color as game's background
+		table.setOpaque(true);
 		
 		JScrollPane jsp = new JScrollPane(table); 
 		springLayout.putConstraint(SpringLayout.WEST, jsp, 15, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, jsp, table.getRowHeight() + 8, SpringLayout.SOUTH, table);
 		springLayout.putConstraint(SpringLayout.NORTH, jsp, 15, SpringLayout.NORTH, frame.getContentPane());
-		
-		table.setDefaultRenderer(String.class, new ImageRenderer());
 
-		table.setFillsViewportHeight(true);
+		table.setDefaultRenderer(String.class, new ImageRenderer());
 		
 		frame.getContentPane().add(jsp);
 

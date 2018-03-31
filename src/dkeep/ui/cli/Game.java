@@ -10,17 +10,13 @@ import java.util.Random;
 
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level.status_t;
-import dkeep.logic.layout.Level01;
-import dkeep.logic.layout.Level02;
-import dkeep.logic.layout.LevelTest;
-import dkeep.logic.layout.LevelTest2;
 
 public class Game {
 	
 	/**
 	 * Loaded level.
 	 */
-	private Level level;
+	private Level _level;
 	
 	static public String guardPersonality;
 	static public int nrOgres;
@@ -92,7 +88,7 @@ public class Game {
 	 * @return Loaded level.
 	 */
 	public Level getCurrentLevel() {
-		return level;
+		return _level;
 	}
 
 	/**
@@ -101,17 +97,10 @@ public class Game {
 	 */
 	private void loadLevel(int id) throws IOException, FileNotFoundException {
 		
-		if(id == 1)
-			level = new Level01();
-		else if(id == 2)
-			level = new Level02();
-		else if(id == 3)
-			level = new LevelTest();
-		else if(id == 4)
-			level = new LevelTest2();
+		_level = new Level(id);
 		
 		//Display the initial level
-		level.display();
+		_level.display();
 	}
 	
 	/**
@@ -132,7 +121,7 @@ public class Game {
 	 */
 	public boolean tickGame() throws IOException, FileNotFoundException {
 		
-		if(level.getLevelStatus() != status_t.ONGOING)
+		if(_level.getStatus() != status_t.ONGOING)
 			return true;
 		
 		//Read input
@@ -142,25 +131,23 @@ public class Game {
 			return false;
 		
 		//Move entities
-		level.updateLevel(input);
+		_level.updateLevel(input);
 		
 		//Display the current level
-		level.display();
+		_level.display();
 		
 		//Check level's status
-		switch(level.getLevelStatus()) {
+		switch(_level.getStatus()) {
 		case ONGOING:
 			break;
 		case PROCEED:
-			if(level.getID() < 2)
-				loadLevel(level.getID() + 1);
+			if(_level.getID() < 2)
+				loadLevel(_level.getID() + 1);
 			else {
-				level.setLevelStatus(status_t.WON);
+				_level.setStatus(status_t.WON);
 				return true;
 			}
 			break;
-		case CAUGHT:
-			return true;
 		case KILLED:
 			return true;
 		case WON:

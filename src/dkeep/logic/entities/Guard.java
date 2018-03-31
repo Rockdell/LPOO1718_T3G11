@@ -1,43 +1,32 @@
-package dkeep.logic.characters;
+package dkeep.logic.entities;
 
 import java.util.Arrays;
 import java.util.List;
 
 import dkeep.logic.layout.Level;
+import dkeep.logic.layout.Level.status_t;
 
 public abstract class Guard extends Entity {
 	
-	/**
-	 * Regular movement pattern.
-	 */
+	/** Regular movement pattern. */
 	private List<Character> movingPattern = Arrays.asList('a','s','s','s','s','a','a','a','a','a','a','s','d','d','d','d','d','d','d','w','w','w','w','w');
 	
-	/**
-	 * Inverse movement pattern.
-	 */
+	/** Inverse movement pattern. */
 	private List<Character> movingPatternReverse = Arrays.asList('d','w','w','w','w','d','d','d','d','d','d','w','a','a','a','a','a','a','a','s','s','s','s','s');
 	
-	/**
-	 * Index of the next movement.
-	 */
+	/** Index of the next movement. */
 	private int nextMove;
 	
-	/**
-	 * True if guard is moving in reverse, false otherwise.
-	 */
+	/** True if guard is moving in reverse, false otherwise. */
 	private boolean reverse;
 	
-	/**
-	 * True if guard is harmless, false otherwise.
-	 */
+	/** True if guard is harmless, false otherwise. */
 	private boolean harmless;
 	
-	/**
-	 * Creates an object Guard.
+	/** Creates an object Guard.
 	 * @param x X-position of the guard.
 	 * @param y Y-position of the guard.
-	 * @param l Current level.
-	 */
+	 * @param l Current level. */
 	public Guard(int x, int y, Level l) {
 		super(x, y, l, 'G');
 		nextMove = 0;
@@ -45,24 +34,18 @@ public abstract class Guard extends Entity {
 		harmless = false;
 	}
 	
-	/**
-	 * @return True if guard is harmless, false otherwise.
-	 */
+	/** @return True if guard is harmless, false otherwise. */
 	public boolean isHarmless() {
 		return harmless;
 	}
 	
-	/**
-	 * Sets the guard as harmless/not-harmless.
-	 * @param harmless True to make guard harmless, false otherwise.
-	 */
+	/** Sets the guard as harmless/not-harmless.
+	 * @param harmless True to make guard harmless, false otherwise. */
 	public void setHarmless(boolean harmless) {
 		this.harmless = harmless;
 	}
 	
-	/**
-	 * Move the guard.
-	 */
+	/** Move the guard. */
 	protected void move() {
 		
 		char direction;
@@ -77,7 +60,7 @@ public abstract class Guard extends Entity {
 				nextMove--;
 		}
 		else {
-			
+	
 			direction = movingPattern.get(nextMove);
 			
 			if(nextMove + 1 > movingPattern.size() - 1)
@@ -89,14 +72,10 @@ public abstract class Guard extends Entity {
 		generatePosition(direction, getX(), getY(), false);
 	}
 	
-	/**
-	 * Patrol the level.
-	 */
+	/** Patrol the level. */
 	public abstract void patrol();
 	
-	/**
-	 * Reverse the movement of the guard.
-	 */
+	/** Reverse the movement of the guard. */
 	protected void reversePath() {
 		
 		if(reverse) {
@@ -119,11 +98,11 @@ public abstract class Guard extends Entity {
 		}
 	}
 	
-	public void drawPosition() {
+	public void drawEntity() {
 		getLevel().getMap()[getY()][getX()] = getIcon();	
 	}
 	
-	public void erasePosition() {
+	public void eraseEntity() {
 		getLevel().getMap()[getY()][getX()] = ' ';
 	}
 	
@@ -133,5 +112,24 @@ public abstract class Guard extends Entity {
 			return false;
 		else
 			return true;
-	}	
+	}
+	
+	public boolean checkHit(int x, int y) {
+		
+		//Check if the guard caught the hero
+		int[][] adjacent = new int[][] {
+			{ getY() + 1, getX()},
+			{ getY() - 1, getX()},
+			{ getY(), getX() + 1},
+			{ getY(), getX() - 1}
+			};
+
+		for (int[] spot : adjacent) {
+			if (spot[1] == x && spot[0] == y) {
+				return true;
+			}
+		}
+		
+		return false;		
+	}
 }

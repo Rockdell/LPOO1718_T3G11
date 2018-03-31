@@ -1,7 +1,5 @@
 package dkeep.io;
 
-import javax.swing.JPanel;
-
 import dkeep.ui.gui.GraphicsMap;
 
 public class ApplicationIO implements IO {

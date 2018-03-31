@@ -1,4 +1,4 @@
-package dkeep.logic.characters;
+package dkeep.logic.entities;
 
 import dkeep.logic.layout.Level;
 

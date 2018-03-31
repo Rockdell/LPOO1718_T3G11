@@ -1,22 +1,17 @@
-package dkeep.logic.characters;
+package dkeep.logic.entities;
 
 import java.util.Random;
 import dkeep.logic.layout.Level;
 
 public class Drunken extends Guard {
 
-	/**
-	 * True if the guard is sleeping, false otherwise.
-	 */
+	/** True if the guard is sleeping, false otherwise. */
 	private boolean isSleeping;
 	
-	/**
-	 * Number of rounds the guard is going to be asleep.
-	 */
+	/** Number of rounds the guard is going to be asleep. */
 	private int rounds_asleep;
 	
-	/**
-	 * Creates an object Drunken.
+	/** Creates an object Drunken.
 	 * @param x X-position of the guard.
 	 * @param y Y-position of the guard.
 	 * @param l Current level.
@@ -33,7 +28,6 @@ public class Drunken extends Guard {
 		if(isSleeping) {
 			
 			if(rounds_asleep == 0) {
-				
 				boolean reverse = new Random().nextBoolean();
 			
 				//Invert the way
@@ -41,18 +35,15 @@ public class Drunken extends Guard {
 					reversePath();
 				
 				wakeUp();
-				
 				move();
 			}
 			else
 				rounds_asleep--;
-			
 		}
 		else {
 			
 			int sleep = new Random().nextInt(10) + 1;
-			
-			// 3 in 10 chance of falling asleep
+		
 			if(sleep > 7)
 				fallAsleep();
 			else
@@ -60,9 +51,7 @@ public class Drunken extends Guard {
 		}
 	}
 	
-	/**
-	 * Guard falls asleep.
-	 */
+	/** Guard falls asleep. */
 	private void fallAsleep() {
 		
 		isSleeping = true;
@@ -71,9 +60,7 @@ public class Drunken extends Guard {
 		rounds_asleep = new Random().nextInt(4) + 1;
 	}
 	
-	/**
-	 * Guard wakes up.
-	 */
+	/** Guard wakes up. */
 	private void wakeUp() {
 		
 		isSleeping = false;

@@ -5,16 +5,16 @@ XH  I X GX
 XXX XXX  X
 X I I X  X
 XXX XXX  X
-I        X
-I        X
+E        X
+E        X
 XXX XXXX X
-X I I Xk X
+X I I Xl X
 XXXXXXXXXX
 
 Map2
 9-9
 XXXXXXXXX
-IA  O  kX
+EA  O  kX
 X       X
 X       X
 X       X

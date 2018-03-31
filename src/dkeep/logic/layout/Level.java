@@ -171,12 +171,10 @@ public class Level {
 					_hero = new Hero(x, y, this, 'A');
 					break;
 				case 'E':
-					_map[y][x] = 'I';
-					_doors.add(new Door(x, y, this, 'I', door_t.EXIT));
+					_doors.add(new Door(x, y, this, 'E', door_t.EXIT));
 					break;
 				case 'e':
-					_map[y][x] = 'S';
-					_doors.add(new Door(x, y, this, 'S', door_t.EXIT));
+					_doors.add(new Door(x, y, this, 'e', door_t.EXIT));
 					break;
 				case 'I':
 					_doors.add(new Door(x, y, this, 'I', door_t.REGULAR));
@@ -194,7 +192,6 @@ public class Level {
 					_key = new Key(x, y, this, 'k', key_t.KEY);
 					break;
 				case 'l':
-					_map[y][x] = 'k';
 					_key = new Key(x, y, this, 'l', key_t.LEVER);
 				}
 			}

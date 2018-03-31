@@ -5,9 +5,14 @@ import dkeep.logic.objects.Pair;
 
 public abstract class DKObject {
 	
-	private Pair<Integer, Integer> _coord;
-	private Level _level;
-	private char _icon;
+	/** Coordinates of the object. */
+	private Pair<Integer, Integer>	_coord;
+	
+	/** Level of the object. */
+	private Level 					_level;
+	
+	/** Icon of the */
+	private char 					_icon;
 	
 	public DKObject(int x, int y, Level level, char icon) {
 		_coord = new Pair<Integer, Integer>(x, y);

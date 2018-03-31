@@ -13,9 +13,7 @@ import dkeep.logic.layout.Level.status_t;
 
 public class Game {
 	
-	/**
-	 * Loaded level.
-	 */
+	/** Loaded level. */
 	private Level _level;
 	
 	static public String guardPersonality;

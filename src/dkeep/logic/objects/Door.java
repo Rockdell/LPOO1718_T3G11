@@ -19,7 +19,19 @@ public class Door extends DKObject {
 	}
 	
 	public void unlockDoor() {
-		updateIcon('S');
+		
+		if(getIcon() == 'S' || getIcon() == 'e')
+			return;
+		
+		switch(_type) {
+		case REGULAR:
+			updateIcon('S');
+			break;
+		case EXIT:
+			updateIcon('e');
+			break;
+		}
+		
 		getLevel().getMap()[getY()][getX()] = getIcon();
 	}
 }

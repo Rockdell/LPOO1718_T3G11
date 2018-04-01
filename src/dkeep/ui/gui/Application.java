@@ -8,6 +8,7 @@ import javax.swing.SpringLayout;
 import dkeep.io.ApplicationIO;
 import dkeep.ui.cli.Game;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.HierarchyBoundsListener;
@@ -16,6 +17,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.awt.Font;
 import javax.swing.JSlider;
@@ -33,7 +36,7 @@ public class Application {
 			public void run() {
 				try {
 					Application window = new Application();
-					window.frame.setVisible(true);
+					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,8 +56,9 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 600, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
@@ -95,9 +99,9 @@ public class Application {
 		cbGuardPersonality.setSelectedIndex(0);
 		frame.getContentPane().add(cbGuardPersonality);
 		
-		JButton btnExitGame = new JButton("Exit Game");
-		springLayout.putConstraint(SpringLayout.WEST, btnExitGame, 0, SpringLayout.WEST, btnStartGame);
-		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -63, SpringLayout.EAST, frame.getContentPane());
+		JButton btnExitGame = new JButton("Return to Menu");
+		springLayout.putConstraint(SpringLayout.WEST, btnExitGame, -15, SpringLayout.WEST, btnStartGame);
+		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -48, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnExitGame);
 		
 		JButton btnUp = new JButton("Up");
@@ -142,14 +146,6 @@ public class Application {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-//		JTextArea taGame = new JTextArea();
-//		sl_panel.putConstraint(SpringLayout.SOUTH, taGame, 213, SpringLayout.NORTH, panel);
-//		sl_panel.putConstraint(SpringLayout.EAST, taGame, 196, SpringLayout.WEST, panel);
-//		taGame.setFont(new Font("Courier New", Font.PLAIN, 13));
-//		sl_panel.putConstraint(SpringLayout.NORTH, taGame, 0, SpringLayout.NORTH, panel);
-//		sl_panel.putConstraint(SpringLayout.WEST, taGame, 0, SpringLayout.WEST, panel);
-//		panel.add(taGame);
-		
 		//Event Handling
 		
 		//START BUTTON
@@ -189,7 +185,7 @@ public class Application {
 			}
 		});
 		
-		//EXIT BUTTON
+		//MENU BUTTOM
 		btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -197,7 +193,9 @@ public class Application {
 				//Update status
 				lblStatus.setText("Exiting program!");
 				
-				System.exit(0);
+				frame.dispose();
+				
+				LinkStart Restarting = new LinkStart();
 			}
 		});
 		
@@ -354,7 +352,18 @@ public class Application {
 					e.printStackTrace();
 				}
 			}
-		});		
-		
+		});
+
+		//'X' Close Button Handler
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent windowEvent) {
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure to close this window?", "Exit?",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+					frame.dispose();
+			}
+		});
+
 	}
+
 }

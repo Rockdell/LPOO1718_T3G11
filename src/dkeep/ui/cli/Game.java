@@ -59,7 +59,7 @@ public class Game {
 		Game.nrOgres = nO;
 		Game.io = io;
 		
-		loadLevel(1);
+		loadLevel(5);
 	}
 	
 	/**

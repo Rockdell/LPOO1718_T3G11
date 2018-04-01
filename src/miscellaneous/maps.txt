@@ -39,3 +39,12 @@ X      X
 X      X
 I   k  X
 XXXXXXXX
+
+Map5
+6-5
+XXXXX
+XkOAX
+X   X
+X   X
+X   X
+XXEXX

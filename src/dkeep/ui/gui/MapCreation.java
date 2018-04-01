@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.AbstractButton;
@@ -15,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.SpringLayout;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class MapCreation {
 
@@ -30,7 +35,7 @@ public class MapCreation {
 			public void run() {
 				try {
 					MapCreation window = new MapCreation();
-					window.frame.setVisible(true);
+//					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,29 +55,28 @@ public class MapCreation {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 800, 550);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
 		EditionTable model = new EditionTable();
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		JTable table = new JTable(model);
-		
+		springLayout.putConstraint(SpringLayout.WEST, table, 15, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, table, -303, SpringLayout.EAST, frame.getContentPane());
+
 		// TODO ALTER LATER
 		table.setRowHeight(30);
-//		table.setFillsViewportHeight(true);
+		// table.setFillsViewportHeight(true);
 		table.setGridColor(Color.BLACK);
-		table.setBackground(new Color(74, 156, 74)); //Same color as game's background
+		table.setBackground(new Color(74, 156, 74)); // Same color as game's background
 		table.setOpaque(true);
-		
-		JScrollPane jsp = new JScrollPane(table); 
-		springLayout.putConstraint(SpringLayout.WEST, jsp, 15, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, jsp, table.getRowHeight() + 8, SpringLayout.SOUTH, table);
-		springLayout.putConstraint(SpringLayout.NORTH, jsp, 15, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, table, 15, SpringLayout.NORTH, frame.getContentPane());
 
 		table.setDefaultRenderer(String.class, new ImageRenderer());
-		
-		frame.getContentPane().add(jsp);
+
+		frame.getContentPane().add(table);
 
 		//JButtons
 		JButton btnAddRow = new JButton("Add Row");
@@ -100,17 +104,15 @@ public class MapCreation {
 		
 		//JRadioButtons
 		JRadioButton rdbtnWall = new JRadioButton("Wall");
-	//	springLayout.putConstraint(SpringLayout.EAST, table, -90, SpringLayout.WEST, rdbtnWall);
-		springLayout.putConstraint(SpringLayout.EAST, jsp, -80, SpringLayout.EAST, rdbtnWall);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnWall, 6, SpringLayout.EAST, table);
 		rdbtnWall.setToolTipText("X");
 		frame.getContentPane().add(rdbtnWall);
 		
 		JRadioButton rdbtnDoor = new JRadioButton("Door");
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnWall, 0, SpringLayout.NORTH, rdbtnDoor);
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnDoor, 23, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, rdbtnDoor, -182, SpringLayout.EAST, frame.getContentPane());
 		rdbtnDoor.setToolTipText("I");
-		springLayout.putConstraint(SpringLayout.NORTH, rdbtnWall, 0, SpringLayout.NORTH, rdbtnDoor);
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnWall, -6, SpringLayout.WEST, rdbtnDoor);
 		frame.getContentPane().add(rdbtnDoor);
 		
 		JRadioButton rdbtnKey = new JRadioButton("Key");
@@ -120,55 +122,52 @@ public class MapCreation {
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnKey, 6, SpringLayout.EAST, rdbtnDoor);
 		frame.getContentPane().add(rdbtnKey);
 		
-		JRadioButton rdbtnHero = new JRadioButton("Guard");
-		springLayout.putConstraint(SpringLayout.NORTH, rdbtnHero, 23, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnHero, -58, SpringLayout.EAST, frame.getContentPane());
-		rdbtnHero.setToolTipText("G");
-		springLayout.putConstraint(SpringLayout.WEST, rdbtnHero, 6, SpringLayout.EAST, rdbtnKey);
-		frame.getContentPane().add(rdbtnHero);
-		
-		JRadioButton rdbtnGuard = new JRadioButton("Hero");
-		rdbtnGuard.setToolTipText("H");
-		frame.getContentPane().add(rdbtnGuard);
-		
 		JRadioButton rdbtnHeroWeapon = new JRadioButton("Hero + Weapon");
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnHeroWeapon, -118, SpringLayout.EAST, frame.getContentPane());
-		rdbtnHeroWeapon.setToolTipText("A");
-		springLayout.putConstraint(SpringLayout.SOUTH, rdbtnHero, -6, SpringLayout.NORTH, rdbtnHeroWeapon);
-		springLayout.putConstraint(SpringLayout.NORTH, rdbtnGuard, 0, SpringLayout.NORTH, rdbtnHeroWeapon);
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnGuard, -4, SpringLayout.WEST, rdbtnHeroWeapon);
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnHeroWeapon, 6, SpringLayout.SOUTH, rdbtnDoor);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnHeroWeapon, 0, SpringLayout.WEST, rdbtnDoor);
+		springLayout.putConstraint(SpringLayout.EAST, rdbtnHeroWeapon, -72, SpringLayout.EAST, btnAddRow);
+		rdbtnHeroWeapon.setToolTipText("A");
 		frame.getContentPane().add(rdbtnHeroWeapon);
 		
 		JRadioButton rdbtnOgre = new JRadioButton("Ogre");
-		springLayout.putConstraint(SpringLayout.NORTH, rdbtnOgre, 54, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnOgre, 23, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnOgre, 6, SpringLayout.EAST, rdbtnKey);
 		rdbtnOgre.setToolTipText("O");
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnOgre, 0, SpringLayout.EAST, rdbtnHero);
 		frame.getContentPane().add(rdbtnOgre);
 		
 		JRadioButton rdbtnEmpty = new JRadioButton("Empty");
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnEmpty, -233, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnEmpty, 0, SpringLayout.NORTH, rdbtnHeroWeapon);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnEmpty, 194, SpringLayout.EAST, table);
+		springLayout.putConstraint(SpringLayout.EAST, rdbtnEmpty, 0, SpringLayout.EAST, btnAddRow);
 		rdbtnEmpty.setToolTipText(" ");
-		springLayout.putConstraint(SpringLayout.NORTH, rdbtnEmpty, 6, SpringLayout.SOUTH, rdbtnGuard);
-		springLayout.putConstraint(SpringLayout.WEST, rdbtnEmpty, 0, SpringLayout.WEST, rdbtnWall);
 		frame.getContentPane().add(rdbtnEmpty);
+		
+		JRadioButton rdbtnExit = new JRadioButton("Exit");
+		springLayout.putConstraint(SpringLayout.NORTH, rdbtnExit, 6, SpringLayout.SOUTH, rdbtnWall);
+		springLayout.putConstraint(SpringLayout.WEST, rdbtnExit, 6, SpringLayout.EAST, table);
+		rdbtnExit.setToolTipText("E");
+		frame.getContentPane().add(rdbtnExit);
 
 		rdbtnWall.setSelected(true);
 		
 		buttonGroup.add(rdbtnWall);
 		buttonGroup.add(rdbtnDoor);
 		buttonGroup.add(rdbtnKey);
-		buttonGroup.add(rdbtnHero);
-		buttonGroup.add(rdbtnGuard);
 		buttonGroup.add(rdbtnHeroWeapon);
 		buttonGroup.add(rdbtnOgre);
+		buttonGroup.add(rdbtnExit);
 		buttonGroup.add(rdbtnEmpty);
-		
+
 		JButton btnDone = new JButton("Done");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnDone, -23, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnDone, -46, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnDone);
+		
+		JLabel lblWarning = new JLabel("");
+		springLayout.putConstraint(SpringLayout.WEST, lblWarning, 0, SpringLayout.WEST, btnAddRow);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblWarning, -36, SpringLayout.NORTH, btnAddRow);
+		springLayout.putConstraint(SpringLayout.EAST, lblWarning, 0, SpringLayout.EAST, btnAddRow);
+		frame.getContentPane().add(lblWarning);
 		
 		btnAddRow.addMouseListener(new MouseAdapter() {
 			@Override
@@ -179,13 +178,11 @@ public class MapCreation {
 
 				// Adds an empty row to the end of the model
 				model.addRow();
-
+				
 				// Set the view to show the new row
 				int newRow = model.getRowCount() - 1;
 				//table.editCellAt(newRow, 0);
 				table.setRowSelectionInterval(newRow, newRow);
-				
-				((JComponent) jsp.getParent()).revalidate();
 			}
 		});
 
@@ -202,8 +199,6 @@ public class MapCreation {
 				// Set the view to show the new row
 				int newRow = model.getRowCount() - 1;
 				table.setRowSelectionInterval(newRow, newRow);
-				
-				((JComponent) jsp.getParent()).revalidate();
 			}
 		});
 		
@@ -266,14 +261,34 @@ public class MapCreation {
 		btnDone.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				//TODO SAVE CREATED LEVEL TO MAPS.TXT
+				if(!model.isAcceptable())
+				{
+					lblWarning.setText("Map NOT acceptable!");
+					return;
+				}
+				
 				ArrayList<String> tmp = model.getMap();	
 				
 				for(int i = 0; i < tmp.size(); i++) {
 					System.out.println(tmp.get(i));
 				}
 				
-				System.exit(0);
+				model.save(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt");
+				
+				frame.dispose();
+				
+				LinkStart Restarting = new LinkStart();
+			}
+		});
+
+		//'X' Close Button Handler
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent windowEvent) {
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure to close this window?", "Created Map will be LOST!",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
+					frame.dispose();
 			}
 		});
 

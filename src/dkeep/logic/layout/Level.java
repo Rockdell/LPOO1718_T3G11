@@ -112,27 +112,26 @@ public class Level {
 		char[][] test;
 		boolean found = false;
 
-		//Tries reading the file
+		// Tries reading the file
 		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
 
-			//Searches for the correct map in maps.txt
+			// Searches for the correct map in maps.txt
 			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
-				if(mapSearch.equals("Map" + mapID))
-				{
+				if (mapSearch.equals("Map" + mapID)) {
 					found = true;
 					break;
 				}
 			}
-			
-			//Checks if the map was found
-			if(!found)
-				return;	
 
-			//If it was found starts retrieving it
+			// Checks if the map was found
+			if (!found)
+				return;
+
+			// If it was found starts retrieving it
 			int i = 0;
 			String firstLine = br.readLine();
 
-			//Checks how many lines and columns the map is composed of
+			// Checks how many lines and columns the map is composed of
 			String[] parts = firstLine.split("-");
 			String lines = parts[0];
 			String columns = parts[1];
@@ -142,19 +141,24 @@ public class Level {
 
 			test = new char[l][c];
 
-			//Creates an array representing the map
+			// Creates an array representing the map
 			for (String line; (line = br.readLine()) != null; i++) {
-				
-				if(line.equals(""))
+
+				if (line.equals(""))
 					break;
-					
+
 				char[] tmp = line.toCharArray();
 				test[i] = tmp;
 			}
-		}
 
-		_id = mapID;
-		_map = test;
+			_id = mapID;
+			_map = test;
+
+			br.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void _loadEntities() {

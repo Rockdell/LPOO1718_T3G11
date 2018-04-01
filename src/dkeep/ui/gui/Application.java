@@ -174,7 +174,7 @@ public class Application {
 //				Integer.parseInt(tfNrOgres.getText()
 				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue());
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), 1);
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
 				}

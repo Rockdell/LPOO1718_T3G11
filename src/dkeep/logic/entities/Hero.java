@@ -1,8 +1,6 @@
 package dkeep.logic.entities;
 
-//import java.util.Map;
-
-import dkeep.logic.layout.Level;
+import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
 import dkeep.logic.objects.Door.door_t;
 
@@ -22,8 +20,8 @@ public class Hero extends Entity {
 	 * @param x X-position of the hero.
 	 * @param y Y-position of the hero.
 	 * @param l Current level. */
-	public Hero(int x, int y, Level l, char icon) {
-		super(x, y, l, icon);
+	public Hero(int x, int y, char icon) {
+		super(x, y, icon);
 		_key = hero_t.NULL;
 	}
 	
@@ -45,33 +43,33 @@ public class Hero extends Entity {
 	}
 		
 	public void drawEntity() {
-		getLevel().getMap()[getY()][getX()] = getIcon();
+		DKObject.level.getMap()[getY()][getX()] = getIcon();
 	}
 	
 	public void eraseEntity() {
 		
-		for(Door door : getLevel().getDoors()) {
+		for(Door door : DKObject.level.getDoors()) {
 			
 			if(door.getCoords().equals(getCoords())) {
-				getLevel().getMap()[getY()][getX()] = door.getIcon();
+				DKObject.level.getMap()[getY()][getX()] = door.getIcon();
 				return;
 			}
 		}
 		
-		getLevel().getMap()[getY()][getX()] = ' ';
+		DKObject.level.getMap()[getY()][getX()] = ' ';
 	}
 	
 	public boolean checkCollision(int x, int y) {
 		
 		//Check for wall
-		if(getLevel().getMap()[y][x] == 'X')
+		if(DKObject.level.getMap()[y][x] == 'X')
 			return false;
 		
 		//Check for key
-		if(getLevel().getKey() != null) {
-			if (getLevel().getKey().getX() == x && getLevel().getKey().getY() == y) {
+		if(DKObject.level.getKey() != null) {
+			if (DKObject.level.getKey().getX() == x && DKObject.level.getKey().getY() == y) {
 
-				switch (getLevel().getKey().getType()) {
+				switch (DKObject.level.getKey().getType()) {
 				case KEY:
 					_key = hero_t.KEY;
 					updateIcon('K');
@@ -84,14 +82,14 @@ public class Hero extends Entity {
 		}
 		
 		//Check for enemies
-		for(Entity enemy : getLevel().getEnemies()) {
+		for(Entity enemy : DKObject.level.getEnemies()) {
 			
 			if(enemy.getX() == x && enemy.getY() == y)
 				return false;			
 		}
 		
 		//Check for locked end doors
-		for(Door door : getLevel().getDoors()) {
+		for(Door door : DKObject.level.getDoors()) {
 			
 			if(door.getX() == x && door.getY() == y) {
 				
@@ -100,7 +98,7 @@ public class Hero extends Entity {
 					if(door.getType() == door_t.EXIT && _key == hero_t.KEY) {
 						door.unlockDoor();
 						_key = hero_t.NULL;
-						getLevel().setKey(null);
+						DKObject.level.setKey(null);
 					}
 					
 					return false;

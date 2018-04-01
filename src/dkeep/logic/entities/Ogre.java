@@ -1,6 +1,6 @@
 package dkeep.logic.entities;
 
-import dkeep.logic.layout.Level;
+import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
 
 public class Ogre extends Entity {
@@ -18,8 +18,8 @@ public class Ogre extends Entity {
 	 * @param x X-position of the ogre.
 	 * @param y Y-position of the ogre.
 	 * @param l Current level. */
-	public Ogre(int x, int y, Level l) {
-		super(x, y, l, 'O');
+	public Ogre(int x, int y) {
+		super(x, y, 'O');
 		_weapon = new Club(this);
 		_stunned = false;
 		_roundsStunned = 0;
@@ -58,7 +58,7 @@ public class Ogre extends Entity {
 	}
 	
 	public void drawEntity() {
-		getLevel().getMap()[getY()][getX()] = getIcon();
+		DKObject.level.getMap()[getY()][getX()] = getIcon();
 
 		if (!_stunned)
 			_weapon.drawEntity();
@@ -71,7 +71,7 @@ public class Ogre extends Entity {
 	
 	//Used only for tests
 	public void drawPositionWithoutSwing() {
-		getLevel().getMap()[getY()][getX()] = getIcon();
+		DKObject.level.getMap()[getY()][getX()] = getIcon();
 
 		if (_stunned)
 		{
@@ -84,25 +84,25 @@ public class Ogre extends Entity {
 			
 		//Ogre esta na posicao da chave (independente da char atual no map)
 		if(getIcon() == '$')
-			getLevel().getMap()[getY()][getX()] = 'k';
+			DKObject.level.getMap()[getY()][getX()] = 'k';
 		else
-			getLevel().getMap()[getY()][getX()] = ' ';
+			DKObject.level.getMap()[getY()][getX()] = ' ';
 		
 		_weapon.eraseEntity();
 	}
 	
 	public boolean checkCollision(int x, int y) {
 
-		if (getLevel().getMap()[y][x] == 'X')
+		if (DKObject.level.getMap()[y][x] == 'X')
 			return false;
 		
-		for(Door door : getLevel().getDoors()) {
+		for(Door door : DKObject.level.getDoors()) {
 			
-			if(door.getCoords().equals(getCoords()))
+			if(door.getX() == x && door.getY() == y)
 				return false;
 		}
 
-		if (getLevel().getMap()[y][x] == 'k' || getLevel().getMap()[y][x] == '$')
+		if (DKObject.level.getMap()[y][x] == 'k' || DKObject.level.getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('O');

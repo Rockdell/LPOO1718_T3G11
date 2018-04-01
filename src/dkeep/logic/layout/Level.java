@@ -53,6 +53,7 @@ public class Level {
 		_status = status_t.ONGOING;
 		_loadMap(id);
 		_loadEntities();
+		DKObject.level = this;
 	}
 	
 	//END_CONSTRUCTOR
@@ -169,22 +170,22 @@ public class Level {
 				
 				switch(_map[y][x]) {
 				case 'H':
-					_hero = new Hero(x, y, this, 'H');
+					_hero = new Hero(x, y, 'H');
 					break;
 				case 'A':
-					_hero = new Hero(x, y, this, 'A');
+					_hero = new Hero(x, y, 'A');
 					break;
 				case 'E':
-					_doors.add(new Door(x, y, this, 'E', door_t.EXIT));
+					_doors.add(new Door(x, y, 'E', door_t.EXIT));
 					break;
 				case 'e':
-					_doors.add(new Door(x, y, this, 'e', door_t.EXIT));
+					_doors.add(new Door(x, y, 'e', door_t.EXIT));
 					break;
 				case 'I':
-					_doors.add(new Door(x, y, this, 'I', door_t.REGULAR));
+					_doors.add(new Door(x, y, 'I', door_t.REGULAR));
 					break;
 				case 'S':
-					_doors.add(new Door(x, y, this, 'S', door_t.REGULAR));
+					_doors.add(new Door(x, y, 'S', door_t.REGULAR));
 					break;
 				case 'G':
 					_loadGuards(x, y);
@@ -193,10 +194,10 @@ public class Level {
 					_loadOgres(x, y);
 					break;
 				case 'k':
-					_key = new Key(x, y, this, 'k', key_t.KEY);
+					_key = new Key(x, y, 'k', key_t.KEY);
 					break;
 				case 'l':
-					_key = new Key(x, y, this, 'l', key_t.LEVER);
+					_key = new Key(x, y, 'l', key_t.LEVER);
 				}
 			}
 		}
@@ -206,13 +207,13 @@ public class Level {
 		
 		switch(Game.guardPersonality) {
 		case "Rookie":
-			_enemies.add(new Rookie(x, y, this));
+			_enemies.add(new Rookie(x, y));
 			break;
 		case "Drunken":
-			_enemies.add(new Drunken(x, y, this));
+			_enemies.add(new Drunken(x, y));
 			break;
 		case "Suspicious":
-			_enemies.add(new Suspicious(x, y, this));
+			_enemies.add(new Suspicious(x, y));
 			break;		
 		}
 	}
@@ -220,7 +221,7 @@ public class Level {
 	private void _loadOgres(int x, int y) {
 		
 		for(int i = 0; i < Game.nrOgres; i++)
-			_enemies.add(new Ogre(x, y, this));		
+			_enemies.add(new Ogre(x, y));		
 	}
 	
 	//END_LOAD_FUNCTONS

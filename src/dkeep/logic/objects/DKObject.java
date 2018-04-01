@@ -5,18 +5,17 @@ import dkeep.logic.objects.Pair;
 
 public abstract class DKObject {
 	
+	/** Level of the object. */
+	static public Level 			level;
+	
 	/** Coordinates of the object. */
 	private Pair<Integer, Integer>	_coord;
-	
-	/** Level of the object. */
-	private Level 					_level;
 	
 	/** Icon of the */
 	private char 					_icon;
 	
-	public DKObject(int x, int y, Level level, char icon) {
+	public DKObject(int x, int y, char icon) {
 		_coord = new Pair<Integer, Integer>(x, y);
-		_level = level;
 		_icon = icon;
 	}
 	
@@ -30,10 +29,6 @@ public abstract class DKObject {
 	
 	public Pair<Integer, Integer> getCoords() {
 		return _coord;
-	}
-	
-	public Level getLevel() {
-		return _level;
 	}
 	
 	public char getIcon() {

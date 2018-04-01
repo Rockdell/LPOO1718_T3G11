@@ -3,9 +3,13 @@ package dkeep.ui.cli;
 import dkeep.io.ConsoleIO;
 
 import dkeep.io.IO;
-import java.io.FileNotFoundException;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 import dkeep.logic.layout.Level;
@@ -45,21 +49,9 @@ public class Game {
 			break;
 		}
 		
-		Game g = new Game(new ConsoleIO(), guard_type, random_ogres);
+		Game g = new Game(new ConsoleIO(), guard_type, random_ogres, 1);
 		
 		g.startGame();
-	}
-	
-	/**
-	 * Creates an object Game.
-	 */
-	public Game(IO io, String gP, int nO) throws IOException, FileNotFoundException {
-		
-		Game.guardPersonality = gP;
-		Game.nrOgres = nO;
-		Game.io = io;
-		
-		loadLevel(1);
 	}
 	
 	/**
@@ -75,18 +67,46 @@ public class Game {
 	}
 	
 	/**
-	 * Creates an object Game.
-	 * @param id Level to start the game with.
-	 */
-	public Game(int id) throws IOException, FileNotFoundException {
-		loadLevel(id);
-	}
-	
-	/**
 	 * @return Loaded level.
 	 */
 	public Level getCurrentLevel() {
 		return _level;
+	}
+	
+	/**
+	 * Serialize object Level for later use.
+	 */
+	private void saveGame() {
+		
+		try {
+			FileOutputStream fileOut = new FileOutputStream("/miscellaneous/save.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			
+			out.writeObject(_level);
+			out.close();
+			fileOut.close();
+		} 
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Deserialize object Level for later use.
+	 */
+	private void loadGame() {
+	
+		try {
+			FileInputStream fileIn = new FileInputStream("/miscellaneous/save.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			
+			_level = (Level) in.readObject();
+			in.close();
+			fileIn.close();
+		} 
+		catch(IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

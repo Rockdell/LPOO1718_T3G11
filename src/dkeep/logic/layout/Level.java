@@ -8,10 +8,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import dkeep.engine.Game;
 import dkeep.logic.entities.*;
 import dkeep.logic.entities.Hero.hero_t;
 import dkeep.logic.objects.*;
-import dkeep.ui.cli.Game;
 
 public class Level implements Serializable {
 	
@@ -50,13 +50,6 @@ public class Level implements Serializable {
 	//END_ATRIBUTES
 	
 	/** Creates an object Level. */
-	public Level(int id) {
-		_status = status_t.ONGOING;
-		_loadMap(id);
-		_loadEntities();
-		DKObject.level = this;
-	}
-	
 	public Level(int id, String gP, int nO) {
 		
 		guardPersonality = gP;
@@ -361,7 +354,7 @@ public class Level implements Serializable {
 	/** Display the level. */
 	public void display() {
 		
-		Game.io.clearConsole();
+		//Game.io.clear();
 		
 		Game.io.write(_map);
 	}

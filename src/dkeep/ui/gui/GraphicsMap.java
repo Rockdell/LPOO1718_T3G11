@@ -1,8 +1,5 @@
 package dkeep.ui.gui;
 
-import miscellaneous.*;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -13,7 +10,7 @@ import javax.swing.JPanel;
 
 public class GraphicsMap extends JPanel {
 
-	private static char[][] map;
+	private /*static*/ char[][] map;
 	
 	private static Image wall;
 	private static Image door;
@@ -194,6 +191,10 @@ public class GraphicsMap extends JPanel {
 			x = 0;
 			y += getHeight() / map.length;
 		}
+	}
+	
+	public void finalize() {
+		return;
 	}
 
 }

@@ -10,39 +10,43 @@ import javax.swing.table.AbstractTableModel;
 
 public class EditionTable extends AbstractTableModel {
 
-	private static ArrayList<String> custom_map = new ArrayList<String>();
-	private static ArrayList<Integer> colIndexes = new ArrayList<Integer>();
-	private static boolean hero = false;
-	private static boolean key = false;
-	private static int ogre = 0;
-	private static int exit = 0;
+	private ArrayList<String> 	_custom_map;
+	private ArrayList<Integer>	_colIndexes;
+	private boolean 			_hero;
+	private boolean 			_key;
+	private int 				_ogre;
+	private int 				_exit;
 	
-	public ArrayList<String> getMap() {
-		return custom_map;
-	}
-	
-	/**
-	 * Create the table.
-	 */
+	/** Create the table. */
 	public EditionTable() {
 		
+		_custom_map = new ArrayList<String>();
+		_colIndexes = new ArrayList<Integer>();
+		_hero = false;
+		_key = false;
+		_ogre = 0;
+		_exit = 0;
+		
 		//Preloaded Map
-		custom_map.add("XXXXX");
-		custom_map.add("X   X");
-		custom_map.add("X   X");
-		custom_map.add("X   X");
-		custom_map.add("X   X");
-		custom_map.add("XXXXX");
+		_custom_map.add("XXXXX");
+		_custom_map.add("X   X");
+		_custom_map.add("X   X");
+		_custom_map.add("X   X");
+		_custom_map.add("X   X");
+		_custom_map.add("XXXXX");
 		
 		//Must add column indexes
-		for(int i = 0; i < custom_map.size(); i++)
-		{
-			colIndexes.add(i);
+		for(int i = 0; i < _custom_map.size(); i++) {
+			_colIndexes.add(i);
 		}
 	}
 	
+	public ArrayList<String> getMap() {
+		return _custom_map;
+	}
+	
 	public boolean isAcceptable() {
-		return (wallsAround() && hero && key && ogre > 0 && exit > 0);
+		return (wallsAround() && _hero && _key && _ogre > 0 && _exit > 0);
 	}
 
 	public boolean wallsAround() {
@@ -54,9 +58,9 @@ public class EditionTable extends AbstractTableModel {
 			{
 				for(int j = 0; j < getColumnCount(); j++)
 				{
-					if(custom_map.get(i).charAt(j) != 'X')
+					if(_custom_map.get(i).charAt(j) != 'X')
 					{
-						if(custom_map.get(i).charAt(j) != 'E')
+						if(_custom_map.get(i).charAt(j) != 'E')
 							return false;
 						else
 						{
@@ -68,15 +72,15 @@ public class EditionTable extends AbstractTableModel {
 			}
 			else
 			{
-				if (custom_map.get(i).charAt(0) != 'X') {
-					if (custom_map.get(i).charAt(0) != 'E')
+				if (_custom_map.get(i).charAt(0) != 'X') {
+					if (_custom_map.get(i).charAt(0) != 'E')
 						return false;
 					else
 						exit_on_side = true;
 				}
 
-				if (custom_map.get(i).charAt(getColumnCount() - 1) != 'X') {
-					if (custom_map.get(i).charAt(getColumnCount() - 1) != 'E')
+				if (_custom_map.get(i).charAt(getColumnCount() - 1) != 'X') {
+					if (_custom_map.get(i).charAt(getColumnCount() - 1) != 'E')
 						return false;
 					else
 						exit_on_side = true;
@@ -89,31 +93,31 @@ public class EditionTable extends AbstractTableModel {
 
 	public boolean checkMapComponents(char c, int row, int col) {
 
-		char deleting = custom_map.get(row).charAt(col);
+		char deleting = _custom_map.get(row).charAt(col);
 
 		if (deleting == 'A') {
-			hero = false;
+			_hero = false;
 		} else if (deleting == 'k') {
-			key = false;
+			_key = false;
 		} else if (deleting == 'O')
-			ogre--;
+			_ogre--;
 		else if (deleting == 'E')
-			exit--;
+			_exit--;
 
 		if (c == 'A') {
-			if (hero)
+			if (_hero)
 				return false;
 			else
-				hero = true;
+				_hero = true;
 		} else if (c == 'k') {
-			if (key)
+			if (_key)
 				return false;
 			else
-				key = true;
+				_key = true;
 		} else if (c == 'O')
-			ogre++;
+			_ogre++;
 		else if (c == 'E')
-			exit++;
+			_exit++;
 
 		return true;
 	}
@@ -146,7 +150,7 @@ public class EditionTable extends AbstractTableModel {
 
 			writer.append(getRowCount() + "-" + getColumnCount() + "\n");
 
-			for (String str : custom_map) {
+			for (String str : _custom_map) {
 				writer.append(str + "\n");
 			}
 
@@ -160,20 +164,20 @@ public class EditionTable extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		if(custom_map.size() == 0)
+		if(_custom_map.size() == 0)
 			return 0;
 		
-		return custom_map.get(0).length();
+		return _custom_map.get(0).length();
 	}
 
 	@Override
 	public int getRowCount() {
-		return custom_map.size();
+		return _custom_map.size();
 	}
 
 	@Override
 	public String getColumnName(int col) {
-		return colIndexes.get(col).toString();
+		return _colIndexes.get(col).toString();
 	}
 	
 	@Override
@@ -191,7 +195,7 @@ public class EditionTable extends AbstractTableModel {
 
 		String path = System.getProperty("user.dir") + "/src/miscellaneous";
 
-		switch (custom_map.get(row).charAt(col)) {
+		switch (_custom_map.get(row).charAt(col)) {
 		case 'X':
 			path += "/rock.png";
 			break;
@@ -229,9 +233,9 @@ public class EditionTable extends AbstractTableModel {
 
 		if (checkMapComponents(alter, row, col)) {
 
-			StringBuilder tmp = new StringBuilder(custom_map.get(row));
+			StringBuilder tmp = new StringBuilder(_custom_map.get(row));
 			tmp.setCharAt(col, alter);
-			custom_map.set(row, tmp.toString());
+			_custom_map.set(row, tmp.toString());
 
 			fireTableCellUpdated(row, col);
 		}
@@ -245,12 +249,12 @@ public class EditionTable extends AbstractTableModel {
 		
 		String addedString = "";
 		
-		for (int i = 0; i < custom_map.get(0).length(); i++) {
+		for (int i = 0; i < _custom_map.get(0).length(); i++) {
 			addedString += " ";
 		}
 		
-		custom_map.add(addedString);
-		fireTableRowsInserted(custom_map.size() - 1, custom_map.size() - 1);
+		_custom_map.add(addedString);
+		fireTableRowsInserted(_custom_map.size() - 1, _custom_map.size() - 1);
 	}
 
 	public void removeRow(int row) {
@@ -258,7 +262,7 @@ public class EditionTable extends AbstractTableModel {
 		if(getRowCount() <= 3)
 			return;
 		
-		custom_map.remove(row);
+		_custom_map.remove(row);
 		fireTableRowsDeleted(row, row);
 	}
 
@@ -269,11 +273,11 @@ public class EditionTable extends AbstractTableModel {
 			return;
 		
 		//Updates colIndexes
-		colIndexes.add(new Integer(colIndexes.get(colIndexes.size() - 1) + 1));
+		_colIndexes.add(new Integer(_colIndexes.get(_colIndexes.size() - 1) + 1));
 		
 		//Updates custom_map
-		for(int i = 0; i < custom_map.size(); i++) {
-			custom_map.set(i, custom_map.get(i) + " ");
+		for(int i = 0; i < _custom_map.size(); i++) {
+			_custom_map.set(i, _custom_map.get(i) + " ");
 		}
 		
 		fireTableStructureChanged();
@@ -286,14 +290,13 @@ public class EditionTable extends AbstractTableModel {
 			return;
 		
 		//Updates custom_map
-		for(int i = 0; i < custom_map.size(); i++) {
-			custom_map.set(i, custom_map.get(i).substring(0, custom_map.get(i).length() - 1));
+		for(int i = 0; i < _custom_map.size(); i++) {
+			_custom_map.set(i, _custom_map.get(i).substring(0, _custom_map.get(i).length() - 1));
 		}
 		
 		//Updates colIndexes
-		colIndexes.remove(colIndexes.size() - 1);
+		_colIndexes.remove(_colIndexes.size() - 1);
 		
 		fireTableStructureChanged();
 	}
-
 }

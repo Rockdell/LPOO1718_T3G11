@@ -43,16 +43,12 @@ public class MapCreation {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+	/** Create the application. */
 	public MapCreation() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	/** Initialize the contents of the frame. */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);

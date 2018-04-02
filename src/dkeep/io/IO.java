@@ -9,5 +9,5 @@ public interface IO {
 	void write(char[][] map);
 	
 	/** Clears the console (only for CLI). */
-	void clearConsole();
+	void clear();
 }

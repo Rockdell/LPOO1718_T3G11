@@ -1,17 +1,14 @@
 package dkeep.ui.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
+
 import java.awt.Image;
-import java.awt.Rectangle;
+
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,22 +16,23 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-
-import dkeep.io.ApplicationIO;
-import dkeep.ui.cli.Game;
-
 import javax.swing.JButton;
-import javax.swing.JComponent;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import dkeep.engine.Game;
 
 public class LinkStart {
 
 	public static JFrame frame;
-	public static Game g = new Game(new ApplicationIO());
+	public static Game game;
+	public static Clip music;
 	private static JLabel background = new JLabel();
-
-	// private Game g;
 
 	/**
 	 * Launch the application.
@@ -43,7 +41,7 @@ public class LinkStart {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LinkStart window = new LinkStart();
+					new LinkStart();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,8 +52,11 @@ public class LinkStart {
 
 	/**
 	 * Create the application.
+	 * @throws LineUnavailableException 
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
 	 */
-	public LinkStart() {
+	public LinkStart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		initialize();
 	}
 
@@ -75,8 +76,16 @@ public class LinkStart {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
+	 * @throws LineUnavailableException 
 	 */
-	private void initialize() {
+	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		
+		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "\\src\\miscellaneous\\main_theme.wav"));
+		music = AudioSystem.getClip();
+		music.open(audioIn);
+		music.start();
 
 		// TODO ADD SOUNDTRACK
 		/*
@@ -94,6 +103,7 @@ public class LinkStart {
 		 * AudioStream s = new AudioStream(in); AudioData audiodata = s.getData(); loop
 		 * = new ContinuousAudioDataStream(audiodata); AudioPlayer.player.start(loop);
 		 */
+		
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 960, 540);
@@ -153,9 +163,9 @@ public class LinkStart {
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				music.stop();
 				frame.setVisible(false);
-				g = new Game(new ApplicationIO());
-				Application NewGame = new Application();
+				new Application();
 			}
 		});
 
@@ -163,7 +173,7 @@ public class LinkStart {
 		btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
+				
 			}
 		});
 
@@ -172,7 +182,7 @@ public class LinkStart {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.setVisible(false);
-				MapCreation MapDesign = new MapCreation();
+				new MapCreation();
 			}
 		});
 
@@ -180,7 +190,8 @@ public class LinkStart {
 		btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				music.stop();
+				music.close();
 				System.exit(0);
 			}
 		});

@@ -1,11 +1,16 @@
-package dkeep.launchers;
+package dkeep.ui.cli;
 
 import java.util.Random;
 
 import dkeep.engine.Game;
 import dkeep.io.ConsoleIO;
+import dkeep.launcher.Launcher;
 
 public class CLI implements Launcher {
+	
+	public static void main(String[] args) {
+		new CLI().start();
+	}
 
 	public CLI() {}
 	

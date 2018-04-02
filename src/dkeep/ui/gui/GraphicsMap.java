@@ -10,30 +10,27 @@ import javax.swing.JPanel;
 
 public class GraphicsMap extends JPanel {
 
-	private /*static*/ char[][] map;
+	private char[][] map;
 	
-	private static Image wall;
-	private static Image door;
-	private static Image open_door;
-	private static Image exit;
-	private static Image hero;
-	private static Image hero_weapon;
-	private static Image hero_weapon_key;
-	private static Image guard;
-	private static Image ogre;
-	private static Image zzz;
-	private static Image key;
-	private static Image lever;
-	private static Image club;
-	private static Image symbol;
-	private static Image grass_b;
-	private static Image grass_t;
+	private static Image _wall;
+	private static Image _door;
+	private static Image _open_door;
+	private static Image _exit;
+	private static Image _hero;
+	private static Image _hero_weapon;
+	private static Image _hero_weapon_key;
+	private static Image _guard;
+	private static Image _ogre;
+	private static Image _zzz;
+	private static Image _key;
+	private static Image _lever;
+	private static Image _club;
+	private static Image _symbol;
+	private static Image _grass_b;
+	private static Image _grass_t;
 	
-	/**
-	 * Create the custom JPanel.
-	 */
-	public GraphicsMap() {
-	}
+	/** Create the custom JPanel. */
+	public GraphicsMap() {}
 
 	public void loadAssets() {
 		try {
@@ -44,56 +41,52 @@ public class GraphicsMap extends JPanel {
 			int y = getHeight() / map.length;
 	
 			tmp = ImageIO.read(new File(path + "/rock.png"));
-			wall = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_wall = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 
 			tmp = ImageIO.read(new File(path + "/bush.png"));
-			door = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_door = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 
 			tmp = ImageIO.read(new File(path + "/bush_open.png"));
-			open_door = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_open_door = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/bush_exit.png"));
-			exit = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_exit = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/link.jpg"));
-			hero = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_hero = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/link_sword.jpg"));
-			hero_weapon = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_hero_weapon = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/link_sword_key.jpg"));
-			hero_weapon_key = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_hero_weapon_key = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/chicken.png"));
-			guard = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_guard = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/ganon.png"));
-			ogre = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_ogre = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/zzz.png"));
-			zzz = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_zzz = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/key.png"));
-			key = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_key = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/pressure_plate.jpg"));
-			lever = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_lever = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/club.png"));
-			club = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_club = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/key_overlapped.png"));
-			symbol = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_symbol = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/grass_bottom.png"));
-			grass_b = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
+			_grass_b = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 			tmp = ImageIO.read(new File(path + "/grass_top.png"));
-			grass_t = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
-
-//			int pixel = tmp.getRGB(1, 1);
-//			Color testColor = new Color(pixel, true);
-//			System.out.println(testColor.getRed() + " + " + testColor.getGreen() + " + " + testColor.getBlue());
+			_grass_t = tmp.getScaledInstance(x, y, Image.SCALE_FAST);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -132,54 +125,54 @@ public class GraphicsMap extends JPanel {
 
 				switch (map[i][j]) {
 				case 'X':
-					g.drawImage(wall, x, y, this);
+					g.drawImage(_wall, x, y, this);
 					break;
 				case 'I':
-					g.drawImage(door, x, y, this);
+					g.drawImage(_door, x, y, this);
 					break;
 				case 'E':
-					g.drawImage(exit, x, y, this);
+					g.drawImage(_exit, x, y, this);
 					break;
 				case 'S':
 				case 'e':
-					g.drawImage(open_door, x, y, this);
+					g.drawImage(_open_door, x, y, this);
 					break;
 				case 'H':
-					g.drawImage(hero, x, y, this);
+					g.drawImage(_hero, x, y, this);
 					break;
 				case 'A':
-					g.drawImage(hero_weapon, x, y, this);
+					g.drawImage(_hero_weapon, x, y, this);
 					break;
 				case 'G':
-					g.drawImage(guard, x, y, this);
+					g.drawImage(_guard, x, y, this);
 					break;
 				case 'g':
 				case '8':
-					g.drawImage(zzz, x, y, this);
+					g.drawImage(_zzz, x, y, this);
 					break;
 				case 'k':
-					g.drawImage(key, x, y, this);
+					g.drawImage(_key, x, y, this);
 					break;
 				case 'l':
-					g.drawImage(lever, x, y, this);
+					g.drawImage(_lever, x, y, this);
 					break;
 				case 'K':
-					g.drawImage(hero_weapon_key, x, y, this);
+					g.drawImage(_hero_weapon_key, x, y, this);
 					break;
 				case 'O':
-					g.drawImage(ogre, x, y, this);
+					g.drawImage(_ogre, x, y, this);
 					break;
 				case '$':
-					g.drawImage(symbol, x, y, this);
+					g.drawImage(_symbol, x, y, this);
 					break;
 				case '*':
-					g.drawImage(club, x, y, this);
+					g.drawImage(_club, x, y, this);
 					break;
 				case ' ':
 					if (x % 2 == 0 && y % 2 == 0)
-						g.drawImage(grass_b, x, y, this);
+						g.drawImage(_grass_b, x, y, this);
 					else
-						g.drawImage(grass_t, x, y, this);
+						g.drawImage(_grass_t, x, y, this);
 					break;
 				default:
 
@@ -192,9 +185,4 @@ public class GraphicsMap extends JPanel {
 			y += getHeight() / map.length;
 		}
 	}
-	
-	public void finalize() {
-		return;
-	}
-
 }

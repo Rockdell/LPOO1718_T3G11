@@ -27,22 +27,6 @@ public class MapCreation {
 	private ButtonGroup buttonGroup  = new ButtonGroup();
 	private static String toDraw = "X";
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MapCreation window = new MapCreation();
-//					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/** Create the application. */
 	public MapCreation() {
 		initialize();
@@ -277,12 +261,6 @@ public class MapCreation {
 					lblWarning.setText("Map NOT acceptable!");
 					return;
 				}
-				
-//				ArrayList<String> tmp = model.getMap();	
-//				
-//				for(int i = 0; i < tmp.size(); i++) {
-//					System.out.println(tmp.get(i));
-//				}
 				
 				model.save(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt");
 				

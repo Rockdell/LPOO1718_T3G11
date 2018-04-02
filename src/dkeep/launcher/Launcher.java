@@ -1,4 +1,4 @@
-package dkeep.launchers;
+package dkeep.launcher;
 
 public interface Launcher {
 

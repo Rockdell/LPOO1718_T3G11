@@ -31,6 +31,7 @@ import javax.swing.JComponent;
 public class LinkStart {
 
 	public static JFrame frame;
+	public static Game g = new Game(new ApplicationIO());
 	private static JLabel background = new JLabel();
 
 	// private Game g;

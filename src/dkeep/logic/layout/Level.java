@@ -57,6 +57,17 @@ public class Level implements Serializable {
 		DKObject.level = this;
 	}
 	
+	public Level(int id, String gP, int nO) {
+		
+		guardPersonality = gP;
+		nrOgres = nO;
+		
+		_status = status_t.ONGOING;
+		_loadMap(id);
+		_loadEntities();
+		DKObject.level = this;
+	}
+	
 	//END_CONSTRUCTOR
 
 	/** @return Level's map. */
@@ -106,6 +117,11 @@ public class Level implements Serializable {
 		_key = key;
 	}
 	
+	/** @return Number of Ogres. */
+	public int getnrOgres() {
+		return nrOgres;
+	}
+	 
 	//END_GETTERS_SETTERS
 	
 	/** Loads Level's map accordingly.

@@ -36,7 +36,7 @@ import javax.swing.JList;
 public class Application {
 
 	private JFrame frame;
-	private Game g;
+//	private Game g;
 
 	/**
 	 * Launch the application.
@@ -211,13 +211,13 @@ public class Application {
 				lblStatus.setText("Move Hero - Arrow Keys");
 				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), mapSelection.getSelectedIndex() + 1);
+					LinkStart.g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), mapSelection.getSelectedIndex() + 1);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
 	
 				panel.requestFocusInWindow();
-				g.getCurrentLevel().display();
+				LinkStart.g.getCurrentLevel().display();
 				
 			}
 		});
@@ -245,12 +245,12 @@ public class Application {
 					return;
 				
 				//Update status
-				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "up!");
+				lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "up!");
 				
 				ApplicationIO.input = 'w';
 				
-				if(g.tick()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				if(LinkStart.g.tick()) {
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -267,12 +267,12 @@ public class Application {
 					return;
 				
 				//Update status
-				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "down!");
+				lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "down!");
 				
 				ApplicationIO.input = 's';
 				
-				if(g.tick()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				if(LinkStart.g.tick()) {
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -288,12 +288,12 @@ public class Application {
 					return;
 				
 				//Update status
-				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "left!");
+				lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "left!");
 				
 				ApplicationIO.input = 'a';
 				
-				if(g.tick()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				if(LinkStart.g.tick()) {
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -309,12 +309,12 @@ public class Application {
 					return;
 				
 				//Update status
-				lblStatus.setText(g.getCurrentLevel().endgameSummary() + "right!");
+				lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "right!");
 				
 				ApplicationIO.input = 'd';
 				
-				if(g.tick()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				if(LinkStart.g.tick()) {
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -331,7 +331,7 @@ public class Application {
 
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
-				if(g != null)
+				if(LinkStart.g.getCurrentLevel() != null)
 					panel.loadAssets();
 			}
 		});
@@ -346,32 +346,32 @@ public class Application {
 
 				switch (arg0.getKeyCode()) {
 				case KeyEvent.VK_UP:
-					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "up!");
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "up!");
 					ApplicationIO.input = 'w';
 					break;
 				case KeyEvent.VK_DOWN:
-					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "down!");
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "down!");
 					ApplicationIO.input = 's';
 					break;
 				case KeyEvent.VK_LEFT:
-					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "left!");
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "left!");
 					ApplicationIO.input = 'a';
 					break;
 				case KeyEvent.VK_RIGHT:
-					lblStatus.setText(g.getCurrentLevel().endgameSummary() + "right!");
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary() + "right!");
 					ApplicationIO.input = 'd';
 					break;
 				default:
 					
 				}
 				
-				if(g.tick()) {
-					lblStatus.setText(g.getCurrentLevel().endgameSummary());
+				if(LinkStart.g.tick()) {
+					lblStatus.setText(LinkStart.g.getCurrentLevel().endgameSummary());
 				}
 			}
 		});
 
-		//'X' Close Button Handler
+		// 'X' Close Button Handler
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent windowEvent) {
@@ -380,7 +380,6 @@ public class Application {
 					System.exit(0);
 			}
 		});
-
 	}
 
 	public List<String> existentMaps() {

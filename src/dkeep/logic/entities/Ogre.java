@@ -84,7 +84,7 @@ public class Ogre extends Entity {
 			
 		//Ogre esta na posicao da chave (independente da char atual no map)
 		if(getIcon() == '$')
-			DKObject.level.getMap()[getY()][getX()] = 'k';
+			DKObject.level.getMap()[getY()][getX()] = DKObject.level.getKey().getIcon();
 		else
 			DKObject.level.getMap()[getY()][getX()] = ' ';
 		
@@ -98,11 +98,11 @@ public class Ogre extends Entity {
 		
 		for(Door door : DKObject.level.getDoors()) {
 			
-			if(door.getX() == x && door.getY() == y)
+			if(door.equalPosition(x, y))
 				return false;
 		}
 
-		if (DKObject.level.getMap()[y][x] == 'k' || DKObject.level.getMap()[y][x] == '$')
+		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('O');

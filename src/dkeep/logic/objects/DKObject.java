@@ -1,9 +1,11 @@
 package dkeep.logic.objects;
 
+import java.io.Serializable;
+
 import dkeep.logic.layout.Level;
 import dkeep.logic.objects.Pair;
 
-public abstract class DKObject {
+public class DKObject implements Serializable {
 	
 	/** Level of the object. */
 	static public Level 			level;
@@ -47,5 +49,13 @@ public abstract class DKObject {
 	 * @param i New icon. */
 	public void updateIcon(char icon) {
 		_icon = icon;
+	}
+	
+	public boolean equalPosition(int x, int y) {
+		return _coord.equals(new Pair<Integer, Integer>(x, y));
+	}
+	
+	public boolean equalPosition(Pair<Integer, Integer> pair) {
+		return _coord.equals(pair);
 	}
 }

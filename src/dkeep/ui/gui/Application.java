@@ -210,8 +210,8 @@ public class Application {
 				lblStatus.setText("Move Hero - Arrow Keys");
 				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), mapSelection.getSelectedIndex() + 1);
-				} catch (NumberFormatException | IOException e) {
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), 1);
+				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
 	
@@ -248,12 +248,8 @@ public class Application {
 				
 				ApplicationIO.input = 'w';
 				
-				try {
-					if(g.tickGame()) {
-						lblStatus.setText(g.getCurrentLevel().endgameSummary());
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(g.tick()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -274,12 +270,8 @@ public class Application {
 				
 				ApplicationIO.input = 's';
 				
-				try {
-					if(g.tickGame()) {
-						lblStatus.setText(g.getCurrentLevel().endgameSummary());
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				if(g.tick()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -299,12 +291,8 @@ public class Application {
 				
 				ApplicationIO.input = 'a';
 				
-				try {
-					if(g.tickGame()) {
-						lblStatus.setText(g.getCurrentLevel().endgameSummary());
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				if(g.tick()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -324,12 +312,8 @@ public class Application {
 				
 				ApplicationIO.input = 'd';
 				
-				try {
-					if(g.tickGame()) {
-						lblStatus.setText(g.getCurrentLevel().endgameSummary());
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				if(g.tick()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
 				}
 				
 				panel.requestFocusInWindow();
@@ -380,12 +364,8 @@ public class Application {
 					
 				}
 				
-				try {
-					if(g.tickGame()) {
-						lblStatus.setText(g.getCurrentLevel().endgameSummary());
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(g.tick()) {
+					lblStatus.setText(g.getCurrentLevel().endgameSummary());
 				}
 			}
 		});

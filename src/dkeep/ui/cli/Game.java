@@ -18,22 +18,27 @@ public class Game {
 	/** Input scanner. */
 	static public IO io;
 	
+	public Game(IO io)
+	{
+		Game.io = io;
+	}
+	
 	/** Creates an object Game with custom Level. */
 	public Game(IO io, String gP, int nO, int id) {
 
-		Level.guardPersonality = gP;
-		Level.nrOgres = nO;
+//		Level.guardPersonality = gP;
+//		Level.nrOgres = nO;
 		Game.io = io;
 
-		loadLevel(id);
+		loadLevel(id, gP, nO);
 	}
-	
-	public Game(IO io, String gP, int nO) {
 
-		Level.guardPersonality = gP;
-		Level.nrOgres = nO;
-		Game.io = io;
-	}
+//	public Game(IO io, String gP, int nO) {
+//
+//		Level.guardPersonality = gP;
+//		Level.nrOgres = nO;
+//		Game.io = io;
+//	}
 	
 	/** @return Loaded level. */
 	public Level getCurrentLevel() {
@@ -74,10 +79,10 @@ public class Game {
 
 	/** Loads a level into the game.
 	 * @param id Level to load. */
-	private void loadLevel(int id)  {
-		
-		_level = new Level(id);
-		
+	public void loadLevel(int id, String gP, int nO) {
+
+		_level = new Level(id, gP, nO);
+
 		_level.display();
 	}
 	
@@ -116,7 +121,7 @@ public class Game {
 			break;
 		case PROCEED:
 			if(_level.getID() < 2)
-				loadLevel(_level.getID() + 1);
+				loadLevel(_level.getID() + 1, null, _level.getnrOgres());
 			else {
 				_level.setStatus(status_t.WON);
 				return true;

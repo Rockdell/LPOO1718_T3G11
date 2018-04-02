@@ -7,6 +7,10 @@ public class ApplicationIO implements IO {
 	private GraphicsMap display;
 	static public char input = 'n';
 
+	public ApplicationIO() {
+		
+	}
+	
 	public ApplicationIO(GraphicsMap jp) {
 		display = jp;
 	}

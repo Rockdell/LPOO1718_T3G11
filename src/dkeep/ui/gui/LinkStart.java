@@ -1,14 +1,12 @@
 package dkeep.ui.gui;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
 import java.awt.Image;
-
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -32,77 +30,38 @@ public class LinkStart {
 	public static JFrame frame;
 	public static Game game;
 	public static Clip music;
-	private static JLabel background = new JLabel();
+	
+	private SpringLayout 	_sprLayout;
+	private JLabel 			_background;
+	private JButton 		_btnNewGame;
+	private JButton 		_btnLoadGame;
+	private JButton 		_btnMapDesign;
+	private JButton  		_btnExitGame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new LinkStart();
-					// window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
+	/** Create the application.
 	 * @throws LineUnavailableException 
 	 * @throws IOException 
-	 * @throws UnsupportedAudioFileException 
-	 */
+	 * @throws UnsupportedAudioFileException */
 	public LinkStart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		initialize();
 	}
-
-	public void loadBackground() {
-		String path = System.getProperty("user.dir") + "/src/miscellaneous/background_scaled.png";
-		Image im = null;
-
-		try {
-			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(),
-					frame.getContentPane().getHeight(), Image.SCALE_FAST);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		background.setIcon(new ImageIcon(im));
-	}
-
-	/**
-	 * Initialize the contents of the frame.
+	
+	/**Initialize the contents of the frame.
 	 * @throws IOException 
 	 * @throws UnsupportedAudioFileException 
-	 * @throws LineUnavailableException 
-	 */
+	 * @throws LineUnavailableException */
 	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
-		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "\\src\\miscellaneous\\main_theme.wav"));
-		music = AudioSystem.getClip();
-		music.open(audioIn);
-		music.start();
-
-		// TODO ADD SOUNDTRACK
-		/*
-		 * public static void music(){
-		 * 
-		 * String filename = "darkAura.wav"; ContinuousAudioDataStream loop = null;
-		 * InputStream in = null; try { in = new FileInputStream(filename); } catch
-		 * (FileNotFoundException ex) { System.out.println("File not found"); } try {
-		 * AudioStream s = new AudioStream(in); AudioData MD;
-		 * AudioPlayer.player.start(s); } catch (IOException ex) {
-		 * System.out.println(ex.getMessage()); }
-		 * 
-		 * }
-		 * 
-		 * AudioStream s = new AudioStream(in); AudioData audiodata = s.getData(); loop
-		 * = new ContinuousAudioDataStream(audiodata); AudioPlayer.player.start(loop);
-		 */
+		_initializeComponents();
+		_initializeEventHandlers();
+	}
+	
+	private void _initializeComponents() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		
+//		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/miscellaneous/main_theme.wav"));
+//		music = AudioSystem.getClip();
+//		music.open(audioIn);
+//		music.start();
 		
 		frame = new JFrame();
 		frame.setVisible(true);
@@ -117,41 +76,43 @@ public class LinkStart {
 			e1.printStackTrace();
 		}
 
-		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		_sprLayout = new SpringLayout();
+		frame.getContentPane().setLayout(_sprLayout);
 
-		JButton btnNewGame = new JButton("New Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNewGame, -300, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnNewGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnNewGame);
+		_btnNewGame = new JButton("New Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnNewGame, -300, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnNewGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnNewGame);
 
-		JButton btnLoadGame = new JButton("Load Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnLoadGame, -250, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnLoadGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnLoadGame);
+		_btnLoadGame = new JButton("Load Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnLoadGame, -250, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnLoadGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnLoadGame);
 
-		JButton btnMapDesign = new JButton("Map Design");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnMapDesign, -200, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnMapDesign, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnMapDesign);
+		_btnMapDesign = new JButton("Map Design");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnMapDesign, -200, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnMapDesign, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnMapDesign);
 
-		JButton btnExitGame = new JButton("Exit Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -50, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnExitGame);
+		_btnExitGame = new JButton("Exit Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnExitGame, -50, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnExitGame);
 
+		_background = new JLabel();
+		
 		loadBackground();
-		frame.getContentPane().add(background);
-
-		// Event Handling
+		
+		frame.getContentPane().add(_background);
+	}
+	
+	private void _initializeEventHandlers() {
 
 		// When the window is resized the map is resized with it!
 		frame.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
 
 			@Override
-			public void ancestorMoved(HierarchyEvent e) {
-
-			}
+			public void ancestorMoved(HierarchyEvent e) {}
 
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
@@ -160,17 +121,17 @@ public class LinkStart {
 		});
 
 		// NEW GAME BUTTON
-		btnNewGame.addMouseListener(new MouseAdapter() {
+		_btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				music.stop();
+				//music.stop();
 				frame.setVisible(false);
 				new Application();
 			}
 		});
 
 		// LOAD GAME BUTTON
-		btnLoadGame.addMouseListener(new MouseAdapter() {
+		_btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
@@ -178,7 +139,7 @@ public class LinkStart {
 		});
 
 		// MAP DESIGN BUTTON
-		btnMapDesign.addMouseListener(new MouseAdapter() {
+		_btnMapDesign.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.setVisible(false);
@@ -187,14 +148,27 @@ public class LinkStart {
 		});
 
 		// EXIT BUTTON
-		btnExitGame.addMouseListener(new MouseAdapter() {
+		_btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				music.stop();
-				music.close();
+				//music.stop();
+				//music.close();
 				System.exit(0);
 			}
 		});
+	}
+	
+	public void loadBackground() {
+		String path = System.getProperty("user.dir") + "/src/miscellaneous/background_scaled.png";
+		Image im = null;
 
+		try {
+			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(),
+					frame.getContentPane().getHeight(), Image.SCALE_FAST);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		_background.setIcon(new ImageIcon(im));
 	}
 }

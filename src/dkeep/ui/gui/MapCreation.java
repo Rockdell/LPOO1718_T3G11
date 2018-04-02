@@ -20,9 +20,8 @@ public class MapCreation {
 	
 	private SpringLayout 	_sprLayout;
 	private JFrame 			_frame;
-	private ButtonGroup 	_buttonGroup  = new ButtonGroup();
-	private String 			_toDraw = "X";
-	
+	private ButtonGroup 	_buttonGroup;
+	private String 			_toDraw;
 	private EditionTable 	_model;
 	private JTable 			_table;
 	private JButton 		_btnAddRow;
@@ -31,9 +30,7 @@ public class MapCreation {
 	private JButton 		_btnRemoveColumn;
 	private JButton			_btnDone;
 	private JButton			_btnReturn;
-	
 	private JLabel			_lblWarning;
-	
 	private JRadioButton 	_rdbtnWall;
 	private JRadioButton 	_rdbtnDoor;
 	private JRadioButton 	_rdbtnKey;
@@ -61,6 +58,9 @@ public class MapCreation {
 		_frame.setVisible(true);
 		_frame.setBounds(100, 100, 800, 550);
 		_frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		_buttonGroup = new ButtonGroup();
+		_toDraw = "X";
 
 		_model = new EditionTable();
 		_sprLayout = new SpringLayout();

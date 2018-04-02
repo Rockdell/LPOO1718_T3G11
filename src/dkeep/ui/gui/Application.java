@@ -233,8 +233,10 @@ public class Application {
 				_frame.dispose();
 				
 				LinkStart.frame.setVisible(true);
-				LinkStart.music.setMicrosecondPosition(0);
-				LinkStart.music.start();
+				
+				//TODO
+				//LinkStart.music.setMicrosecondPosition(0);
+				//LinkStart.music.start();
 			}
 		});
 		

@@ -28,6 +28,13 @@ public class Game {
 		loadLevel(id);
 	}
 	
+	public Game(IO io, String gP, int nO) {
+
+		Level.guardPersonality = gP;
+		Level.nrOgres = nO;
+		Game.io = io;
+	}
+	
 	/** @return Loaded level. */
 	public Level getCurrentLevel() {
 		return _level;

@@ -42,7 +42,6 @@ public class EditionTable extends AbstractTableModel {
 	}
 	
 	public boolean isAcceptable() {
-		System.out.println(wallsAround() + "-" + hero + "-" + key + "-" + ogre + "-" + exit);
 		return (wallsAround() && hero && key && ogre > 0 && exit > 0);
 	}
 

@@ -65,6 +65,7 @@ public class Application {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 600, 480);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -210,7 +211,7 @@ public class Application {
 				lblStatus.setText("Move Hero - Arrow Keys");
 				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), 1);
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), mapSelection.getSelectedIndex() + 1);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
@@ -231,7 +232,7 @@ public class Application {
 				
 				frame.dispose();
 
-				LinkStart Restarting = new LinkStart();
+				LinkStart.frame.setVisible(true);
 			}
 		});
 		
@@ -376,25 +377,25 @@ public class Application {
 			public void windowClosing(WindowEvent windowEvent) {
 				if (JOptionPane.showConfirmDialog(frame, "Are you sure to close this window?", "Exit?",
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
-					frame.dispose();
+					System.exit(0);
 			}
 		});
 
 	}
-	
+
 	public List<String> existentMaps() {
-		
+
 		List<String> mapsID = new ArrayList<String>();
-		
+
 		// Tries reading the file
 		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
 
 			// Searches for the correct map in maps.txt
 			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
-				
-				if(mapSearch.length() <= 3)
+
+				if (mapSearch.length() <= 3)
 					continue;
-				
+
 				if (mapSearch.contains("Map"))
 					mapsID.add(mapSearch.substring(3, mapSearch.length()));
 			}
@@ -404,9 +405,7 @@ public class Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		return mapsID;
 
+		return mapsID;
 	}
-	
 }

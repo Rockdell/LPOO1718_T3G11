@@ -36,14 +36,13 @@ public class GraphicsMap extends JPanel {
 	 * Create the custom JPanel.
 	 */
 	public GraphicsMap() {
-//		setBackground(Color.WHITE);
 	}
 
 	public void loadAssets() {
 		try {
 			BufferedImage tmp;
 			String path = System.getProperty("user.dir") + "/src/miscellaneous";
-			
+
 			int x = getWidth() / map[0].length;
 			int y = getHeight() / map.length;
 	

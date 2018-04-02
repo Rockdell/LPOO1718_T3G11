@@ -163,6 +163,11 @@ public class MapCreation {
 		springLayout.putConstraint(SpringLayout.EAST, btnDone, -46, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(btnDone);
 		
+		JButton return_menu = new JButton("Return to Menu");
+		springLayout.putConstraint(SpringLayout.SOUTH, return_menu, -23, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, return_menu, -31, SpringLayout.WEST, btnDone);
+		frame.getContentPane().add(return_menu);
+		
 		JLabel lblWarning = new JLabel("");
 		springLayout.putConstraint(SpringLayout.WEST, lblWarning, 0, SpringLayout.WEST, btnAddRow);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblWarning, -36, SpringLayout.NORTH, btnAddRow);
@@ -257,6 +262,15 @@ public class MapCreation {
 			}
 		});
 
+		// RETURN TO MENU BUTTON
+		return_menu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				LinkStart.frame.setVisible(true);
+			}
+		});
+
 		// DONE BUTTON
 		btnDone.addMouseListener(new MouseAdapter() {
 			@Override
@@ -268,17 +282,17 @@ public class MapCreation {
 					return;
 				}
 				
-				ArrayList<String> tmp = model.getMap();	
-				
-				for(int i = 0; i < tmp.size(); i++) {
-					System.out.println(tmp.get(i));
-				}
+//				ArrayList<String> tmp = model.getMap();	
+//				
+//				for(int i = 0; i < tmp.size(); i++) {
+//					System.out.println(tmp.get(i));
+//				}
 				
 				model.save(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt");
 				
 				frame.dispose();
 				
-				LinkStart Restarting = new LinkStart();
+				LinkStart.frame.setVisible(true);
 			}
 		});
 
@@ -288,7 +302,7 @@ public class MapCreation {
 			public void windowClosing(WindowEvent windowEvent) {
 				if (JOptionPane.showConfirmDialog(frame, "Are you sure to close this window?", "Created Map will be LOST!",
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
-					frame.dispose();
+					System.exit(0);
 			}
 		});
 

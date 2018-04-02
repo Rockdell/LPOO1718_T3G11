@@ -27,8 +27,8 @@ Map3
 5-5
 XXXXX
 XH GX
-I   X
-Ik  X
+E   X
+Ek  X
 XXXXX
 
 Map4
@@ -37,7 +37,7 @@ XXXXXXXX
 XA  O  X
 X      X
 X      X
-I   k  X
+E   k  X
 XXXXXXXX
 
 Map5

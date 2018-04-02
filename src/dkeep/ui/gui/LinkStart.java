@@ -10,6 +10,8 @@ import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,10 +30,10 @@ import javax.swing.JComponent;
 
 public class LinkStart {
 
-	private JFrame frame;
-	private JLabel background = new JLabel();
-	
-//	private Game g;
+	public static JFrame frame;
+	private static JLabel background = new JLabel();
+
+	// private Game g;
 
 	/**
 	 * Launch the application.
@@ -41,7 +43,7 @@ public class LinkStart {
 			public void run() {
 				try {
 					LinkStart window = new LinkStart();
-//					window.frame.setVisible(true);
+					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,7 +63,8 @@ public class LinkStart {
 		Image im = null;
 
 		try {
-			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(), frame.getContentPane().getHeight(), Image.SCALE_FAST);
+			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(),
+					frame.getContentPane().getHeight(), Image.SCALE_FAST);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,11 +76,35 @@ public class LinkStart {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		// TODO ADD SOUNDTRACK
+		/*
+		 * public static void music(){
+		 * 
+		 * String filename = "darkAura.wav"; ContinuousAudioDataStream loop = null;
+		 * InputStream in = null; try { in = new FileInputStream(filename); } catch
+		 * (FileNotFoundException ex) { System.out.println("File not found"); } try {
+		 * AudioStream s = new AudioStream(in); AudioData MD;
+		 * AudioPlayer.player.start(s); } catch (IOException ex) {
+		 * System.out.println(ex.getMessage()); }
+		 * 
+		 * }
+		 * 
+		 * AudioStream s = new AudioStream(in); AudioData audiodata = s.getData(); loop
+		 * = new ContinuousAudioDataStream(audiodata); AudioPlayer.player.start(loop);
+		 */
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 960, 540);
 		frame.getContentPane().setSize(new Dimension(960, 540));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		try {
+			frame.setIconImage(
+					ImageIO.read(new File(System.getProperty("user.dir") + "/src/miscellaneous/LPOO_icon.png")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
@@ -125,11 +152,11 @@ public class LinkStart {
 		btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.dispose();
+				frame.setVisible(false);
 				Application NewGame = new Application();
 			}
 		});
-		
+
 		// LOAD GAME BUTTON
 		btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
@@ -137,12 +164,12 @@ public class LinkStart {
 
 			}
 		});
-		
+
 		// MAP DESIGN BUTTON
 		btnMapDesign.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.dispose();
+				frame.setVisible(false);
 				MapCreation MapDesign = new MapCreation();
 			}
 		});

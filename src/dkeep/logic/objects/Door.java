@@ -2,30 +2,33 @@ package dkeep.logic.objects;
 
 public class Door extends DKObject {
 	
-	public enum door_t { REGULAR, EXIT }
-	
-	private door_t _type;
-	
-	public Door(int x, int y, char icon, door_t type) {
+	public Door(int x, int y, char icon) {
 		super(x, y, icon);
-		
-		_type = type;
 	}
 	
-	public door_t getType() {
-		return _type;
+	public boolean isOpen() {
+		
+		if(getIcon() == 'e' || getIcon() == 'S')
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isExit() {
+		
+		if(getIcon() == 'E' || getIcon() == 'e')
+			return true;
+		else
+			return false;
 	}
 	
 	public void unlockDoor() {
 		
-		if(getIcon() == 'S' || getIcon() == 'e')
-			return;
-		
-		switch(_type) {
-		case REGULAR:
+		switch(getIcon()) {
+		case 'I':
 			updateIcon('S');
 			break;
-		case EXIT:
+		case 'E':
 			updateIcon('e');
 			break;
 		}

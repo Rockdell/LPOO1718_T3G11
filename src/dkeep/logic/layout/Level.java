@@ -11,8 +11,6 @@ import java.util.List;
 import dkeep.logic.entities.*;
 import dkeep.logic.entities.Hero.hero_t;
 import dkeep.logic.objects.*;
-import dkeep.logic.objects.Door.door_t;
-import dkeep.logic.objects.Key.key_t;
 import dkeep.ui.cli.Game;
 
 public class Level {
@@ -41,7 +39,7 @@ public class Level {
 	private List<Door> 		_doors = new ArrayList<Door>();
 	
 	/** Level's key. */
-	private Key 			_key;
+	private DKObject 			_key;
 	
 	/** Level's status. */
 	private status_t 		_status;
@@ -84,7 +82,7 @@ public class Level {
 	}
 	
 	/** @return Level's key. */
-	public Key getKey() {
+	public DKObject getKey() {
 		return _key;
 	}
 	
@@ -99,7 +97,9 @@ public class Level {
 		_status = s;
 	}
 	
-	public void setKey(Key key) {
+	/** Updates level's key.
+	 * @param key New key. */
+	public void setKey(DKObject key) {
 		_key = key;
 	}
 	
@@ -172,16 +172,16 @@ public class Level {
 					_hero = new Hero(x, y, 'A');
 					break;
 				case 'E':
-					_doors.add(new Door(x, y, 'E', door_t.EXIT));
+					_doors.add(new Door(x, y, 'E'));
 					break;
 				case 'e':
-					_doors.add(new Door(x, y, 'e', door_t.EXIT));
+					_doors.add(new Door(x, y, 'e'));
 					break;
 				case 'I':
-					_doors.add(new Door(x, y, 'I', door_t.REGULAR));
+					_doors.add(new Door(x, y, 'I'));
 					break;
 				case 'S':
-					_doors.add(new Door(x, y, 'S', door_t.REGULAR));
+					_doors.add(new Door(x, y, 'S'));
 					break;
 				case 'G':
 					_loadGuards(x, y);
@@ -190,10 +190,10 @@ public class Level {
 					_loadOgres(x, y);
 					break;
 				case 'k':
-					_key = new Key(x, y, 'k', key_t.KEY);
+					_key = new DKObject(x, y, 'k');
 					break;
 				case 'l':
-					_key = new Key(x, y, 'l', key_t.LEVER);
+					_key = new DKObject(x, y, 'l');
 				}
 			}
 		}
@@ -252,10 +252,9 @@ public class Level {
 	
 	/** Updates the entities from the level.
 	 * @param d Direction for hero. */
-	protected void _updateEntities(char d) {
+	private void _updateEntities(char d) {
 		
-		for(Entity enemy : _enemies) {
-			
+		for(Entity enemy : _enemies) {	
 			if(enemy instanceof Guard)
 				((Guard) enemy).patrol();
 			else if(enemy instanceof Ogre)
@@ -266,15 +265,14 @@ public class Level {
 	}
 	
 	/** Updates the doors from the level. */
-	protected void _updateDoors() {
+	private void _updateDoors() {
 		
 		if(_hero.getKey() == hero_t.NULL)
 			return;
 		else if(_hero.getKey() == hero_t.LEVER) {
 			
-			//Open exit doors
 			for(Door door : _doors) {
-				if(door.getType() == door_t.EXIT)
+				if(door.isExit() && !door.isOpen())
 					door.unlockDoor();
 			}
 			
@@ -285,9 +283,8 @@ public class Level {
 	/** Draws the entities from the level. */
 	protected void _drawEntities() {
 		
-		for(Entity enemy : _enemies) {
+		for(Entity enemy : _enemies)
 			enemy.drawEntity();
-		}
 		
 		_hero.drawEntity();
 	}
@@ -298,13 +295,18 @@ public class Level {
 		//Hero found the exit
 		for(Door door : _doors) {
 			
-			if(door.getType() == door_t.EXIT && door.getCoords().equals(_hero.getCoords())) {
+			if(door.isExit() && door.isOpen() && door.equalPosition(_hero.getCoords())) {
 				_status = status_t.PROCEED;
 				return;
 			}			
 		}
 		
 		for(Entity enemy : _enemies) {
+			
+			if(enemy.equalPosition(_hero.getCoords())) {
+				_status = status_t.KILLED;
+				return;
+			}
 			
 			if(enemy instanceof Guard) {
 				
@@ -327,11 +329,6 @@ public class Level {
 					_status = status_t.KILLED;
 					return;
 				}
-			}
-			
-			if(enemy.getCoords().equals(_hero.getCoords())) {
-				_status = status_t.KILLED;
-				return;
 			}
 		}	
 	}

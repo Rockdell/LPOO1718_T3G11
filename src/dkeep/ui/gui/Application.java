@@ -36,7 +36,7 @@ import javax.swing.JList;
 public class Application {
 
 	private JFrame frame;
-//	private Game g;
+	private Game g;
 
 	/**
 	 * Launch the application.
@@ -45,7 +45,7 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					Application window = new Application();
+					Application window = new Application();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,14 +57,14 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application(Game g) {
-		initialize(g);
+	public Application() {
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Game g) {
+	private void initialize() {
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 600, 480);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

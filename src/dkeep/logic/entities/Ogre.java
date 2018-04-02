@@ -102,7 +102,7 @@ public class Ogre extends Entity {
 				return false;
 		}
 
-		if (DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
+		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('O');

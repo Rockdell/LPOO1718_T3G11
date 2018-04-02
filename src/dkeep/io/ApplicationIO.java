@@ -22,8 +22,9 @@ public class ApplicationIO implements IO {
 	public char read() {	
 		return input;		
 	}
-	
+
 	public void clearConsole() {
-		//console.setText("");
+		char[][] empty = { {} };
+		display.append(empty);
 	}
 }

@@ -1,10 +1,14 @@
 package dkeep.ui.cli;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import dkeep.io.IO;
 import dkeep.logic.layout.Level;
@@ -25,11 +29,7 @@ public class Game {
 	
 	/** Creates an object Game with custom Level. */
 	public Game(IO io, String gP, int nO, int id) {
-
-//		Level.guardPersonality = gP;
-//		Level.nrOgres = nO;
 		Game.io = io;
-
 		loadLevel(id, gP, nO);
 	}
 
@@ -86,6 +86,36 @@ public class Game {
 		_level.display();
 	}
 	
+	public List<String> existentMaps() {
+
+		List<String> mapsID = new ArrayList<String>();
+
+		// Tries reading the file
+		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
+
+			// Searches for the correct map in maps.txt
+			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
+
+				if (mapSearch.length() <= 3)
+					continue;
+
+				if (mapSearch.contains("Map"))
+					mapsID.add(mapSearch.substring(3, mapSearch.length()));
+			}
+
+			br.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Take out Test Levels
+		mapsID.remove(0);
+		mapsID.remove(0);
+
+		return mapsID;
+	}
+
 	/** Starts the game (for console). */
 	public void startGame() {
 		
@@ -115,14 +145,16 @@ public class Game {
 		//Display the current level
 		_level.display();
 		
-		//Check level's status
-		switch(_level.getStatus()) {
+		// Check level's status
+		switch (_level.getStatus()) {
 		case ONGOING:
 			break;
 		case PROCEED:
-			if(_level.getID() < 2)
+			if (_level.getID() < 2)
 				loadLevel(_level.getID() + 1, null, _level.getnrOgres());
-			else {
+			else if (_level.getID() < existentMaps().size()) {
+				loadLevel(_level.getID() + 1, null, 1);
+			} else {
 				_level.setStatus(status_t.WON);
 				return true;
 			}
@@ -135,4 +167,5 @@ public class Game {
 		
 		return false;
 	}
+
 }

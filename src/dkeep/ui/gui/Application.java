@@ -152,8 +152,9 @@ public class Application {
 		legend.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(legend);
 		
-		JList mapSelection = new JList(existentMaps().toArray());
+		JList mapSelection = new JList(LinkStart.g.existentMaps().toArray());
 		JScrollPane mapScroll = new JScrollPane(mapSelection);
+		mapSelection.setSelectedIndex(0);
 		springLayout.putConstraint(SpringLayout.SOUTH, legend, -6, SpringLayout.NORTH, mapScroll);
 		springLayout.putConstraint(SpringLayout.NORTH, mapScroll, -90, SpringLayout.NORTH, btnExitGame);
 		springLayout.putConstraint(SpringLayout.WEST, mapScroll, -165, SpringLayout.EAST, frame.getContentPane());
@@ -381,30 +382,5 @@ public class Application {
 			}
 		});
 	}
-
-	public List<String> existentMaps() {
-
-		List<String> mapsID = new ArrayList<String>();
-
-		// Tries reading the file
-		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
-
-			// Searches for the correct map in maps.txt
-			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
-
-				if (mapSearch.length() <= 3)
-					continue;
-
-				if (mapSearch.contains("Map"))
-					mapsID.add(mapSearch.substring(3, mapSearch.length()));
-			}
-
-			br.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return mapsID;
-	}
+	
 }

@@ -30,6 +30,8 @@ public class LinkStart {
 
 	private JFrame frame;
 	private JLabel background = new JLabel();
+	
+	private Game g;
 
 	/**
 	 * Launch the application.
@@ -124,7 +126,7 @@ public class LinkStart {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.dispose();
-				Application NewGame = new Application();
+				Application NewGame = new Application(g);
 			}
 		});
 		

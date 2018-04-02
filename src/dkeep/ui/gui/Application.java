@@ -36,7 +36,7 @@ import javax.swing.JList;
 public class Application {
 
 	private JFrame frame;
-	private Game g;
+//	private Game g;
 
 	/**
 	 * Launch the application.
@@ -45,7 +45,7 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Application window = new Application();
+//					Application window = new Application();
 					// window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,15 +57,14 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application() {
-		initialize();
+	public Application(Game g) {
+		initialize(g);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	private void initialize(Game g) {
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 600, 480);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -147,11 +146,17 @@ public class Application {
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(lblStatus);
 		
+		JLabel legend = new JLabel("Map Selection :");
+		springLayout.putConstraint(SpringLayout.WEST, legend, -3, SpringLayout.WEST, btnStartGame);
+		legend.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		frame.getContentPane().add(legend);
+		
 		JList mapSelection = new JList(existentMaps().toArray());
 		JScrollPane mapScroll = new JScrollPane(mapSelection);
-		springLayout.putConstraint(SpringLayout.NORTH, mapScroll, -100, SpringLayout.NORTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.SOUTH, legend, -6, SpringLayout.NORTH, mapScroll);
+		springLayout.putConstraint(SpringLayout.NORTH, mapScroll, -90, SpringLayout.NORTH, btnExitGame);
 		springLayout.putConstraint(SpringLayout.WEST, mapScroll, -165, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, mapScroll, -30, SpringLayout.NORTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.SOUTH, mapScroll, -20, SpringLayout.NORTH, btnExitGame);
 		springLayout.putConstraint(SpringLayout.EAST, mapScroll, -55, SpringLayout.EAST, frame.getContentPane());
 		mapSelection.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		frame.getContentPane().add(mapScroll);
@@ -165,13 +170,19 @@ public class Application {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-		//Event Handling
-		
-		mapSelection.addListSelectionListener(new ListSelectionListener() {
+		// Event Handling
 
+		// MAP SELECTION
+		mapSelection.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-
+				if (mapSelection.getSelectedIndex() != 0 && mapSelection.getSelectedIndex() != 1) {
+					cbGuardPersonality.setEnabled(false);
+					sliderNumberOfOgres.setEnabled(false);
+				} else {
+					cbGuardPersonality.setEnabled(true);
+					sliderNumberOfOgres.setEnabled(true);
+				}
 			}
 		});
 
@@ -180,7 +191,7 @@ public class Application {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				if(!btnStartGame.isEnabled())
+				if(!btnStartGame.isEnabled() || mapSelection.getSelectedIndex() == -1)
 					return;
 				
 				//Update buttons
@@ -193,7 +204,7 @@ public class Application {
 				
 				sliderNumberOfOgres.setEnabled(false);
 				cbGuardPersonality.setEnabled(false);
-				//taGame.setEnabled(true);
+				mapSelection.setEnabled(false);
 				
 				//Update status
 				lblStatus.setText("Move Hero - Arrow Keys");

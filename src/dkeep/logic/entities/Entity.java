@@ -1,10 +1,11 @@
 package dkeep.logic.entities;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import dkeep.logic.objects.DKObject;
 
-public abstract class Entity extends DKObject {
+public abstract class Entity extends DKObject implements Serializable {
 	
 	/** Creates an object Entity.
 	 * @param x X-position of the entity.

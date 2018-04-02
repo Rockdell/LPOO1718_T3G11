@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import dkeep.logic.entities.Hero.hero_t;
 import dkeep.logic.objects.*;
 import dkeep.ui.cli.Game;
 
-public class Level {
+public class Level implements Serializable {
 	
 	static public String guardPersonality;
 	static public int nrOgres;

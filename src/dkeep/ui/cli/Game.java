@@ -37,7 +37,7 @@ public class Game {
 	public void save() {
 		
 		try {
-			FileOutputStream fileOut = new FileOutputStream("/miscellaneous/save.ser");
+			FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/src/miscellaneous/savefile.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			
 			out.writeObject(_level);
@@ -53,7 +53,7 @@ public class Game {
 	public void load() {
 	
 		try {
-			FileInputStream fileIn = new FileInputStream("/miscellaneous/save.ser");
+			FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/miscellaneous/savefile.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			
 			_level = (Level) in.readObject();
@@ -76,6 +76,8 @@ public class Game {
 	
 	/** Starts the game (for console). */
 	public void startGame() {
+		
+		save();
 		
 		boolean over =  false;
 		do {

@@ -1,9 +1,11 @@
 package dkeep.logic.objects;
 
+import java.io.Serializable;
+
 import dkeep.logic.layout.Level;
 import dkeep.logic.objects.Pair;
 
-public class DKObject {
+public class DKObject implements Serializable {
 	
 	/** Level of the object. */
 	static public Level 			level;

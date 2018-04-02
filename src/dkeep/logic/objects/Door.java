@@ -1,6 +1,8 @@
 package dkeep.logic.objects;
 
-public class Door extends DKObject {
+import java.io.Serializable;
+
+public class Door extends DKObject implements Serializable {
 	
 	public Door(int x, int y, char icon) {
 		super(x, y, icon);

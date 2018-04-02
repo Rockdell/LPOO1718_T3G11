@@ -76,6 +76,8 @@ public class Hero extends Entity {
 				_key = hero_t.LEVER;
 				break;
 			}
+			
+			DKObject.level.setKey(null);
 
 			return true;
 		}
@@ -94,11 +96,8 @@ public class Hero extends Entity {
 				
 				if(!door.isOpen()) {
 					
-					if(door.isExit() && _key == hero_t.KEY) {
+					if(door.isExit() && _key == hero_t.KEY)
 						door.unlockDoor();
-						_key = hero_t.NULL;
-						DKObject.level.setKey(null);
-					}
 					
 					return false;
 				}

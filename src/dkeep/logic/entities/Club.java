@@ -1,6 +1,7 @@
 package dkeep.logic.entities;
 
 import dkeep.logic.objects.DKObject;
+import dkeep.logic.objects.Door;
 
 public class Club extends Entity {
 	
@@ -42,17 +43,23 @@ public class Club extends Entity {
 	public void eraseEntity() {
 		
 		if (getIcon() == '$')
-			DKObject.level.getMap()[getY()][getX()] = 'k';
+			DKObject.level.getMap()[getY()][getX()] = DKObject.level.getKey().getIcon();
 		else if(DKObject.level.getMap()[getY()][getX()] != 'O')
 			DKObject.level.getMap()[getY()][getX()] = ' ';
 	}
 	
 	public boolean checkCollision(int x, int y) {
 		
-		if (DKObject.level.getMap()[y][x] == 'X' || DKObject.level.getMap()[y][x] == 'I' || DKObject.level.getMap()[y][x] == 'S')
+		if (DKObject.level.getMap()[y][x] == 'X')
 			return false;
 			
-		if (DKObject.level.getMap()[y][x] == 'k' || DKObject.level.getMap()[y][x] == '$')
+		for(Door door : DKObject.level.getDoors()) {
+			
+			if(door.equalPosition(x, y))
+				return false;
+		}
+			
+		if (DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
 			updateIcon('$');
 		else
 			updateIcon('*');

@@ -2,7 +2,6 @@ package dkeep.logic.entities;
 
 import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
-import dkeep.logic.objects.Door.door_t;
 
 public class Hero extends Entity {
 	
@@ -50,7 +49,7 @@ public class Hero extends Entity {
 		
 		for(Door door : DKObject.level.getDoors()) {
 			
-			if(door.getCoords().equals(getCoords())) {
+			if(door.equalPosition(getCoords())) {
 				DKObject.level.getMap()[getY()][getX()] = door.getIcon();
 				return;
 			}
@@ -67,35 +66,38 @@ public class Hero extends Entity {
 		
 		//Check for key
 		if(DKObject.level.getKey() != null) {
-			if (DKObject.level.getKey().getX() == x && DKObject.level.getKey().getY() == y) {
+			
+			if (DKObject.level.getKey().equalPosition(x, y)) {
 
-				switch (DKObject.level.getKey().getType()) {
-				case KEY:
+				switch (DKObject.level.getKey().getIcon()) {
+				case 'k':
 					_key = hero_t.KEY;
 					updateIcon('K');
 					break;
-				case LEVER:
+				case 'l':
 					_key = hero_t.LEVER;
 					break;
 				}
+				
+				return true;
 			}
 		}
 		
 		//Check for enemies
 		for(Entity enemy : DKObject.level.getEnemies()) {
 			
-			if(enemy.getX() == x && enemy.getY() == y)
+			if(enemy.equalPosition(x,  y))
 				return false;			
 		}
 		
 		//Check for locked end doors
 		for(Door door : DKObject.level.getDoors()) {
 			
-			if(door.getX() == x && door.getY() == y) {
+			if(door.equalPosition(x, y)) {
 				
-				if(door.getIcon() == 'I') {
+				if(!door.isOpen()) {
 					
-					if(door.getType() == door_t.EXIT && _key == hero_t.KEY) {
+					if(door.isExit() && _key == hero_t.KEY) {
 						door.unlockDoor();
 						_key = hero_t.NULL;
 						DKObject.level.setKey(null);
@@ -105,9 +107,6 @@ public class Hero extends Entity {
 				}
 			}
 		}
-		
-//		else if(getLevel().getMap()[y][x] == 'X' || getLevel().getMap()[y][x] == 'g' || getLevel().getMap()[y][x] == '8')
-//			return false;
 		
 		return true;
 	}

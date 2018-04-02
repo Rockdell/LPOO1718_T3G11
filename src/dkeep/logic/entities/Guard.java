@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dkeep.logic.objects.DKObject;
+import dkeep.logic.objects.Door;
 
 public abstract class Guard extends Entity {
 	
@@ -107,10 +108,16 @@ public abstract class Guard extends Entity {
 	
 	public boolean checkCollision(int x, int y) {
 		
-		if(DKObject.level.getMap()[y][x] == 'X' || DKObject.level.getMap()[y][x] == 'I')
+		if (DKObject.level.getMap()[y][x] == 'X')
 			return false;
-		else
-			return true;
+		
+		for(Door door : DKObject.level.getDoors()) {
+			
+			if(door.equalPosition(x, y) && !door.isOpen())
+				return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean checkHit(int x, int y) {

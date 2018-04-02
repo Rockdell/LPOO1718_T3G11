@@ -35,7 +35,7 @@ public class ConsoleIO implements IO {
 			return read();
 	}
 
-	public void clearConsole() {
+	public void clear() {
 
 		for (int i = 0; i < 10; i++)
 			System.out.print("\n");

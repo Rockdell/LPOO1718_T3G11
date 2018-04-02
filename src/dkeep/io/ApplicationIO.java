@@ -7,6 +7,8 @@ public class ApplicationIO implements IO {
 	private GraphicsMap display;
 	static public char input = 'n';
 
+	public ApplicationIO() {}
+	
 	public ApplicationIO(GraphicsMap jp) {
 		display = jp;
 	}
@@ -18,8 +20,9 @@ public class ApplicationIO implements IO {
 	public char read() {	
 		return input;		
 	}
-	
-	public void clearConsole() {
-		//console.setText("");
+
+	public void clear() {
+		char[][] empty = { {} };
+		display.append(empty);
 	}
 }

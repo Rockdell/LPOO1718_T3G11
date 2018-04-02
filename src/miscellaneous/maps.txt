@@ -1,3 +1,20 @@
+Map98
+5-5
+XXXXX
+XH GX
+E   X
+Ek  X
+XXXXX
+
+Map99
+6-8
+XXXXXXXX
+XA  O  X
+X      X
+X      X
+E   k  X
+XXXXXXXX
+
 Map1
 10-10
 XXXXXXXXXX
@@ -24,27 +41,10 @@ X       X
 XXXXXXXXX
 
 Map3
-5-5
-XXXXX
-XH GX
-I   X
-Ik  X
-XXXXX
-
-Map4
-6-8
-XXXXXXXX
-XA  O  X
-X      X
-X      X
-I   k  X
-XXXXXXXX
-
-Map5
 6-8
 XXXXXXXX
 EA    OX
-X     OX
+X      X
 X      X
 X     kX
 XXEEEXXX

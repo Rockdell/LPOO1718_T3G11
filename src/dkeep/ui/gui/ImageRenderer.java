@@ -12,12 +12,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class ImageRenderer extends DefaultTableCellRenderer {
 
-	/**
-	 * Create the panel.
-	 */
-	public ImageRenderer() {
-
-	}
+	/** Create the panel. */
+	public ImageRenderer() {}
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 

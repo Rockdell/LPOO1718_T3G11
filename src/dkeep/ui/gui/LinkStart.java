@@ -1,15 +1,12 @@
 package dkeep.ui.gui;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -17,103 +14,105 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-
-import dkeep.io.ApplicationIO;
-import dkeep.ui.cli.Game;
-
 import javax.swing.JButton;
-import javax.swing.JComponent;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import dkeep.engine.Game;
 
 public class LinkStart {
 
-	private JFrame frame;
-	private JLabel background = new JLabel();
+	public static JFrame frame;
+	public static Game game;
+	public static Clip music;
 	
-//	private Game g;
+	private SpringLayout 	_sprLayout;
+	private JLabel 			_background;
+	private JButton 		_btnNewGame;
+	private JButton 		_btnLoadGame;
+	private JButton 		_btnMapDesign;
+	private JButton  		_btnExitGame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LinkStart window = new LinkStart();
-//					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public LinkStart() {
+	/** Create the application.
+	 * @throws LineUnavailableException 
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException */
+	public LinkStart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		initialize();
 	}
-
-	public void loadBackground() {
-		String path = System.getProperty("user.dir") + "/src/miscellaneous/background_scaled.png";
-		Image im = null;
-
-		try {
-			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(), frame.getContentPane().getHeight(), Image.SCALE_FAST);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		background.setIcon(new ImageIcon(im));
+	
+	/**Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
+	 * @throws LineUnavailableException */
+	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		
+		_initializeComponents();
+		_initializeEventHandlers();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	
+	private void _initializeComponents() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		
+//		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/miscellaneous/main_theme.wav"));
+//		music = AudioSystem.getClip();
+//		music.open(audioIn);
+//		music.start();
+		
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 960, 540);
 		frame.getContentPane().setSize(new Dimension(960, 540));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		try {
+			frame.setIconImage(
+					ImageIO.read(new File(System.getProperty("user.dir") + "/src/miscellaneous/LPOO_icon.png")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
-		JButton btnNewGame = new JButton("New Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNewGame, -300, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnNewGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnNewGame);
+		_sprLayout = new SpringLayout();
+		frame.getContentPane().setLayout(_sprLayout);
 
-		JButton btnLoadGame = new JButton("Load Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnLoadGame, -250, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnLoadGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnLoadGame);
+		_btnNewGame = new JButton("New Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnNewGame, -300, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnNewGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnNewGame);
 
-		JButton btnMapDesign = new JButton("Map Design");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnMapDesign, -200, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnMapDesign, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnMapDesign);
+		_btnLoadGame = new JButton("Load Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnLoadGame, -250, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnLoadGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnLoadGame);
 
-		JButton btnExitGame = new JButton("Exit Game");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnExitGame, -50, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnExitGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnExitGame);
+		_btnMapDesign = new JButton("Map Design");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnMapDesign, -200, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnMapDesign, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnMapDesign);
 
+		_btnExitGame = new JButton("Exit Game");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnExitGame, -50, SpringLayout.SOUTH, frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, -90, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(_btnExitGame);
+
+		_background = new JLabel();
+		
 		loadBackground();
-		frame.getContentPane().add(background);
-
-		// Event Handling
+		
+		frame.getContentPane().add(_background);
+	}
+	
+	private void _initializeEventHandlers() {
 
 		// When the window is resized the map is resized with it!
 		frame.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
 
 			@Override
-			public void ancestorMoved(HierarchyEvent e) {
-
-			}
+			public void ancestorMoved(HierarchyEvent e) {}
 
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
@@ -122,39 +121,54 @@ public class LinkStart {
 		});
 
 		// NEW GAME BUTTON
-		btnNewGame.addMouseListener(new MouseAdapter() {
+		_btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.dispose();
-				Application NewGame = new Application();
+				//music.stop();
+				frame.setVisible(false);
+				new Application();
 			}
 		});
-		
-		// LOAD GAME BUTTON
-		btnLoadGame.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
 
-			}
-		});
-		
-		// MAP DESIGN BUTTON
-		btnMapDesign.addMouseListener(new MouseAdapter() {
+		// LOAD GAME BUTTON
+		_btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.dispose();
-				MapCreation MapDesign = new MapCreation();
+				
+			}
+		});
+
+		// MAP DESIGN BUTTON
+		_btnMapDesign.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.setVisible(false);
+				new MapCreation();
 			}
 		});
 
 		// EXIT BUTTON
-		btnExitGame.addMouseListener(new MouseAdapter() {
+		_btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				//music.stop();
+				//music.close();
 				System.exit(0);
 			}
 		});
+	}
+	
+	public void loadBackground() {
+		String path = System.getProperty("user.dir") + "/src/miscellaneous/background_scaled.png";
+		Image im = null;
 
+		try {
+			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(),
+					frame.getContentPane().getHeight(), Image.SCALE_FAST);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		_background.setIcon(new ImageIcon(im));
 	}
 }

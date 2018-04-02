@@ -77,8 +77,6 @@ public class Game {
 	/** Starts the game (for console). */
 	public void startGame() {
 		
-		save();
-		
 		boolean over =  false;
 		do {
 			over = tick();

@@ -14,8 +14,7 @@ public class Console {
 		
 		String guard_type = "";
 		
-		switch(random_guard)
-		{
+		switch(random_guard) {
 		case 0:
 			guard_type = "Rookie";
 			break;

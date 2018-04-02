@@ -215,7 +215,7 @@ public class Application {
 				ApplicationIO.input = 'w';
 				
 				try {
-					if(g.tickGame()) {
+					if(g.tick()) {
 						lblStatus.setText(g.getCurrentLevel().endgameSummary());
 					}
 				} catch (IOException e) {
@@ -241,7 +241,7 @@ public class Application {
 				ApplicationIO.input = 's';
 				
 				try {
-					if(g.tickGame()) {
+					if(g.tick()) {
 						lblStatus.setText(g.getCurrentLevel().endgameSummary());
 					}
 				} catch (IOException e1) {
@@ -266,7 +266,7 @@ public class Application {
 				ApplicationIO.input = 'a';
 				
 				try {
-					if(g.tickGame()) {
+					if(g.tick()) {
 						lblStatus.setText(g.getCurrentLevel().endgameSummary());
 					}
 				} catch (IOException e1) {
@@ -291,7 +291,7 @@ public class Application {
 				ApplicationIO.input = 'd';
 				
 				try {
-					if(g.tickGame()) {
+					if(g.tick()) {
 						lblStatus.setText(g.getCurrentLevel().endgameSummary());
 					}
 				} catch (IOException e1) {
@@ -347,7 +347,7 @@ public class Application {
 				}
 				
 				try {
-					if(g.tickGame()) {
+					if(g.tick()) {
 						lblStatus.setText(g.getCurrentLevel().endgameSummary());
 					}
 				} catch (IOException e) {

@@ -42,6 +42,7 @@ public class EditionTable extends AbstractTableModel {
 	}
 	
 	public boolean isAcceptable() {
+		System.out.println(wallsAround() + "-" + hero + "-" + key + "-" + ogre + "-" + exit);
 		return (wallsAround() && hero && key && ogre > 0 && exit > 0);
 	}
 
@@ -52,21 +53,31 @@ public class EditionTable extends AbstractTableModel {
 		{
 			if(i == 0 || i == getRowCount() - 1)
 			{
-				for(int j = 1; j < getColumnCount() - 1; j++)
+				for(int j = 0; j < getColumnCount(); j++)
 				{
 					if(custom_map.get(i).charAt(j) != 'X')
 					{
 						if(custom_map.get(i).charAt(j) != 'E')
 							return false;
 						else
-							exit_on_side = true;							
+						{
+							if(j != 1 && j != getColumnCount() - 1)
+							exit_on_side = true;	
+						}
 					}
 				}
 			}
 			else
 			{
-				if (custom_map.get(i).charAt(0) != 'X' || custom_map.get(getColumnCount() - 1).charAt(0) != 'X') {
-					if (custom_map.get(i).charAt(0) != 'E' || custom_map.get(getColumnCount() - 1).charAt(0) != 'E')
+				if (custom_map.get(i).charAt(0) != 'X') {
+					if (custom_map.get(i).charAt(0) != 'E')
+						return false;
+					else
+						exit_on_side = true;
+				}
+
+				if (custom_map.get(i).charAt(getColumnCount() - 1) != 'X') {
+					if (custom_map.get(i).charAt(getColumnCount() - 1) != 'E')
 						return false;
 					else
 						exit_on_side = true;

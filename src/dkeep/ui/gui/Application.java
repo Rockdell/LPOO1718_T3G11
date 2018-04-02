@@ -5,10 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import dkeep.io.ApplicationIO;
 import dkeep.ui.cli.Game;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.HierarchyBoundsListener;
@@ -19,9 +23,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Font;
 import javax.swing.JSlider;
+import javax.swing.ListSelectionModel;
+import javax.swing.JList;
 
 public class Application {
 
@@ -118,7 +128,7 @@ public class Application {
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
-		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 50, SpringLayout.SOUTH, btnDown);
+		springLayout.putConstraint(SpringLayout.NORTH, btnExitGame, 130, SpringLayout.SOUTH, btnDown);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDown, 172, SpringLayout.SOUTH, lblNrOgres);
 		springLayout.putConstraint(SpringLayout.WEST, btnDown, -141, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnDown, -80, SpringLayout.EAST, frame.getContentPane());
@@ -133,9 +143,18 @@ public class Application {
 		
 		JLabel lblStatus = new JLabel("You can start a new game!");
 		springLayout.putConstraint(SpringLayout.NORTH, lblStatus, 15, SpringLayout.SOUTH, btnExitGame);
-		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -10, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblStatus, -18, SpringLayout.EAST, frame.getContentPane());
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		frame.getContentPane().add(lblStatus);
+		
+		JList mapSelection = new JList(existentMaps().toArray());
+		JScrollPane mapScroll = new JScrollPane(mapSelection);
+		springLayout.putConstraint(SpringLayout.NORTH, mapScroll, -100, SpringLayout.NORTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.WEST, mapScroll, -165, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, mapScroll, -30, SpringLayout.NORTH, btnExitGame);
+		springLayout.putConstraint(SpringLayout.EAST, mapScroll, -55, SpringLayout.EAST, frame.getContentPane());
+		mapSelection.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		frame.getContentPane().add(mapScroll);
 		
 		GraphicsMap panel = new GraphicsMap();
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.SOUTH, cbGuardPersonality);
@@ -148,6 +167,14 @@ public class Application {
 		
 		//Event Handling
 		
+		mapSelection.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+
+			}
+		});
+
 		//START BUTTON
 		btnStartGame.addMouseListener(new MouseAdapter() {
 			@Override
@@ -171,10 +198,8 @@ public class Application {
 				//Update status
 				lblStatus.setText("Move Hero - Arrow Keys");
 				
-//				Integer.parseInt(tfNrOgres.getText()
-				
 				try {
-					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), 1);
+					g = new Game(new ApplicationIO(panel), ((String) cbGuardPersonality.getSelectedItem()), sliderNumberOfOgres.getValue(), mapSelection.getSelectedIndex() + 1);
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
 				}
@@ -194,7 +219,7 @@ public class Application {
 				lblStatus.setText("Exiting program!");
 				
 				frame.dispose();
-				
+
 				LinkStart Restarting = new LinkStart();
 			}
 		});
@@ -365,5 +390,32 @@ public class Application {
 		});
 
 	}
+	
+	public List<String> existentMaps() {
+		
+		List<String> mapsID = new ArrayList<String>();
+		
+		// Tries reading the file
+		try (BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/maps.txt"))) {
 
+			// Searches for the correct map in maps.txt
+			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
+				
+				if(mapSearch.length() <= 3)
+					continue;
+				
+				if (mapSearch.contains("Map"))
+					mapsID.add(mapSearch.substring(3, mapSearch.length()));
+			}
+
+			br.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return mapsID;
+
+	}
+	
 }

@@ -261,7 +261,7 @@ public class MapCreation {
 		btnDone.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TODO SAVE CREATED LEVEL TO MAPS.TXT
+
 				if(!model.isAcceptable())
 				{
 					lblWarning.setText("Map NOT acceptable!");

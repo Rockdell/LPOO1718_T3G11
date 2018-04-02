@@ -64,23 +64,20 @@ public class Hero extends Entity {
 		if(DKObject.level.getMap()[y][x] == 'X')
 			return false;
 		
-		//Check for key
-		if(DKObject.level.getKey() != null) {
-			
-			if (DKObject.level.getKey().equalPosition(x, y)) {
+		//Check for key	
+		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y)) {
 
-				switch (DKObject.level.getKey().getIcon()) {
-				case 'k':
-					_key = hero_t.KEY;
-					updateIcon('K');
-					break;
-				case 'l':
-					_key = hero_t.LEVER;
-					break;
-				}
-				
-				return true;
+			switch (DKObject.level.getKey().getIcon()) {
+			case 'k':
+				_key = hero_t.KEY;
+				updateIcon('K');
+				break;
+			case 'l':
+				_key = hero_t.LEVER;
+				break;
 			}
+
+			return true;
 		}
 		
 		//Check for enemies

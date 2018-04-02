@@ -2,7 +2,6 @@ package dkeep.logic.layout;
 
 import java.io.BufferedReader;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +13,9 @@ import dkeep.logic.objects.*;
 import dkeep.ui.cli.Game;
 
 public class Level {
+	
+	static public String guardPersonality;
+	static public int nrOgres;
 	
 	/** Level's possible status. */
 	public enum status_t { 
@@ -47,7 +49,7 @@ public class Level {
 	//END_ATRIBUTES
 	
 	/** Creates an object Level. */
-	public Level(int id) throws IOException {
+	public Level(int id) {
 		_status = status_t.ONGOING;
 		_loadMap(id);
 		_loadEntities();
@@ -108,9 +110,9 @@ public class Level {
 	/** Loads Level's map accordingly.
 	 * @param mapID ID of the wanted map.
 	 * @return Returns a char[][] with the map. */
-	private void _loadMap(int mapID) throws IOException, FileNotFoundException {
+	private void _loadMap(int mapID) {
 
-		char[][] test;
+		char[][] test = null;
 		boolean found = false;
 
 		//Tries reading the file
@@ -118,8 +120,8 @@ public class Level {
 
 			//Searches for the correct map in maps.txt
 			for (String mapSearch; (mapSearch = br.readLine()) != null;) {
-				if(mapSearch.equals("Map" + mapID))
-				{
+				
+				if(mapSearch.equals("Map" + mapID)) {
 					found = true;
 					break;
 				}
@@ -152,10 +154,15 @@ public class Level {
 				char[] tmp = line.toCharArray();
 				test[i] = tmp;
 			}
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 
-		_id = mapID;
-		_map = test;
+		if(test != null ) {
+			_id = mapID;
+			_map = test;
+		}
 	}
 	
 	private void _loadEntities() {
@@ -201,7 +208,7 @@ public class Level {
 	
 	private void _loadGuards(int x, int y) {
 		
-		switch(Game.guardPersonality) {
+		switch(Level.guardPersonality) {
 		case "Rookie":
 			_enemies.add(new Rookie(x, y));
 			break;
@@ -216,7 +223,7 @@ public class Level {
 	
 	private void _loadOgres(int x, int y) {
 		
-		for(int i = 0; i < Game.nrOgres; i++)
+		for(int i = 0; i < Level.nrOgres; i++)
 			_enemies.add(new Ogre(x, y));		
 	}
 	

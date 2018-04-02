@@ -104,13 +104,15 @@ public class GraphicsMap extends JPanel {
 	}
 
 	public void append(char[][] m) {
-
-		if (map == null) {
-			map = m;
-			loadAssets();
-		} else if (map.length != m.length || map[0].length != m[0].length) {
-			map = m;
-			loadAssets();
+		
+		if (m.length >= 3) {
+			if (map == null) {
+				map = m;
+				loadAssets();
+			} else if (map.length != m.length || map[0].length != m[0].length) {
+				map = m;
+				loadAssets();
+			}
 		}
 
 		repaint();

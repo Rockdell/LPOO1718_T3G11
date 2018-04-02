@@ -154,6 +154,7 @@ public class LinkStart {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.setVisible(false);
+				g = new Game(new ApplicationIO());
 				Application NewGame = new Application();
 			}
 		});

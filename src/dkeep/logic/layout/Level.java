@@ -49,7 +49,7 @@ public class Level {
 	//END_ATRIBUTES
 	
 	/** Creates an object Level. */
-	public Level(int id) throws IOException {
+	public Level(int id) {
 		_status = status_t.ONGOING;
 		_loadMap(id);
 		_loadEntities();

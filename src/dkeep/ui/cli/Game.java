@@ -1,7 +1,6 @@
 package dkeep.ui.cli;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,7 +19,7 @@ public class Game {
 	static public IO io;
 	
 	/** Creates an object Game with custom Level. */
-	public Game(IO io, String gP, int nO, int id) throws IOException, FileNotFoundException {
+	public Game(IO io, String gP, int nO, int id) {
 
 		Level.guardPersonality = gP;
 		Level.nrOgres = nO;
@@ -68,7 +67,7 @@ public class Game {
 
 	/** Loads a level into the game.
 	 * @param id Level to load. */
-	private void loadLevel(int id) throws IOException, FileNotFoundException {
+	private void loadLevel(int id)  {
 		
 		_level = new Level(id);
 		
@@ -76,7 +75,7 @@ public class Game {
 	}
 	
 	/** Starts the game (for console). */
-	public void startGame() throws IOException, FileNotFoundException {
+	public void startGame() {
 		
 		boolean over =  false;
 		do {
@@ -87,7 +86,7 @@ public class Game {
 	
 	/** Ticks the game.
 	 * 	@return True if won/lost, false if ongoing. */
-	public boolean tick() throws IOException, FileNotFoundException {
+	public boolean tick() {
 		
 		if(_level.getStatus() != status_t.ONGOING)
 			return true;

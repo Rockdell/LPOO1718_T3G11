@@ -1,14 +1,12 @@
 package dkeep.ui.cli;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Random;
 
 import dkeep.io.ConsoleIO;
 
 public class Console {
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) {
 		
 		Random rn = new Random();
 		int random_guard = rn.nextInt(3);

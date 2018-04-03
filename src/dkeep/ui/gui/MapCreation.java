@@ -54,22 +54,45 @@ public class MapCreation {
 	/** Initialize the contents of the frame. */
 	private void _initializeComponents() {
 		
+		_initFrame();
+		
+		_initModel();
+		
+		_initTable();
+
+		_initButtons();
+		
+		_initRadioButtons();
+		
+		_initButtonGroup();
+		
+		_initDoneReturnButtons();
+		
+		_initLabel();
+	}
+	
+	private void _initFrame() {
+		
 		_frame = new JFrame();
 		_frame.setVisible(true);
 		_frame.setBounds(100, 100, 800, 550);
 		_frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	}
+	
+	private void _initModel() {
 		
-		_buttonGroup = new ButtonGroup();
 		_toDraw = "X";
-
 		_model = new EditionTable();
 		_sprLayout = new SpringLayout();
 		_frame.getContentPane().setLayout(_sprLayout);
+	}
+	
+	private void _initTable() {
 		
 		_table = new JTable(_model);
 		_sprLayout.putConstraint(SpringLayout.WEST, _table, 15, SpringLayout.WEST, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _table, -303, SpringLayout.EAST, _frame.getContentPane());
-
+		
 		// TODO ALTER LATER
 		_table.setRowHeight(30);
 		// table.setFillsViewportHeight(true);
@@ -77,12 +100,13 @@ public class MapCreation {
 		_table.setBackground(new Color(74, 156, 74)); // Same color as game's background
 		_table.setOpaque(true);
 		_sprLayout.putConstraint(SpringLayout.NORTH, _table, 15, SpringLayout.NORTH, _frame.getContentPane());
-
 		_table.setDefaultRenderer(String.class, new ImageRenderer());
 
 		_frame.getContentPane().add(_table);
-
-		//JButtons
+	}
+	
+	private void _initButtons() {
+		
 		_btnAddRow = new JButton("Add Row");
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnAddRow, -46, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnAddRow);
@@ -105,8 +129,10 @@ public class MapCreation {
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnAddColumn, -6, SpringLayout.NORTH, _btnRemoveColumn);
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnRemoveColumn, -46, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnRemoveColumn);
+	}
+
+	private void _initRadioButtons() {
 		
-		//JRadioButtons
 		_rdbtnWall = new JRadioButton("Wall");
 		_sprLayout.putConstraint(SpringLayout.WEST, _rdbtnWall, 6, SpringLayout.EAST, _table);
 		_rdbtnWall.setToolTipText("X");
@@ -153,7 +179,11 @@ public class MapCreation {
 		_frame.getContentPane().add(_rdbtnExit);
 
 		_rdbtnWall.setSelected(true);
+	}
+	
+	private void _initButtonGroup() {
 		
+		_buttonGroup = new ButtonGroup();
 		_buttonGroup.add(_rdbtnWall);
 		_buttonGroup.add(_rdbtnDoor);
 		_buttonGroup.add(_rdbtnKey);
@@ -161,7 +191,10 @@ public class MapCreation {
 		_buttonGroup.add(_rdbtnOgre);
 		_buttonGroup.add(_rdbtnExit);
 		_buttonGroup.add(_rdbtnEmpty);
-
+	}
+	
+	private void _initDoneReturnButtons() {
+		
 		_btnDone = new JButton("Done");
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnDone, -23, SpringLayout.SOUTH, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnDone, -46, SpringLayout.EAST, _frame.getContentPane());
@@ -171,6 +204,9 @@ public class MapCreation {
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnReturn, -23, SpringLayout.SOUTH, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnReturn, -31, SpringLayout.WEST, _btnDone);
 		_frame.getContentPane().add(_btnReturn);
+	}
+	
+	private void _initLabel() {
 		
 		_lblWarning = new JLabel("");
 		_sprLayout.putConstraint(SpringLayout.WEST, _lblWarning, 0, SpringLayout.WEST, _btnAddRow);
@@ -180,6 +216,25 @@ public class MapCreation {
 	}
 	
 	private void _initializeEventHandlers() {
+		
+		_initAddRowBtnHandlers();
+
+		_initRemRowBtnHandlers();
+		
+		_initAddColBtnHandlers();
+
+		_initRemColBtnHandlers();
+
+		_initTableHandlers();
+
+		_initMenuBtnHandlers();
+
+		_initDoneBtnHandlers();
+		
+		_initCloseBtnHandlers();
+	}
+	
+	private void _initAddRowBtnHandlers() {
 		
 		_btnAddRow.addMouseListener(new MouseAdapter() {
 			@Override
@@ -197,7 +252,10 @@ public class MapCreation {
 				_table.setRowSelectionInterval(newRow, newRow);
 			}
 		});
-
+	}
+	
+	private void _initRemRowBtnHandlers() {
+		
 		_btnRemoveRow.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -213,6 +271,9 @@ public class MapCreation {
 				_table.setRowSelectionInterval(newRow, newRow);
 			}
 		});
+	}
+	
+	private void _initAddColBtnHandlers() {
 		
 		_btnAddColumn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -228,7 +289,10 @@ public class MapCreation {
 				_table.setColumnSelectionInterval(newColumn, newColumn);
 			}
 		});
-
+	}
+	
+	private void _initRemColBtnHandlers() {
+		
 		_btnRemoveColumn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -243,7 +307,10 @@ public class MapCreation {
 				_table.setColumnSelectionInterval(newColumn, newColumn);
 			}
 		});
-
+	}
+	
+	private void _initTableHandlers() {
+		
 		_table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -268,8 +335,10 @@ public class MapCreation {
 				_table.setValueAt(_toDraw, row, col);
 			}
 		});
-
-		// RETURN TO MENU BUTTON
+	}
+	
+	private void _initMenuBtnHandlers() {
+		
 		_btnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -277,8 +346,10 @@ public class MapCreation {
 				LinkStart.frame.setVisible(true);
 			}
 		});
-
-		// DONE BUTTON
+	}
+	
+	private void _initDoneBtnHandlers() {
+		
 		_btnDone.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -296,8 +367,10 @@ public class MapCreation {
 				LinkStart.frame.setVisible(true);
 			}
 		});
-
-		//'X' Close Button Handler
+	}
+	
+	private void _initCloseBtnHandlers() {
+		
 		_frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent windowEvent) {
@@ -306,6 +379,5 @@ public class MapCreation {
 					System.exit(0);
 			}
 		});
-
 	}
 }

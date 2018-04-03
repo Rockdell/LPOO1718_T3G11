@@ -48,6 +48,18 @@ public class LinkStart {
 	
 	private void _initializeComponents() {
 		
+		
+		_initFrame();
+		
+		_initNewLoadButtons();
+		
+		_initDesignExitButtons();
+
+		_initBackground();
+	}
+	
+	private void _initFrame() {
+		
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 960, 540);
@@ -60,10 +72,13 @@ public class LinkStart {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+		
 		_sprLayout = new SpringLayout();
-		frame.getContentPane().setLayout(_sprLayout);
-
+		frame.getContentPane().setLayout(_sprLayout);		
+	}
+	
+	private void _initNewLoadButtons() {
+		
 		_btnNewGame = new JButton("New Game");
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnNewGame, -300, SpringLayout.SOUTH, frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnNewGame, -90, SpringLayout.EAST, frame.getContentPane());
@@ -72,8 +87,11 @@ public class LinkStart {
 		_btnLoadGame = new JButton("Load Game");
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnLoadGame, -250, SpringLayout.SOUTH, frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnLoadGame, -90, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(_btnLoadGame);
-
+		frame.getContentPane().add(_btnLoadGame);		
+	}
+	
+	private void _initDesignExitButtons() {
+		
 		_btnMapDesign = new JButton("Map Design");
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnMapDesign, -200, SpringLayout.SOUTH, frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnMapDesign, -90, SpringLayout.EAST, frame.getContentPane());
@@ -83,17 +101,32 @@ public class LinkStart {
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnExitGame, -50, SpringLayout.SOUTH, frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, -90, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(_btnExitGame);
-
+	}
+	
+	private void _initBackground() {
+		
 		_background = new JLabel();
 		
 		_loadBackground();
 		
-		frame.getContentPane().add(_background);
+		frame.getContentPane().add(_background);		
 	}
 	
 	private void _initializeEventHandlers() {
 
-		// When the window is resized the map is resized with it!
+		_initResizeHandlers();
+
+		_initNewBtnHandlers();
+
+		_initLoadBtnHandlers();
+
+		_initDesignHandlers();
+		
+		_initExitHandlers();
+	}
+	
+	private void _initResizeHandlers() {
+		
 		frame.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
 
 			@Override
@@ -104,8 +137,10 @@ public class LinkStart {
 				_loadBackground();
 			}
 		});
-
-		// NEW GAME BUTTON
+	}
+	
+	private void _initNewBtnHandlers() {
+		
 		_btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -113,16 +148,20 @@ public class LinkStart {
 				new Application();
 			}
 		});
-
-		// LOAD GAME BUTTON
+	}
+	
+	private void _initLoadBtnHandlers() {
+		
 		_btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
 			}
 		});
-
-		// MAP DESIGN BUTTON
+	}
+	
+	private void _initDesignHandlers() {
+		
 		_btnMapDesign.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -130,8 +169,10 @@ public class LinkStart {
 				new MapCreation();
 			}
 		});
-
-		// EXIT BUTTON
+	}
+	
+	private void _initExitHandlers() {
+		
 		_btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

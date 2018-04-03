@@ -94,4 +94,12 @@ public abstract class Entity extends DKObject implements Serializable {
 	 * @param y Y coordinate of the new possible position.
 	 * @return Returns true if it's possible to move to that position, or false otherwise. */
 	protected abstract boolean checkCollision(int x, int y);
+	
+	protected boolean checkWalls(int x, int y) {
+		
+		if (DKObject.level.getMap()[y][x] == 'X')
+			return false;
+		
+		return true;
+	}
 }

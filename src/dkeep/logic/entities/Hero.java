@@ -60,11 +60,35 @@ public class Hero extends Entity {
 	
 	public boolean checkCollision(int x, int y) {
 		
-		//Check for wall
-		if(DKObject.level.getMap()[y][x] == 'X')
+		if(!checkWalls(x, y) || !_checkDoors(x, y) || !_checkEnemies(x, y))
 			return false;
 		
-		//Check for key	
+		_checkKey(x, y);
+		
+		return true;
+	}
+	
+	private boolean _checkDoors(int x, int y) {
+		
+		for(Door door : DKObject.level.getDoors()) {
+			
+			if(door.equalPosition(x, y)) {
+				
+				if(!door.isOpen()) {
+					
+					if(door.isExit() && _key == hero_t.KEY)
+						door.unlockDoor();
+					
+					return false;
+				}
+			}
+		}
+		
+		return true;		
+	}
+	
+	private void _checkKey(int x, int y) {
+		
 		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y)) {
 
 			switch (DKObject.level.getKey().getIcon()) {
@@ -78,30 +102,16 @@ public class Hero extends Entity {
 			}
 			
 			DKObject.level.setKey(null);
-
-			return true;
 		}
+	}
+	
+	private boolean _checkEnemies(int x, int y) {
 		
 		//Check for enemies
 		for(Entity enemy : DKObject.level.getEnemies()) {
 			
 			if(enemy.equalPosition(x,  y))
 				return false;			
-		}
-		
-		//Check for locked end doors
-		for(Door door : DKObject.level.getDoors()) {
-			
-			if(door.equalPosition(x, y)) {
-				
-				if(!door.isOpen()) {
-					
-					if(door.isExit() && _key == hero_t.KEY)
-						door.unlockDoor();
-					
-					return false;
-				}
-			}
 		}
 		
 		return true;

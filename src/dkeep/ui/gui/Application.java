@@ -53,24 +53,49 @@ public class Application {
 
 	/** Initialize the contents of the frame. */
 	private void initialize() {
-		
 		_initializeComponents();
 		_initializeEventHandlers();
 	}
 	
 	private void _initializeComponents() {
 		
+		_initFrame();
+		
+		_initStartGameButton();
+		
+		_initEnemyLabels();
+		
+		_initOgreSlider();
+		
+		_initGuardComboBox();
+		
+		_initPanel();
+		
+		_initButtons();
+		
+		_initStatusLabels();
+		
+		_initMapSelection();		
+	}
+	
+	private void _initFrame() {
+		
 		_frame = new JFrame();
 		_frame.setVisible(true);
 		_frame.setBounds(100, 100, 600, 480);
 		_frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		_sprLayout = new SpringLayout();
-		_frame.getContentPane().setLayout(_sprLayout);
-		
+		_frame.getContentPane().setLayout(_sprLayout);		
+	}
+	
+	private void _initStartGameButton() {
 		
 		_btnStartGame = new JButton("Start Game");
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnStartGame, -63, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnStartGame);
+	}
+	
+	private void _initEnemyLabels() {
 		
 		_lblNrOgres = new JLabel("Number of Ogres");
 		_frame.getContentPane().add(_lblNrOgres);
@@ -78,6 +103,9 @@ public class Application {
 		_lblGuardPersonality = new JLabel("Guard personality");
 		_sprLayout.putConstraint(SpringLayout.NORTH, _lblNrOgres, 0, SpringLayout.NORTH, _lblGuardPersonality);
 		_frame.getContentPane().add(_lblGuardPersonality);
+	}
+
+	private void _initOgreSlider() {
 		
 		_sldNrOgres = new JSlider();
 		_sprLayout.putConstraint(SpringLayout.WEST, _sldNrOgres, -150, SpringLayout.EAST, _frame.getContentPane());
@@ -94,6 +122,9 @@ public class Application {
 		_sldNrOgres.setMinimum(1);
 		_sldNrOgres.setMaximum(5);
 		_frame.getContentPane().add(_sldNrOgres);
+	}
+	
+	private void _initGuardComboBox() {
 		
 		_cbGuardPersonality = new JComboBox();
 		_sprLayout.putConstraint(SpringLayout.WEST, _lblGuardPersonality, -110, SpringLayout.WEST, _cbGuardPersonality);
@@ -104,6 +135,9 @@ public class Application {
 		_cbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		_cbGuardPersonality.setSelectedIndex(0);
 		_frame.getContentPane().add(_cbGuardPersonality);
+	}
+	
+	private void _initPanel() {
 		
 		_panel = new GraphicsMap();
 		_sprLayout.putConstraint(SpringLayout.NORTH, _panel, 10, SpringLayout.SOUTH, _cbGuardPersonality);
@@ -114,8 +148,10 @@ public class Application {
 		SpringLayout sl_panel = new SpringLayout();
 		_panel.setLayout(sl_panel);
 		
-		//New game:
 		LinkStart.game = new Game(new ApplicationIO(_panel));
+	}
+	
+	private void _initButtons() {
 		
 		_btnExitGame = new JButton("Return to Menu");
 		_sprLayout.putConstraint(SpringLayout.WEST, _btnExitGame, -15, SpringLayout.WEST, _btnStartGame);
@@ -148,6 +184,9 @@ public class Application {
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnRight, -39, SpringLayout.EAST, _frame.getContentPane());
 		_btnRight.setEnabled(false);
 		_frame.getContentPane().add(_btnRight);
+	}
+	
+	private void _initStatusLabels() {
 		
 		_lblStatus = new JLabel("You can start a new game!");
 		_sprLayout.putConstraint(SpringLayout.NORTH, _lblStatus, 15, SpringLayout.SOUTH, _btnExitGame);
@@ -159,6 +198,9 @@ public class Application {
 		_sprLayout.putConstraint(SpringLayout.WEST, _lblLegend, -3, SpringLayout.WEST, _btnStartGame);
 		_lblLegend.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		_frame.getContentPane().add(_lblLegend);
+	}
+	
+	private void _initMapSelection() {
 		
 		_jlMapSelection = new JList(LinkStart.game.existentMaps().toArray());
 		JScrollPane mapScroll = new JScrollPane(_jlMapSelection);
@@ -170,11 +212,33 @@ public class Application {
 		_sprLayout.putConstraint(SpringLayout.EAST, mapScroll, -55, SpringLayout.EAST, _frame.getContentPane());
 		_jlMapSelection.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		_frame.getContentPane().add(mapScroll);
+	}
+	
+	private void _initializeEventHandlers() {
 		
+		_initMapSelectionHandlers();
+		
+		_initStartBtnHandlers();
+		
+		_initMenuBtnHandlers();
+		
+		_initUpBtnHandlers();
+			
+		_initDownBtnHandlers();
+		
+		_initLeftBtnHandlers();
+		
+		_initRigthBtnHandlers();
+
+		_initResizeHandlers();
+
+		_initPanelHandlers();
+		
+		_initCloseBtnHandlers();	
 	}
 
-	private void _initializeEventHandlers() {
-	
+	private void _initMapSelectionHandlers() {
+		
 		_jlMapSelection.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -187,8 +251,10 @@ public class Application {
 				}
 			}
 		});
-
-		//START BUTTON
+	}
+	
+	private void _initStartBtnHandlers() {
+		
 		_btnStartGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -222,8 +288,10 @@ public class Application {
 				LinkStart.sound.loadPlayMusic();
 			}
 		});
+	}
+
+	private void _initMenuBtnHandlers() {
 		
-		//MENU BUTTOM
 		_btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -238,8 +306,10 @@ public class Application {
 				LinkStart.sound.loadMenuMusic();
 			}
 		});
+	}
+	
+	private void _initUpBtnHandlers() {
 		
-		//UP BUTTON
 		_btnUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -259,8 +329,10 @@ public class Application {
 				_panel.requestFocusInWindow();
 			}
 		});
-			
-		//DOWN BUTTON
+	}
+	
+	private void _initDownBtnHandlers() {
+		
 		_btnDown.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -280,8 +352,10 @@ public class Application {
 				_panel.requestFocusInWindow();
 			}
 		});
+	}
+	
+	private void _initLeftBtnHandlers() {
 		
-		//LEFT BUTTON
 		_btnLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -301,8 +375,10 @@ public class Application {
 				_panel.requestFocusInWindow();
 			}
 		});
+	}
+	
+	private void _initRigthBtnHandlers() {
 		
-		//RIGHT BUTTON
 		_btnRight.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -322,14 +398,14 @@ public class Application {
 				_panel.requestFocusInWindow();
 			}
 		});
-
-		//When the window is resized the map is resized with it!
+	}
+	
+	private void _initResizeHandlers() {
+		
 		_frame.getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
 
 			@Override
-			public void ancestorMoved(HierarchyEvent e) {
-				
-			}
+			public void ancestorMoved(HierarchyEvent e) {}
 
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
@@ -337,8 +413,10 @@ public class Application {
 					_panel.loadAssets();
 			}
 		});
-
-		//Listener for key input
+	}	
+	
+	private void _initPanelHandlers() {
+		
 		_panel.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
@@ -372,8 +450,10 @@ public class Application {
 				}
 			}
 		});
-
-		// 'X' Close Button Handler
+	}
+	
+	private void _initCloseBtnHandlers() {
+		
 		_frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent windowEvent) {
@@ -381,6 +461,6 @@ public class Application {
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
 					System.exit(0);
 			}
-		});		
+		});
 	}
 }

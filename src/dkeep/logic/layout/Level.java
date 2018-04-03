@@ -174,43 +174,25 @@ public class Level implements Serializable {
 		}
 	}
 	
+	
 	private void _loadEntities() {
 		
 		for(int y = 0; y < _map.length; y++) {
 			
 			for(int x = 0; x < _map[y].length; x++) {
 				
-				switch(_map[y][x]) {
-				case 'H':
-					_hero = new Hero(x, y, 'H');
-					break;
-				case 'A':
-					_hero = new Hero(x, y, 'A');
-					break;
-				case 'E':
-					_doors.add(new Door(x, y, 'E'));
-					break;
-				case 'e':
-					_doors.add(new Door(x, y, 'e'));
-					break;
-				case 'I':
-					_doors.add(new Door(x, y, 'I'));
-					break;
-				case 'S':
-					_doors.add(new Door(x, y, 'S'));
-					break;
-				case 'G':
+				char icon = _map[y][x];
+				
+				if(icon == 'H' || icon == 'A')
+					_hero = new Hero(x, y, icon);
+				else if(icon == 'E' || icon == 'e' || icon == 'I' || icon == 'S')
+					_doors.add(new Door(x, y, icon));
+				else if(icon == 'G')
 					_loadGuards(x, y);
-					break;
-				case 'O':
+				else if(icon == 'O')
 					_loadOgres(x, y);
-					break;
-				case 'k':
-					_key = new DKObject(x, y, 'k');
-					break;
-				case 'l':
-					_key = new DKObject(x, y, 'l');
-				}
+				else if(icon == 'k' || icon == 'l')
+					_key = new DKObject(x, y, icon);
 			}
 		}
 	}
@@ -242,16 +224,12 @@ public class Level implements Serializable {
 	 * @param d Direction for the hero. */
 	public void updateLevel(char d) {
 		
-		//Clears current level
 		_clearEntities();
 		
-		//Update level's entities
 		_updateEntities(d);
 		
-		//Update level's doors
 		_updateDoors();
 		
-		//Draws current level
 		_drawEntities();
 		
 		_updateLevelStatus();
@@ -308,45 +286,65 @@ public class Level implements Serializable {
 	/** Updates level status. */
 	protected void _updateLevelStatus() {
 		
-		//Hero found the exit
+		if(_foundExit())
+			return;
+				
+		for(Entity enemy : _enemies) {
+		
+			if(_foundByEnemy(enemy))
+				return;					
+			else if(enemy instanceof Guard && _foundByGuard((Guard) enemy))
+				return;
+			else if(enemy instanceof Ogre && _foundByOgre((Ogre) enemy))
+				return;
+		}
+	}
+	
+	private boolean _foundExit() {
+		
 		for(Door door : _doors) {
 			
 			if(door.isExit() && door.isOpen() && door.equalPosition(_hero.getCoords())) {
 				_status = status_t.PROCEED;
-				return;
+				return true;
 			}			
 		}
 		
-		for(Entity enemy : _enemies) {
-			
-			if(enemy.equalPosition(_hero.getCoords())) {
-				_status = status_t.KILLED;
-				return;
-			}
-			
-			if(enemy instanceof Guard) {
-				
-				Guard g = ((Guard) enemy);
-				
-				if(g.isHarmless())
-					continue;
-				else if(g.checkHit(_hero.getX(), _hero.getY())) {
-					_status = status_t.KILLED;
-					return;
-				}
-			}
-			else if(enemy instanceof Ogre) {
-				
-				Ogre o = ((Ogre) enemy);
-				
-				if(o.isStunned())
-					continue;
-				else if(o.checkHit(_hero.getX(), _hero.getY())) {
-					_status = status_t.KILLED;
-					return;
-				}
-			}
-		}	
+		return false;
+	}
+	
+	private boolean _foundByEnemy(Entity enemy) {
+		
+		if(enemy.equalPosition(_hero.getCoords())) {
+			_status = status_t.KILLED;
+			return true;
+		}
+		
+		return false;		
+	}
+	
+	private boolean _foundByGuard(Guard guard) {
+		
+		if(guard.isHarmless())
+			return false;
+		else if(guard.checkHit(_hero.getX(), _hero.getY())) {
+			_status = status_t.KILLED;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean _foundByOgre(Ogre ogre) {
+
+		if(ogre.isStunned())
+			return false;
+		else if(ogre.checkHit(_hero.getX(), _hero.getY())) {
+			_status = status_t.KILLED;
+			return true;
+		}
+		
+		return false;		
 	}
 	
 	//END_LEVEL_RELATED_FUNCTIONS
@@ -354,7 +352,7 @@ public class Level implements Serializable {
 	/** Display the level. */
 	public void display() {
 		
-		//Game.io.clear();
+		Game.io.clear();
 		
 		Game.io.write(_map);
 	}

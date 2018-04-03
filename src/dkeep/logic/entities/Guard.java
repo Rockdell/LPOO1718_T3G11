@@ -108,8 +108,13 @@ public abstract class Guard extends Entity {
 	
 	public boolean checkCollision(int x, int y) {
 		
-		if (DKObject.level.getMap()[y][x] == 'X')
+		if(!checkWalls(x, y) || !_checkDoors(x, y))
 			return false;
+		
+		return true;
+	}
+	
+	private boolean _checkDoors(int x, int y) {
 		
 		for(Door door : DKObject.level.getDoors()) {
 			

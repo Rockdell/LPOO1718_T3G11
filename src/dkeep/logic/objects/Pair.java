@@ -14,7 +14,6 @@ public class Pair <K, V> implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		
 		return first.equals(((Pair<?,?>) obj).first) && second.equals(((Pair<?,?>) obj).second);
 	}
 }

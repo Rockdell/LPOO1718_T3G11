@@ -16,31 +16,36 @@ public class CLI implements Launcher {
 	
 	public void start() {
 		
-		Random rn = new Random();
-		int random_guard = rn.nextInt(3);
-		int random_ogres = rn.nextInt(5) + 1;
-		
-		String guard_type = "";
-		
-		switch(random_guard) {
-		case 0:
-			guard_type = "Rookie";
-			break;
-		case 1:
-			guard_type = "Drunken";
-			break;
-		case 2:
-			guard_type = "Suspicious";
-			break;
-		}
-		
 		Game game = new Game(new ConsoleIO());
-		game.loadLevel(1, guard_type, random_ogres);
+		game.loadLevel(1, _generateRandomGuard(), _generateRandomOgres());
 		
 		boolean over =  false;
 		do {
 			over = game.tick();
 		}
 		while(!over);
+	}
+	
+	private String _generateRandomGuard() {
+		
+		Random rn = new Random();
+		int random_guard = rn.nextInt(3);
+		
+		switch(random_guard) {
+		case 0:
+			return "Rookie";
+		case 1:
+			return "Drunken";
+		case 2:
+			return "Suspicious";
+		}
+		
+		return "";
+	}
+	
+	private int _generateRandomOgres() {
+		
+		Random rn = new Random();
+		return rn.nextInt(5) + 1;
 	}
 }

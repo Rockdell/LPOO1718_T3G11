@@ -72,6 +72,14 @@ public class Game {
 		_level.display();
 	}
 	
+	public void loadLevel(int id) {
+		
+		_level = new Level(id);
+		
+		_level.display();
+		
+	}
+	
 	public List<String> existentMaps() {
 
 		List<String> mapsID = new ArrayList<String>();
@@ -86,7 +94,12 @@ public class Game {
 					continue;
 
 				if (mapSearch.contains("Map"))
-					mapsID.add(mapSearch.substring(3, mapSearch.length()));
+				{
+					int tmp = new Integer(mapSearch.substring(3, mapSearch.length()));
+					
+					if(tmp < 90)
+						mapsID.add(mapSearch.substring(3, mapSearch.length()));
+				}
 			}
 
 			br.close();
@@ -94,10 +107,6 @@ public class Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// Take out Test Levels
-		mapsID.remove(0);
-		mapsID.remove(0);
 
 		return mapsID;
 	}
@@ -127,16 +136,15 @@ public class Game {
 			break;
 		case PROCEED:
 			if (_level.getID() < 2)
-				loadLevel(_level.getID() + 1, null, _level.getnrOgres());
+				loadLevel(_level.getID() + 1, null, Level.nrOgres);
 			else if(_level.getID() < existentMaps().size())
-				loadLevel(_level.getID() + 1, null, 1);
+				loadLevel(_level.getID() + 1);
 			else {
 				_level.setStatus(status_t.WON);
 				return true;
 			}
 			break;
 		case KILLED:
-			return true;
 		case WON:
 			return true;
 		}

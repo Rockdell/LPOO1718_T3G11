@@ -9,31 +9,26 @@ public class Door extends DKObject implements Serializable {
 	}
 	
 	public boolean isOpen() {
-		
-		if(getIcon() == 'e' || getIcon() == 'S')
-			return true;
-		else
-			return false;
+		return getIcon() == 'e' || getIcon() == 'S';
 	}
 	
 	public boolean isExit() {
-		
-		if(getIcon() == 'E' || getIcon() == 'e')
-			return true;
-		else
-			return false;
+		return getIcon() == 'E' || getIcon() == 'e';
 	}
 	
 	public void unlockDoor() {
 		
-		switch(getIcon()) {
-		case 'I':
-			updateIcon('S');
-			break;
-		case 'E':
+		if(getIcon() == 'E')
 			updateIcon('e');
-			break;
-		}
+		
+//		switch(getIcon()) {
+//		case 'I':
+//			updateIcon('S');
+//			break;
+//		case 'E':
+//			updateIcon('e');
+//			break;
+//		}
 		
 		DKObject.level.getMap()[getY()][getX()] = getIcon();
 	}

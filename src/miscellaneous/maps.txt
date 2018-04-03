@@ -3,16 +3,16 @@ Map98
 XXXXX
 XH GX
 E   X
-Ek  X
+El  X
 XXXXX
 
 Map99
 6-8
 XXXXXXXX
-XA  O  X
+XA  OX X
+IkXXXX X
 X      X
-X      X
-E   k  X
+E      X
 XXXXXXXX
 
 Map1

@@ -145,7 +145,7 @@ public class LinkStart {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.setVisible(false);
-				new Application();
+				new Application().setLoad(false);
 			}
 		});
 	}
@@ -155,7 +155,8 @@ public class LinkStart {
 		_btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				frame.setVisible(false);
+				new Application().setLoad(true);
 			}
 		});
 	}

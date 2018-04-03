@@ -163,28 +163,28 @@ public class Application {
 	private void _initButtons() {
 		
 		_btnExitGame = new JButton("Return to Menu");
+		_sprLayout.putConstraint(SpringLayout.NORTH, _btnExitGame, 359, SpringLayout.NORTH, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.WEST, _btnExitGame, -15, SpringLayout.WEST, _btnStartGame);
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, -48, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnExitGame);
 		
 		_btnUp = new JButton("Up");
-		_sprLayout.putConstraint(SpringLayout.NORTH, _btnUp, 125, SpringLayout.NORTH, _lblNrOgres);
-		_sprLayout.putConstraint(SpringLayout.WEST, _btnUp, -141, SpringLayout.EAST, _frame.getContentPane());
-		_sprLayout.putConstraint(SpringLayout.EAST, _btnUp, -80, SpringLayout.EAST, _frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnUp, -8, SpringLayout.EAST, _btnStartGame);
 		_btnUp.setEnabled(false);
 		_frame.getContentPane().add(_btnUp);
 		
 		_btnLeft = new JButton("Left");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _btnUp, -6, SpringLayout.NORTH, _btnLeft);
 		_sprLayout.putConstraint(SpringLayout.NORTH, _btnLeft, 140, SpringLayout.SOUTH, _lblNrOgres);
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnLeft, -121, SpringLayout.EAST, _frame.getContentPane());
 		_btnLeft.setEnabled(false);
 		_frame.getContentPane().add(_btnLeft);
 		
 		_btnDown = new JButton("Down");
-		_sprLayout.putConstraint(SpringLayout.NORTH, _btnExitGame, 130, SpringLayout.SOUTH, _btnDown);
-		_sprLayout.putConstraint(SpringLayout.NORTH, _btnDown, 172, SpringLayout.SOUTH, _lblNrOgres);
-		_sprLayout.putConstraint(SpringLayout.WEST, _btnDown, -141, SpringLayout.EAST, _frame.getContentPane());
-		_sprLayout.putConstraint(SpringLayout.EAST, _btnDown, -80, SpringLayout.EAST, _frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.WEST, _btnUp, 0, SpringLayout.WEST, _btnDown);
+		_sprLayout.putConstraint(SpringLayout.NORTH, _btnDown, 6, SpringLayout.SOUTH, _btnLeft);
+		_sprLayout.putConstraint(SpringLayout.WEST, _btnDown, 89, SpringLayout.EAST, _panel);
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnDown, -71, SpringLayout.EAST, _frame.getContentPane());
 		_btnDown.setEnabled(false);
 		_frame.getContentPane().add(_btnDown);
 		
@@ -213,9 +213,9 @@ public class Application {
 		
 		_jlMapSelection = new JList(LinkStart.game.existentMaps().toArray());
 		JScrollPane mapScroll = new JScrollPane(_jlMapSelection);
+		_sprLayout.putConstraint(SpringLayout.NORTH, mapScroll, 269, SpringLayout.NORTH, _frame.getContentPane());
 		_jlMapSelection.setSelectedIndex(0);
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblLegend, -6, SpringLayout.NORTH, mapScroll);
-		_sprLayout.putConstraint(SpringLayout.NORTH, mapScroll, -90, SpringLayout.NORTH, _btnExitGame);
 		_sprLayout.putConstraint(SpringLayout.WEST, mapScroll, -165, SpringLayout.EAST, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.SOUTH, mapScroll, -20, SpringLayout.NORTH, _btnExitGame);
 		_sprLayout.putConstraint(SpringLayout.EAST, mapScroll, -55, SpringLayout.EAST, _frame.getContentPane());

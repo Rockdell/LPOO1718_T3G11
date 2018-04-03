@@ -45,10 +45,19 @@ public class Application {
 	private JSlider 		_sldNrOgres;
 	private JComboBox 		_cbGuardPersonality;
 	private JList 			_jlMapSelection;
-
+	
+	private boolean			_load = false;
+	
 	/** Create the application. */
 	public Application() {
 		initialize();
+	}
+	
+	public void setLoad(boolean load) {
+		_load = load;
+		_cbGuardPersonality.setEnabled(false);
+		_sldNrOgres.setEnabled(false);
+		_jlMapSelection.setEnabled(false);
 	}
 
 	/** Initialize the contents of the frame. */
@@ -75,7 +84,7 @@ public class Application {
 		
 		_initStatusLabels();
 		
-		_initMapSelection();		
+		_initMapSelection();	
 	}
 	
 	private void _initFrame() {
@@ -242,7 +251,7 @@ public class Application {
 		_jlMapSelection.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (_jlMapSelection.getSelectedIndex() != 0 && _jlMapSelection.getSelectedIndex() != 1) {
+				if (_jlMapSelection.getSelectedIndex() > 1 ||_load) {
 					_cbGuardPersonality.setEnabled(false);
 					_sldNrOgres.setEnabled(false);
 				} else {
@@ -276,9 +285,15 @@ public class Application {
 				
 				//Update status
 				_lblStatus.setText("Move Hero - Arrow Keys");
-				
+
 				try {
-					LinkStart.game.loadLevel(_jlMapSelection.getSelectedIndex() + 1, ((String) _cbGuardPersonality.getSelectedItem()),  _sldNrOgres.getValue());
+					if (_load)
+					{
+						LinkStart.game.load();
+						LinkStart.game.getCurrentLevel().display();
+					}
+					else
+						LinkStart.game.loadLevel(_jlMapSelection.getSelectedIndex() + 1, ((String) _cbGuardPersonality.getSelectedItem()), _sldNrOgres.getValue());
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
@@ -300,7 +315,7 @@ public class Application {
 				_lblStatus.setText("Exiting program!");
 			
 				_frame.dispose();
-				
+				LinkStart.game.save();
 				LinkStart.frame.setVisible(true);
 				
 				LinkStart.sound.loadMenuMusic();

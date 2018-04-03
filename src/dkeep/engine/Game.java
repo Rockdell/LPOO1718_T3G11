@@ -13,6 +13,7 @@ import java.util.List;
 import dkeep.io.IO;
 import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level.status_t;
+import dkeep.logic.objects.DKObject;
 
 public class Game {
 	
@@ -61,6 +62,8 @@ public class Game {
 		catch(IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		DKObject.level = _level;
 	}
 
 	/** Loads a level into the game.
@@ -68,7 +71,6 @@ public class Game {
 	public void loadLevel(int id, String gP, int nO) {
 
 		_level = new Level(id, gP, nO);
-
 		_level.display();
 	}
 	

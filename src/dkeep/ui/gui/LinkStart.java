@@ -17,51 +17,36 @@ import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 import javax.swing.JButton;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import dkeep.engine.Game;
 
 public class LinkStart {
 
-	public static JFrame frame;
-	public static Game game;
-	public static Clip music;
+	public static JFrame	 	frame;
+	public static Game		 	game;
+	public static SoundManager 	sound;
 	
-	private SpringLayout 	_sprLayout;
-	private JLabel 			_background;
-	private JButton 		_btnNewGame;
-	private JButton 		_btnLoadGame;
-	private JButton 		_btnMapDesign;
-	private JButton  		_btnExitGame;
+	private SpringLayout 		_sprLayout;
+	private JLabel 				_background;
+	private JButton 			_btnNewGame;
+	private JButton 			_btnLoadGame;
+	private JButton 			_btnMapDesign;
+	private JButton  			_btnExitGame;
 
-	/** Create the application.
-	 * @throws LineUnavailableException 
-	 * @throws IOException 
-	 * @throws UnsupportedAudioFileException */
-	public LinkStart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	/** Create the application. */
+	public LinkStart() {
 		initialize();
 	}
 	
-	/**Initialize the contents of the frame.
-	 * @throws IOException 
-	 * @throws UnsupportedAudioFileException 
-	 * @throws LineUnavailableException */
-	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	/**Initialize the contents of the frame. */
+	private void initialize() {
 		
 		_initializeComponents();
 		_initializeEventHandlers();
+		_initializeSound();
 	}
 	
-	private void _initializeComponents() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		
-//		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/miscellaneous/main_theme.wav"));
-//		music = AudioSystem.getClip();
-//		music.open(audioIn);
-//		music.start();
+	private void _initializeComponents() {
 		
 		frame = new JFrame();
 		frame.setVisible(true);
@@ -101,7 +86,7 @@ public class LinkStart {
 
 		_background = new JLabel();
 		
-		loadBackground();
+		_loadBackground();
 		
 		frame.getContentPane().add(_background);
 	}
@@ -116,7 +101,7 @@ public class LinkStart {
 
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
-				loadBackground();
+				_loadBackground();
 			}
 		});
 
@@ -124,7 +109,6 @@ public class LinkStart {
 		_btnNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//music.stop();
 				frame.setVisible(false);
 				new Application();
 			}
@@ -151,14 +135,18 @@ public class LinkStart {
 		_btnExitGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//music.stop();
-				//music.close();
 				System.exit(0);
 			}
 		});
 	}
 	
-	public void loadBackground() {
+	private void _initializeSound() {
+		
+		sound = new SoundManager();
+		sound.loadMenuMusic();
+	}
+	
+	private void _loadBackground() {
 		String path = System.getProperty("user.dir") + "/src/miscellaneous/background_scaled.png";
 		Image im = null;
 

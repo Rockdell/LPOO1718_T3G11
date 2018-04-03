@@ -218,7 +218,8 @@ public class Application {
 				}
 	
 				_panel.requestFocusInWindow();
-				//LinkStart.game.getCurrentLevel().display();		
+				
+				LinkStart.sound.loadPlayMusic();
 			}
 		});
 		
@@ -234,9 +235,7 @@ public class Application {
 				
 				LinkStart.frame.setVisible(true);
 				
-				//TODO
-				//LinkStart.music.setMicrosecondPosition(0);
-				//LinkStart.music.start();
+				LinkStart.sound.loadMenuMusic();
 			}
 		});
 		

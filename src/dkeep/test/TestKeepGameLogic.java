@@ -19,12 +19,19 @@ public class TestKeepGameLogic {
 	public void heroKilledByOgre() {
 		
 		Game test1 = new Game(new ConsoleIO());
+		
+		//It's not guaranteed that the hero is killed (50% chance of the club hitting him)
+		do {
+			
 		test1.loadLevel(99);
 	
 		assertEquals(status_t.ONGOING, test1.getCurrentLevel().getStatus());
 		
 		test1.getCurrentLevel().updateLevel('a');
 		test1.getCurrentLevel().updateLevel('d');
+	
+		}
+		while(test1.getCurrentLevel().getStatus() != status_t.KILLED);
 		
 		assertEquals(status_t.KILLED, test1.getCurrentLevel().getStatus());
 	}

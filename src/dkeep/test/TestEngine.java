@@ -17,42 +17,16 @@ public class TestEngine {
 	
 //	@Test
 //	public void testTick() throws InterruptedException {
-////		Game test1 = new Game(new ConsoleIO());
-////		test1.loadLevel(98);
-////		
-////		assertEquals(1, test1.getCurrentLevel().getHero().getX());
-////		assertEquals(1, test1.getCurrentLevel().getHero().getY());
-////		
-////		try {
-////			
-////			test1.tick();
-////			
-////			Robot robot = new Robot();
-////			
-////			robot.keyPress(KeyEvent.VK_ALT);
-////			robot.keyPress(KeyEvent.VK_SHIFT);
-////			robot.keyPress(KeyEvent.VK_Q);
-////			
-////			robot.keyRelease(KeyEvent.VK_ALT);
-////			robot.keyRelease(KeyEvent.VK_SHIFT);
-////			robot.keyRelease(KeyEvent.VK_Q);
-////			
-////			robot.keyPress(KeyEvent.VK_C);
-////			robot.keyRelease(KeyEvent.VK_C);
-////			
-////			robot.keyPress(KeyEvent.VK_S);
-////			robot.keyRelease(KeyEvent.VK_S);
-////			
-////			robot.keyPress(KeyEvent.VK_ENTER);
-////			robot.keyRelease(KeyEvent.VK_ENTER);
-////			
-////		} catch(AWTException e) {
-////			e.printStackTrace();
-////		}
-////		
-////		
-////		assertEquals(1, test1.getCurrentLevel().getHero().getX());
-////		assertEquals(2, test1.getCurrentLevel().getHero().getY());		
+//		Game test1 = new Game(new ConsoleIO());
+//		test1.loadLevel(98);
+//		
+//		assertEquals(1, test1.getCurrentLevel().getHero().getX());
+//		assertEquals(1, test1.getCurrentLevel().getHero().getY());
+//		
+//		test1.tick();		
+//		
+//		assertEquals(1, test1.getCurrentLevel().getHero().getX());
+//		assertEquals(2, test1.getCurrentLevel().getHero().getY());		
 //	}
 	
 	@Test
@@ -74,5 +48,12 @@ public class TestEngine {
 		assertEquals(status_t.ONGOING, test3.getCurrentLevel().getStatus());
 	}
 	
+	@Test
+	public void testExistingMaps() {
+		
+		Game test3 = new Game(new ConsoleIO());
+		
+		assertEquals(3, test3.existentMaps().size());
+	}
 	
 }

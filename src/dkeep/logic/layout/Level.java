@@ -295,10 +295,8 @@ public class Level implements Serializable {
 			return;
 				
 		for(Entity enemy : _enemies) {
-		
-			if(_foundByEnemy(enemy))
-				return;					
-			else if(enemy instanceof Guard && _foundByGuard((Guard) enemy))
+			
+			if(enemy instanceof Guard && _foundByGuard((Guard) enemy))
 				return;
 			else if(enemy instanceof Ogre && _foundByOgre((Ogre) enemy))
 				return;
@@ -316,16 +314,6 @@ public class Level implements Serializable {
 		}
 		
 		return false;
-	}
-	
-	private boolean _foundByEnemy(Entity enemy) {
-		
-		if(enemy.equalPosition(_hero.getCoords())) {
-			_status = status_t.KILLED;
-			return true;
-		}
-		
-		return false;		
 	}
 	
 	private boolean _foundByGuard(Guard guard) {

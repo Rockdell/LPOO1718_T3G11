@@ -21,15 +21,6 @@ public class TestLevel {
 	}
 	
 	@Test
-	public void testNonExistingLevel() {
-		
-		Game test2 = new Game(new ConsoleIO());
-		test2.loadLevel(100);
-		
-		assertEquals(null, test2.getCurrentLevel());
-	}
-	
-	@Test
 	public void testEndgameSummary() {
 		
 		Game test3 = new Game(new ConsoleIO());

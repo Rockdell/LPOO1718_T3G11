@@ -2,9 +2,6 @@ package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.junit.Test;
 
 import dkeep.io.ConsoleIO;
@@ -15,7 +12,7 @@ import dkeep.engine.Game;
 public class TestDungeonGameLogic {
 
 	@Test
-	public void moveHeroIntoFreeCell() throws IOException, FileNotFoundException {
+	public void moveHeroIntoFreeCell() {
 		
 		Game test1 = new Game(new ConsoleIO());
 		test1.loadLevel(98, "Rookie", 3);
@@ -30,7 +27,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroMovesAgainstWall() throws IOException, FileNotFoundException {
+	public void heroMovesAgainstWall() {
 		
 		Game test2 = new Game(new ConsoleIO());
 		test2.loadLevel(98, "Rookie", 3);
@@ -45,7 +42,7 @@ public class TestDungeonGameLogic {
 	}
 
 	@Test
-	public void heroCaughtByGuard() throws IOException, FileNotFoundException {
+	public void heroCaughtByGuard() {
 		
 		Game test3 = new Game(new ConsoleIO());
 		test3.loadLevel(98, "Rookie", 3);
@@ -58,7 +55,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroFailsToLeave() throws IOException, FileNotFoundException {
+	public void heroFailsToLeave() {
 		
 		Game test4 = new Game(new ConsoleIO());
 		test4.loadLevel(98, "Rookie", 3);
@@ -76,7 +73,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroPicksUpLeverAndOpensDoors() throws IOException, FileNotFoundException {
+	public void heroPicksUpLeverAndOpensDoors() {
 		
 		Game test5 = new Game(new ConsoleIO());
 		test5.loadLevel(98, "Rookie", 3);
@@ -98,7 +95,7 @@ public class TestDungeonGameLogic {
 	}
 	
 	@Test
-	public void heroOpensDoorAndLeavesRoom() throws IOException, FileNotFoundException {
+	public void heroOpensDoorAndLeavesRoom() {
 		
 		Game test6 = new Game(new ConsoleIO());
 		test6.loadLevel(98, "Rookie", 3);
@@ -112,5 +109,16 @@ public class TestDungeonGameLogic {
 		assertEquals('H', test6.getCurrentLevel().getMap()[3][0]);
 		
 		assertEquals(status_t.PROCEED, test6.getCurrentLevel().getStatus());
+	}
+	
+	@Test
+	public void heroRunsUpToGuard() {
+		
+		Game test7 = new Game(new ConsoleIO());
+		test7.loadLevel(98);
+		
+		test7.getCurrentLevel().updateLevel('d');
+		
+		assertEquals(status_t.KILLED, test7.getCurrentLevel().getStatus());		
 	}
 }

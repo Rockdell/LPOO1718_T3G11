@@ -121,9 +121,6 @@ public class Game {
 		//Read input
 		char input = io.read();
 		
-		if(input == 'n')
-			return false;
-		
 		//Move entities
 		_level.updateLevel(input);
 		

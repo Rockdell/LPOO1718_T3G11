@@ -79,7 +79,7 @@ public abstract class Entity extends DKObject implements Serializable {
 		case 3:
 			return 'd';
 		default:
-			return 'n';
+			return 0;
 		}
 	}
 	

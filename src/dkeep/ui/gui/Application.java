@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSlider;
 import javax.swing.ListSelectionModel;
@@ -22,10 +23,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Font;
 
 import dkeep.engine.Game;
 import dkeep.io.ApplicationIO;
+import dkeep.logic.layout.Level.status_t;
 
 public class Application {
 	
@@ -33,6 +37,7 @@ public class Application {
 	private JFrame 			_frame;
 	private GraphicsMap 	_panel;
 	private JButton 		_btnStartGame;
+	private JButton			_btnSaveGame;
 	private JButton 		_btnExitGame;	
 	private JButton 		_btnUp;
 	private JButton 		_btnDown;
@@ -47,7 +52,7 @@ public class Application {
 	private JList 			_jlMapSelection;
 	
 	private boolean			_load = false;
-	
+
 	/** Create the application. */
 	public Application() {
 		initialize();
@@ -55,9 +60,11 @@ public class Application {
 	
 	public void setLoad(boolean load) {
 		_load = load;
-		_cbGuardPersonality.setEnabled(false);
-		_sldNrOgres.setEnabled(false);
-		_jlMapSelection.setEnabled(false);
+		if (load) {
+			_cbGuardPersonality.setEnabled(false);
+			_sldNrOgres.setEnabled(false);
+			_jlMapSelection.setEnabled(false);
+		}
 	}
 
 	/** Initialize the contents of the frame. */
@@ -91,8 +98,16 @@ public class Application {
 		
 		_frame = new JFrame();
 		_frame.setVisible(true);
-		_frame.setBounds(100, 100, 600, 480);
+		_frame.setBounds(100, 100, 600, 500);
 		_frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		try {
+			_frame.setIconImage(
+					ImageIO.read(new File(System.getProperty("user.dir") + "/src/miscellaneous/LPOO_icon.png")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		_sprLayout = new SpringLayout();
 		_frame.getContentPane().setLayout(_sprLayout);		
 	}
@@ -100,7 +115,6 @@ public class Application {
 	private void _initStartGameButton() {
 		
 		_btnStartGame = new JButton("Start Game");
-		_sprLayout.putConstraint(SpringLayout.EAST, _btnStartGame, -63, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnStartGame);
 	}
 	
@@ -164,9 +178,13 @@ public class Application {
 		
 		_btnExitGame = new JButton("Return to Menu");
 		_sprLayout.putConstraint(SpringLayout.NORTH, _btnExitGame, 359, SpringLayout.NORTH, _frame.getContentPane());
-		_sprLayout.putConstraint(SpringLayout.WEST, _btnExitGame, -15, SpringLayout.WEST, _btnStartGame);
-		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, -48, SpringLayout.EAST, _frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.WEST, _btnExitGame, 90, SpringLayout.WEST, _btnStartGame);
 		_frame.getContentPane().add(_btnExitGame);
+		
+		_btnSaveGame = new JButton("Save Game");
+		_sprLayout.putConstraint(SpringLayout.NORTH, _btnSaveGame, 359, SpringLayout.NORTH, _frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnSaveGame, -110, SpringLayout.EAST, _frame.getContentPane());
+		_frame.getContentPane().add(_btnSaveGame);
 		
 		_btnUp = new JButton("Up");
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnUp, -8, SpringLayout.EAST, _btnStartGame);
@@ -213,6 +231,10 @@ public class Application {
 		
 		_jlMapSelection = new JList(LinkStart.game.existentMaps().toArray());
 		JScrollPane mapScroll = new JScrollPane(_jlMapSelection);
+		_sprLayout.putConstraint(SpringLayout.WEST, _btnStartGame, 0, SpringLayout.WEST, mapScroll);
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnStartGame, 0, SpringLayout.EAST, mapScroll);
+		_sprLayout.putConstraint(SpringLayout.EAST, _btnExitGame, 0, SpringLayout.EAST, mapScroll);
+		_sprLayout.putConstraint(SpringLayout.WEST, _btnSaveGame, 0, SpringLayout.WEST, mapScroll);
 		_sprLayout.putConstraint(SpringLayout.NORTH, mapScroll, 269, SpringLayout.NORTH, _frame.getContentPane());
 		_jlMapSelection.setSelectedIndex(0);
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblLegend, -6, SpringLayout.NORTH, mapScroll);
@@ -228,6 +250,8 @@ public class Application {
 		_initMapSelectionHandlers();
 		
 		_initStartBtnHandlers();
+		
+		_initSaveBtnHandlers();
 		
 		_initMenuBtnHandlers();
 		
@@ -304,6 +328,25 @@ public class Application {
 			}
 		});
 	}
+	
+	private void _initSaveBtnHandlers() {
+		
+		_btnSaveGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(LinkStart.game.getCurrentLevel().getStatus() == status_t.ONGOING || LinkStart.game.getCurrentLevel().getStatus() == status_t.PROCEED)
+				{
+					LinkStart.game.save();
+					_lblStatus.setText("Game Saved!");
+				}
+				else
+					_lblStatus.setText("Cannot save in the current state!");
+				
+				_panel.requestFocusInWindow();
+			}
+		});
+	}
 
 	private void _initMenuBtnHandlers() {
 		
@@ -315,7 +358,7 @@ public class Application {
 				_lblStatus.setText("Exiting program!");
 			
 				_frame.dispose();
-				LinkStart.game.save();
+				
 				LinkStart.frame.setVisible(true);
 				
 				LinkStart.sound.loadMenuMusic();
@@ -438,27 +481,36 @@ public class Application {
 
 				if (!_panel.isEnabled())
 					return;
+				
+				boolean rightKeys = false;
 
 				switch (arg0.getKeyCode()) {
 				case KeyEvent.VK_UP:
 					_lblStatus.setText(LinkStart.game.getCurrentLevel().endgameSummary() + "up!");
 					ApplicationIO.input = 'w';
+					rightKeys = true;
 					break;
 				case KeyEvent.VK_DOWN:
 					_lblStatus.setText(LinkStart.game.getCurrentLevel().endgameSummary() + "down!");
 					ApplicationIO.input = 's';
+					rightKeys = true;
 					break;
 				case KeyEvent.VK_LEFT:
 					_lblStatus.setText(LinkStart.game.getCurrentLevel().endgameSummary() + "left!");
 					ApplicationIO.input = 'a';
+					rightKeys = true;
 					break;
 				case KeyEvent.VK_RIGHT:
 					_lblStatus.setText(LinkStart.game.getCurrentLevel().endgameSummary() + "right!");
 					ApplicationIO.input = 'd';
+					rightKeys = true;
 					break;
 				default:
 					
 				}
+				
+				if(!rightKeys)
+					return;
 				
 				if(LinkStart.game.tick()) {
 					_lblStatus.setText(LinkStart.game.getCurrentLevel().endgameSummary());

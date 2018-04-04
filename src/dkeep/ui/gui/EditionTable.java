@@ -241,62 +241,69 @@ public class EditionTable extends AbstractTableModel {
 		}
 	}
 
-	//TODO ALWAYS ADDS ROW AT THE END FOR NOW
-	public void addRow() {
-		
-		if(getRowCount() >= 15)
+	public void addRow(int row) {
+
+		if (getRowCount() >= 15)
 			return;
 		
+		if(row > getRowCount())
+			row = getRowCount();
+
 		String addedString = "";
-		
+
 		for (int i = 0; i < _custom_map.get(0).length(); i++) {
 			addedString += " ";
 		}
-		
-		_custom_map.add(addedString);
+
+		_custom_map.add(row - 1, addedString);
 		fireTableRowsInserted(_custom_map.size() - 1, _custom_map.size() - 1);
 	}
 
 	public void removeRow(int row) {
-		
-		if(getRowCount() <= 3)
+
+		if (row > getRowCount() || getRowCount() <= 3)
 			return;
-		
-		_custom_map.remove(row);
+
+		_custom_map.remove(row - 1);
 		fireTableRowsDeleted(row, row);
 	}
 
-	//TODO ALWAYS ADDS COLUMN AT THE END FOR NOW
-	public void addColumn() {
-		
-		if(getColumnCount() >= 15)
+	public void addColumn(int col) {
+
+		if (getColumnCount() >= 15)
 			return;
+
+		if(col > getColumnCount())
+			col = getColumnCount();
 		
-		//Updates colIndexes
+		// Updates colIndexes
 		_colIndexes.add(new Integer(_colIndexes.get(_colIndexes.size() - 1) + 1));
-		
-		//Updates custom_map
-		for(int i = 0; i < _custom_map.size(); i++) {
-			_custom_map.set(i, _custom_map.get(i) + " ");
+
+		// Updates custom_map
+		for (int i = 0; i < _custom_map.size(); i++) {
+			String tmp = _custom_map.get(i);
+			tmp = tmp.substring(0, col - 1) + " " + tmp.substring(col - 1, tmp.length());
+			_custom_map.set(i, tmp);
 		}
-		
+
 		fireTableStructureChanged();
 	}
-	
-	//TODO ALWAYS REMOVES THE LAST COLUMN FOR NOW
-	public void removeColumn() {
-		
-		if(getColumnCount() <= 3)
+
+	public void removeColumn(int col) {
+
+		if (col > getColumnCount() || getColumnCount() <= 3)
 			return;
-		
-		//Updates custom_map
-		for(int i = 0; i < _custom_map.size(); i++) {
-			_custom_map.set(i, _custom_map.get(i).substring(0, _custom_map.get(i).length() - 1));
+
+		// Updates custom_map
+		for (int i = 0; i < _custom_map.size(); i++) {
+			String tmp = _custom_map.get(i);
+			tmp = tmp.substring(0, col - 1) + tmp.substring(col, tmp.length());
+			_custom_map.set(i, tmp);
 		}
-		
-		//Updates colIndexes
+
+		// Updates colIndexes
 		_colIndexes.remove(_colIndexes.size() - 1);
-		
+
 		fireTableStructureChanged();
 	}
 }

@@ -6,8 +6,10 @@ import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -151,12 +153,14 @@ public class LinkStart {
 	}
 	
 	private void _initLoadBtnHandlers() {
-		
+
 		_btnLoadGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.setVisible(false);
-				new Application().setLoad(true);
+				if (!_isEmptySaveFile()) {
+					frame.setVisible(false);
+					new Application().setLoad(true);
+				}
 			}
 		});
 	}
@@ -193,12 +197,21 @@ public class LinkStart {
 		Image im = null;
 
 		try {
-			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(),
-					frame.getContentPane().getHeight(), Image.SCALE_FAST);
+			im = ImageIO.read(new File(path)).getScaledInstance(frame.getContentPane().getWidth(), frame.getContentPane().getHeight(), Image.SCALE_FAST);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		_background.setIcon(new ImageIcon(im));
+	}
+
+	private boolean _isEmptySaveFile() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/miscellaneous/savefile.ser"));
+			return (br.readLine() == "" || br.readLine() == null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

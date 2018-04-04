@@ -5,39 +5,52 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.SpringLayout;
+import javax.swing.text.DefaultFormatter;
+
+import org.omg.CORBA._PolicyStub;
+
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JLabel;
 
 public class MapCreation {
 	
-	private SpringLayout 	_sprLayout;
-	private JFrame 			_frame;
-	private ButtonGroup 	_buttonGroup;
-	private String 			_toDraw;
-	private EditionTable 	_model;
-	private JTable 			_table;
-	private JButton 		_btnAddRow;
-	private JButton 		_btnRemoveRow;
-	private JButton 		_btnAddColumn;
-	private JButton 		_btnRemoveColumn;
-	private JButton			_btnDone;
-	private JButton			_btnReturn;
-	private JLabel			_lblWarning;
-	private JRadioButton 	_rdbtnWall;
-	private JRadioButton 	_rdbtnDoor;
-	private JRadioButton 	_rdbtnKey;
-	private JRadioButton 	_rdbtnHeroWeapon;
-	private JRadioButton 	_rdbtnOgre;
-	private JRadioButton 	_rdbtnEmpty;
-	private JRadioButton 	_rdbtnExit;
+	private SpringLayout 		_sprLayout;
+	private JFrame 				_frame;
+	private ButtonGroup 		_buttonGroup;
+	private String 				_toDraw;
+	private EditionTable 		_model;
+	private JTable 				_table;
+	private SpinnerNumberModel 	_m_numberSpinnerModel;
+	private JSpinner			_m_numberSpinner;
+	private JButton 			_btnAddRow;
+	private JButton 			_btnRemoveRow;
+	private JButton 			_btnAddColumn;
+	private JButton 			_btnRemoveColumn;
+	private JButton				_btnDone;
+	private JButton				_btnReturn;
+	private JLabel				_lblWarning;
+	private JRadioButton 		_rdbtnWall;
+	private JRadioButton 		_rdbtnDoor;
+	private JRadioButton 		_rdbtnKey;
+	private JRadioButton 		_rdbtnHeroWeapon;
+	private JRadioButton 		_rdbtnOgre;
+	private JRadioButton 		_rdbtnEmpty;
+	private JRadioButton 		_rdbtnExit;
 
 	/** Create the application. */
 	public MapCreation() {
@@ -59,6 +72,8 @@ public class MapCreation {
 		_initModel();
 		
 		_initTable();
+		
+		_initSpinner();
 
 		_initButtons();
 		
@@ -77,6 +92,13 @@ public class MapCreation {
 		_frame.setVisible(true);
 		_frame.setBounds(100, 100, 800, 550);
 		_frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		try {
+			_frame.setIconImage(
+					ImageIO.read(new File(System.getProperty("user.dir") + "/src/miscellaneous/LPOO_icon.png")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}		
 	}
 	
 	private void _initModel() {
@@ -104,10 +126,20 @@ public class MapCreation {
 
 		_frame.getContentPane().add(_table);
 	}
-	
+
+	private void _initSpinner() {
+
+		_m_numberSpinnerModel = new SpinnerNumberModel(1, 1, 6, 1);
+		_m_numberSpinner = new JSpinner(_m_numberSpinnerModel);
+		_m_numberSpinner.setEditor(new JSpinner.DefaultEditor(_m_numberSpinner));
+		
+		_frame.getContentPane().add(_m_numberSpinner);
+	}
+
 	private void _initButtons() {
 		
 		_btnAddRow = new JButton("Add Row");
+		_sprLayout.putConstraint(SpringLayout.EAST, _m_numberSpinner, 0, SpringLayout.EAST, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnAddRow, -46, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnAddRow);
 
@@ -209,6 +241,7 @@ public class MapCreation {
 	private void _initLabel() {
 		
 		_lblWarning = new JLabel("");
+		_sprLayout.putConstraint(SpringLayout.NORTH, _m_numberSpinner, 0, SpringLayout.NORTH, _lblWarning);
 		_sprLayout.putConstraint(SpringLayout.WEST, _lblWarning, 0, SpringLayout.WEST, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblWarning, -36, SpringLayout.NORTH, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.EAST, _lblWarning, 0, SpringLayout.EAST, _btnAddRow);
@@ -244,12 +277,18 @@ public class MapCreation {
 					return;
 
 				// Adds an empty row to the end of the model
-				_model.addRow();
+				_model.addRow((int)_m_numberSpinner.getValue());
 				
 				// Set the view to show the new row
 				int newRow = _model.getRowCount() - 1;
 				//table.editCellAt(newRow, 0);
 				_table.setRowSelectionInterval(newRow, newRow);
+				_m_numberSpinnerModel.setMaximum(Math.max(_table.getRowCount(),  _table.getColumnCount()));
+				if((int)_m_numberSpinner.getValue() > (int)_m_numberSpinnerModel.getMaximum())
+				{
+					_m_numberSpinner.setValue(_m_numberSpinnerModel.getMaximum());	
+					_m_numberSpinner.revalidate();
+				}
 			}
 		});
 	}
@@ -264,11 +303,17 @@ public class MapCreation {
 					return;
 
 				// TODO ALWAYS REMOVES THE FIRST ROW FOR NOW
-				_model.removeRow(0);
+				_model.removeRow((int)_m_numberSpinner.getValue());
 
 				// Set the view to show the new row
 				int newRow = _model.getRowCount() - 1;
 				_table.setRowSelectionInterval(newRow, newRow);
+				_m_numberSpinnerModel.setMaximum(Math.max(_table.getRowCount(),  _table.getColumnCount()));
+				if((int)_m_numberSpinner.getValue() > (int)_m_numberSpinnerModel.getMaximum())
+				{
+					_m_numberSpinner.setValue(_m_numberSpinnerModel.getMaximum());	
+					_m_numberSpinner.revalidate();
+				}
 			}
 		});
 	}
@@ -282,11 +327,17 @@ public class MapCreation {
 				if (!_btnAddColumn.isEnabled())
 					return;
 
-				_model.addColumn();
+				_model.addColumn((int)_m_numberSpinner.getValue());
 
 				// Set the view to show the new row
 				int newColumn = _model.getColumnCount() - 1;
 				_table.setColumnSelectionInterval(newColumn, newColumn);
+				_m_numberSpinnerModel.setMaximum(Math.max(_table.getRowCount(),  _table.getColumnCount()));
+				if((int)_m_numberSpinner.getValue() > (int)_m_numberSpinnerModel.getMaximum())
+				{
+					_m_numberSpinner.setValue(_m_numberSpinnerModel.getMaximum());	
+					_m_numberSpinner.revalidate();
+				}
 			}
 		});
 	}
@@ -300,11 +351,17 @@ public class MapCreation {
 				if (!_btnRemoveColumn.isEnabled())
 					return;
 
-				_model.removeColumn();
+				_model.removeColumn((int)_m_numberSpinner.getValue());
 
 				// Set the view to show the new row
 				int newColumn = _model.getColumnCount() - 1;
 				_table.setColumnSelectionInterval(newColumn, newColumn);
+				_m_numberSpinnerModel.setMaximum(Math.max(_table.getRowCount(),  _table.getColumnCount()));
+				if((int)_m_numberSpinner.getValue() > (int)_m_numberSpinnerModel.getMaximum())
+				{
+					_m_numberSpinner.setValue(_m_numberSpinnerModel.getMaximum());	
+					_m_numberSpinner.revalidate();
+				}
 			}
 		});
 	}

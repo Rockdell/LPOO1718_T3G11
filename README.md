@@ -5,7 +5,8 @@
 
 ## Description:
 
-... you are finally awaken Link. It has been too long...
+... you are finally awaken Link.
+                It has been too long...
 
 ### Menu Screen
 ![Menu](/res/MenuScreen.PNG)

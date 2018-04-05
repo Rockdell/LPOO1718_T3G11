@@ -16,13 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.SpringLayout;
-import javax.swing.text.DefaultFormatter;
-
-import org.omg.CORBA._PolicyStub;
-
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JLabel;
@@ -44,6 +38,7 @@ public class MapCreation {
 	private JButton				_btnDone;
 	private JButton				_btnReturn;
 	private JLabel				_lblWarning;
+	private JLabel			 	_lblLegend;
 	private JRadioButton 		_rdbtnWall;
 	private JRadioButton 		_rdbtnDoor;
 	private JRadioButton 		_rdbtnKey;
@@ -115,9 +110,7 @@ public class MapCreation {
 		_sprLayout.putConstraint(SpringLayout.WEST, _table, 15, SpringLayout.WEST, _frame.getContentPane());
 		_sprLayout.putConstraint(SpringLayout.EAST, _table, -303, SpringLayout.EAST, _frame.getContentPane());
 		
-		// TODO ALTER LATER
 		_table.setRowHeight(30);
-		// table.setFillsViewportHeight(true);
 		_table.setGridColor(Color.BLACK);
 		_table.setBackground(new Color(74, 156, 74)); // Same color as game's background
 		_table.setOpaque(true);
@@ -246,6 +239,13 @@ public class MapCreation {
 		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblWarning, -36, SpringLayout.NORTH, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.EAST, _lblWarning, 0, SpringLayout.EAST, _btnAddRow);
 		_frame.getContentPane().add(_lblWarning);
+		
+		_lblLegend = new JLabel("Row / Column:");
+		_sprLayout.putConstraint(SpringLayout.NORTH, _lblLegend, 0, SpringLayout.NORTH, _m_numberSpinner);
+		_sprLayout.putConstraint(SpringLayout.WEST, _lblLegend, 0, SpringLayout.WEST, _btnAddRow);
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblLegend, 0, SpringLayout.SOUTH, _m_numberSpinner);
+		_sprLayout.putConstraint(SpringLayout.EAST, _lblLegend, -6, SpringLayout.WEST, _m_numberSpinner);
+		_frame.getContentPane().add(_lblLegend);
 	}
 	
 	private void _initializeEventHandlers() {
@@ -276,12 +276,10 @@ public class MapCreation {
 				if (!_btnAddRow.isEnabled())
 					return;
 
-				// Adds an empty row to the end of the model
 				_model.addRow((int)_m_numberSpinner.getValue());
 				
 				// Set the view to show the new row
 				int newRow = _model.getRowCount() - 1;
-				//table.editCellAt(newRow, 0);
 				_table.setRowSelectionInterval(newRow, newRow);
 				_m_numberSpinnerModel.setMaximum(Math.max(_table.getRowCount(),  _table.getColumnCount()));
 				if((int)_m_numberSpinner.getValue() > (int)_m_numberSpinnerModel.getMaximum())
@@ -302,7 +300,6 @@ public class MapCreation {
 				if (!_btnRemoveRow.isEnabled())
 					return;
 
-				// TODO ALWAYS REMOVES THE FIRST ROW FOR NOW
 				_model.removeRow((int)_m_numberSpinner.getValue());
 
 				// Set the view to show the new row

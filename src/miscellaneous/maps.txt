@@ -51,39 +51,3 @@ X       X
 X       X
 X       X
 XXXXXXXXX
-
-Map3
-6-8
-XXXXXXXX
-EA    OX
-X      X
-X      X
-X     kX
-XXEEEXXX
-
-Map4
-6-15
-XXXXXXXXXXXXXXX
-XA           OX
-X             X
-X             X
-X        k    E
-XXXXXXXXXXXXXXX
-
-Map5
-15-3
-XXX
-XAX
-XkX
-X X
-X X
-X X
-X X
-X E
-X X
-X X
-X X
-X X
-X X
-XOX
-XXX

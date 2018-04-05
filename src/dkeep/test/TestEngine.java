@@ -1,15 +1,8 @@
 package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import org.junit.Test;
-
 import dkeep.io.ConsoleIO;
-import dkeep.logic.entities.Hero.hero_t;
 import dkeep.logic.layout.Level.status_t;
 import dkeep.engine.Game;
 
@@ -50,10 +43,10 @@ public class TestEngine {
 	
 	@Test
 	public void testExistingMaps() {
-		
+
 		Game test3 = new Game(new ConsoleIO());
-		
-		assertEquals(3, test3.existentMaps().size());
+
+		assert (test3.existentMaps().size() >= 2);
 	}
-	
+
 }

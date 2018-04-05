@@ -1,12 +1,8 @@
 package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
 import dkeep.io.ConsoleIO;
-import dkeep.logic.entities.Hero.hero_t;
-import dkeep.logic.layout.Level.status_t;
 import dkeep.engine.Game;
 
 public class TestLevel {

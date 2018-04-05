@@ -1,12 +1,7 @@
 package dkeep.test;
 
 import static org.junit.Assert.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.junit.Test;
-
 import dkeep.engine.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.logic.entities.Hero.hero_t;
@@ -49,6 +44,22 @@ public class TestKeepGameLogic {
 		assertEquals('K', test2.getCurrentLevel().getHero().getIcon());
 		assertEquals(hero_t.KEY, test2.getCurrentLevel().getHero().getKey());
 		assertEquals('E', test2.getCurrentLevel().getMap()[4][0]);
+	}
+	
+	@Test
+	public void heroFailsToOpenDoor() {
+		
+		Game test2 = new Game(new ConsoleIO());
+		test2.loadLevel(97);
+		
+		assertEquals('A', test2.getCurrentLevel().getHero().getIcon());
+		assertEquals('E', test2.getCurrentLevel().getMap()[1][0]);
+		
+		test2.getCurrentLevel().updateLevel('a');
+		
+		assertEquals('A', test2.getCurrentLevel().getHero().getIcon());
+		assertEquals(hero_t.NULL, test2.getCurrentLevel().getHero().getKey());
+		assertEquals('E', test2.getCurrentLevel().getMap()[1][0]);	
 	}
 	
 	@Test 

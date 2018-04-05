@@ -60,7 +60,7 @@ public class TestKeepGameLogic {
 		test2.getCurrentLevel().updateLevel('a');
 		
 		assertEquals('A', test2.getCurrentLevel().getHero().getIcon());
-		assertEquals(hero_t.NULL, test2.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.NULL, test2.getCurrentLevel().getHero().getKey());
 		assertEquals('E', test2.getCurrentLevel().getMap()[1][0]);	
 	}
 	

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import dkeep.engine.Game;
+import dkeep.logic.engine.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.logic.entities.Entity;
 import dkeep.logic.entities.Ogre;

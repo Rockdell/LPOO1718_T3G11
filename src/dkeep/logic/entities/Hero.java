@@ -31,7 +31,7 @@ public class Hero extends Entity {
 	}
 	
 	/** Updates key's value.
-	 * @param k New key value. */
+	 * @param key New key value. */
 	public void updateKey(key_t key) {
 		_key = key;
 	}

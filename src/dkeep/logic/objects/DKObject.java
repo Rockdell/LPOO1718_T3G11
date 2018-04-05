@@ -55,7 +55,7 @@ public class DKObject implements Serializable {
 	}
 	
 	/** Update icon of the object.
-	 * @param i New icon. */
+	 * @param icon New icon. */
 	public void updateIcon(char icon) {
 		_icon = icon;
 	}

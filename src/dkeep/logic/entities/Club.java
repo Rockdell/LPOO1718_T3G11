@@ -13,7 +13,7 @@ public class Club extends Entity {
 	private char 	_lastDirection;
 	
 	/** Creates an instance of Club.
-	 * @param w Wielder of the weapon. */
+	 * @param wielder Wielder of the weapon. */
 	public Club(Entity wielder) {
 		super(wielder.getX(), wielder.getY(), '*');
 		_wielder = wielder;

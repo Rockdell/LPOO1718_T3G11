@@ -2,7 +2,7 @@ package dkeep.logic.objects;
 
 import java.io.Serializable;
 
-/** Implementation of Pair<K,V> */
+/** Implementation of Pair. */
 public class Pair <K, V> implements Serializable {
 
 	/** Key. */

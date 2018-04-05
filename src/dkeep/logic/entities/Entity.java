@@ -11,7 +11,7 @@ public abstract class Entity extends DKObject implements Serializable {
 	/** Creates an instance of Entity.
 	 * @param x X-position of the entity.
 	 * @param y Y-position of the entity.
-	 * @param i Icon of the entity. */
+	 * @param icon Icon of the entity. */
 	public Entity(int x, int y, char icon) {
 		super(x, y, icon);
 	}

@@ -17,13 +17,9 @@
 
 ![EclEmma](/res/lpoo_eclemma.png)
 
-### BetterCodeHub:
-
-[![BCH compliance](https://bettercodehub.com/edge/badge/miguelalexbt/LPOO1718_T3G11?branch=master&token=8bdb8e3cbbc532fed74f5e92372979e4d52eb6f7)](https://bettercodehub.com/)
-
 ## Documentation:
 
-For documentation, please visit: [Documentation](https://miguelalexbt.github.io/LPOO1718_T3G11/).
+For documentation, please visit the following [website](https://miguelalexbt.github.io/LPOO1718_T3G11/).
 
 ## Work done by:
 

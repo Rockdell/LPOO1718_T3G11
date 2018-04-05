@@ -2,6 +2,7 @@ package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
 import dkeep.io.ConsoleIO;
 import dkeep.logic.engine.Game;
 

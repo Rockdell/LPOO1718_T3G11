@@ -1,8 +1,10 @@
 package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+
 import dkeep.io.ConsoleIO;
 import dkeep.logic.engine.Game;
 import dkeep.logic.layout.Level.status_t;
@@ -22,7 +24,7 @@ public class TestEngine {
 //		assertEquals(1, test1.getCurrentLevel().getHero().getX());
 //		assertEquals(2, test1.getCurrentLevel().getHero().getY());		
 //	}
-	
+
 	@Test
 	public void testSaveLoad() {
 		Game test2 = new Game(new ConsoleIO());
@@ -47,7 +49,6 @@ public class TestEngine {
 
 		Game test3 = new Game(new ConsoleIO());
 
-		assert (test3.existentMaps().size() >= 2);
+		assertFalse(test3.existentMaps().size() < 2);
 	}
-
 }

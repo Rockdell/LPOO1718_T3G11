@@ -2,6 +2,7 @@ package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
 import dkeep.io.ConsoleIO;
 import dkeep.logic.engine.Game;
 import dkeep.logic.entities.Ogre;
@@ -30,7 +31,7 @@ public class TestEntities {
 		Game test4 = new Game(new ConsoleIO());
 		test4.loadLevel(1, "Rookie", 1);
 		
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 50; i++) {
 			test2.getCurrentLevel().updateLevel('a');
 			test3.getCurrentLevel().updateLevel('a');
 			test4.getCurrentLevel().updateLevel('a');

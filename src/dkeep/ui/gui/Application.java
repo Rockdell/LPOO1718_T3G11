@@ -182,6 +182,7 @@ public class Application {
 		
 		_btnSaveGame = new JButton("Save Game");
 		_sprLayout.putConstraint(SpringLayout.NORTH, _btnSaveGame, 340, SpringLayout.NORTH, _frame.getContentPane());
+		_btnSaveGame.setEnabled(false);
 		_frame.getContentPane().add(_btnSaveGame);
 		
 		_btnUp = new JButton("Up");
@@ -216,7 +217,7 @@ public class Application {
 		
 		_lblStatus = new JLabel("You can start a new game!");
 		_sprLayout.putConstraint(SpringLayout.NORTH, _lblStatus, 15, SpringLayout.SOUTH, _btnExitGame);
-		_sprLayout.putConstraint(SpringLayout.EAST, _lblStatus, -18, SpringLayout.EAST, _frame.getContentPane());
+		_sprLayout.putConstraint(SpringLayout.EAST, _lblStatus, -15, SpringLayout.EAST, _frame.getContentPane());
 		_lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		_frame.getContentPane().add(_lblStatus);
 		
@@ -303,6 +304,7 @@ public class Application {
 				_btnLeft.setEnabled(true);
 				_btnRight.setEnabled(true);
 				_panel.setEnabled(true);
+				_btnSaveGame.setEnabled(true);
 				
 				_sldNrOgres.setEnabled(false);
 				_cbGuardPersonality.setEnabled(false);
@@ -335,14 +337,17 @@ public class Application {
 		_btnSaveGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
+				if (!_btnSaveGame.isEnabled())
+					return;
+
 				if(LinkStart.game.getCurrentLevel().getStatus() == status_t.ONGOING || LinkStart.game.getCurrentLevel().getStatus() == status_t.PROCEED)
 				{
 					LinkStart.game.save();
 					_lblStatus.setText("Game Saved!");
 				}
 				else
-					_lblStatus.setText("Cannot save in the current state!");
+					_lblStatus.setText("Current state cannot be saved!");
 				
 				_panel.requestFocusInWindow();
 			}

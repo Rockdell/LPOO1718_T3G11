@@ -14,7 +14,7 @@
 
 ## BetterCodeHub results:
 
-![BetterCodeHub](/res/lpoo_guidelines.png)
+[![BCH compliance](https://bettercodehub.com/edge/badge/miguelalexbt/LPOO1718_T3G11?branch=master&token=8bdb8e3cbbc532fed74f5e92372979e4d52eb6f7)](https://bettercodehub.com/)
 
 ## Documentation:
 

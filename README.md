@@ -6,14 +6,12 @@
 
 ## Pitclipse results:
 
-![alt text](https://raw.githubusercontent.com/miguelalexbt/LPOO1718_T3G11/guided-project-delivery/res/lpoo_pit.png)
+![Pitclipse](/res/lpoo_pit.png)
 
 ## EclEmma results:
 
-![alt text](https://raw.githubusercontent.com/miguelalexbt/LPOO1718_T3G11/guided-project-delivery/res/lpoo_eclemma.png)
+![EclEmma](/res/lpoo_eclemma.png)
 
 ## BetterCodeHub results:
 
-![alt text](https://raw.githubusercontent.com/miguelalexbt/LPOO1718_T3G11/guided-project-delivery/res/lpoo_guidelines.png)
-
-
+![BetterCodeHub](/res/lpoo_guidelines.png)

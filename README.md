@@ -7,6 +7,15 @@
 
 ... you are finally awaken Link. It has been too long...
 
+### Menu Screen
+![Menu](/res/MenuScreen.PNG)
+
+### Game Screen
+![Game](/res/GamePlayingScreen.PNG)
+
+### Map Creation
+![MapCreation](/res/MapCreationScreen.PNG)
+
 ## Test results:
 
 ### Pitclipse:

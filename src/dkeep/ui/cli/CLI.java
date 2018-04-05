@@ -2,9 +2,9 @@ package dkeep.ui.cli;
 
 import java.util.Random;
 
-import dkeep.engine.Game;
 import dkeep.io.ConsoleIO;
 import dkeep.launcher.Launcher;
+import dkeep.logic.engine.Game;
 
 public class CLI implements Launcher {
 	

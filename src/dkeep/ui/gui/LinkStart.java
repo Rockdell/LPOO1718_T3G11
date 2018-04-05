@@ -15,10 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+
+import dkeep.logic.engine.Game;
+
 import javax.swing.JButton;
-
-
-import dkeep.engine.Game;
 
 public class LinkStart {
 

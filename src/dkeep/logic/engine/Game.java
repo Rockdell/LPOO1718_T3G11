@@ -1,4 +1,4 @@
-package dkeep.engine;
+package dkeep.logic.engine;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,14 +15,17 @@ import dkeep.logic.layout.Level;
 import dkeep.logic.layout.Level.status_t;
 import dkeep.logic.objects.DKObject;
 
+/** Game running a level. */
 public class Game {
+	
+	/** Interface for input/output. */
+	static public IO io;
 	
 	/** Loaded level. */
 	private Level _level;
 	
-	/** Input scanner. */
-	static public IO io;
-	
+	/** Creates an instance of Game.
+	 * @param io Input and output interface to be used. */
 	public Game(IO io) {
 		Game.io = io;
 	}
@@ -66,22 +69,24 @@ public class Game {
 		DKObject.level = _level;
 	}
 
-	/** Loads a level into the game.
+	/** Loads a level.
 	 * @param id Level to load. */
+	public void loadLevel(int id) {
+		_level = new Level(id);
+		_level.display();
+	}
+	
+	/** Loads a level.
+	 * @param id Level to load. 
+	 * @param gP Personality of the guard. 
+	 * @param nO Number of ogres. */
 	public void loadLevel(int id, String gP, int nO) {
-
 		_level = new Level(id, gP, nO);
 		_level.display();
 	}
 	
-	public void loadLevel(int id) {
-		
-		_level = new Level(id);
-		
-		_level.display();
-		
-	}
-	
+	/** Get maps available to be loaded.
+	 * @return List with the ID of all available maps. */
 	public List<String> existentMaps() {
 
 		List<String> mapsID = new ArrayList<String>();
@@ -114,7 +119,7 @@ public class Game {
 	}
 	
 	/** Ticks the game.
-	 * 	@return True if won/lost, false if ongoing. */
+	 * 	@return True if game is over, false if ongoing. */
 	public boolean tick() {
 		
 		if(_level.getStatus() != status_t.ONGOING)
@@ -150,5 +155,4 @@ public class Game {
 		
 		return false;
 	}
-
 }

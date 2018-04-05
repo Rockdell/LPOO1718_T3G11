@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import dkeep.io.ConsoleIO;
-import dkeep.logic.entities.Hero.hero_t;
+import dkeep.logic.engine.Game;
+import dkeep.logic.entities.Hero.key_t;
 import dkeep.logic.layout.Level.status_t;
-import dkeep.engine.Game;
 
 public class TestDungeonGameLogic {
 
@@ -84,14 +84,14 @@ public class TestDungeonGameLogic {
 		assertEquals('E', test5.getCurrentLevel().getMap()[3][0]);
 		assertEquals('l', test5.getCurrentLevel().getMap()[3][1]);
 		
-		assertEquals(hero_t.NULL, test5.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.NULL, test5.getCurrentLevel().getHero().getKey());
 		
 		test5.getCurrentLevel().updateLevel('s');
 		test5.getCurrentLevel().updateLevel('s');
 		
 		assertEquals('e', test5.getCurrentLevel().getMap()[2][0]);
 		assertEquals('e', test5.getCurrentLevel().getMap()[3][0]);
-		assertEquals(hero_t.NULL, test5.getCurrentLevel().getHero().getKey());	
+		assertEquals(key_t.NULL, test5.getCurrentLevel().getHero().getKey());	
 	}
 	
 	@Test

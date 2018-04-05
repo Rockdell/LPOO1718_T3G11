@@ -8,15 +8,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import dkeep.engine.Game;
+import dkeep.logic.engine.Game;
 import dkeep.logic.entities.*;
-import dkeep.logic.entities.Hero.hero_t;
+import dkeep.logic.entities.Hero.key_t;
 import dkeep.logic.objects.*;
 
+/** Level from a game. */
 public class Level implements Serializable {
 	
-	static public String guardPersonality;
-	static public int nrOgres;
+	/** Personality of the guard. */
+	static public String 	guardPersonality;
+	
+	/** Number of ogres. */
+	static public int 		nrOgres;
 	
 	/** Level's possible status. */
 	public enum status_t { 
@@ -42,25 +46,13 @@ public class Level implements Serializable {
 	private List<Door> 		_doors = new ArrayList<Door>();
 	
 	/** Level's key. */
-	private DKObject 			_key;
+	private DKObject 		_key;
 	
 	/** Level's status. */
 	private status_t 		_status;
 	
-	//END_ATRIBUTES
-	
-	/** Creates an object Level. */
-	public Level(int id, String gP, int nO) {
-		
-		guardPersonality = gP;
-		nrOgres = nO;
-		
-		_status = status_t.ONGOING;
-		_loadMap(id);
-		_loadEntities();
-		DKObject.level = this;
-	}
-	
+	/** Creates an instance of Level.
+	 * @param id ID of the level. */
 	public Level(int id) {
 		
 		guardPersonality = "Rookie";
@@ -72,7 +64,20 @@ public class Level implements Serializable {
 		DKObject.level = this;
 	}
 	
-	//END_CONSTRUCTOR
+	/** Creates an instance of Level.
+	 * @param id ID of the level.
+	 * @param gP Personality of the guard.
+	 * @param nO Number of ogres. */
+	public Level(int id, String gP, int nO) {
+		
+		guardPersonality = gP;
+		nrOgres = nO;
+		
+		_status = status_t.ONGOING;
+		_loadMap(id);
+		_loadEntities();
+		DKObject.level = this;
+	}
 
 	/** @return Level's map. */
 	public char[][] getMap() {
@@ -89,12 +94,12 @@ public class Level implements Serializable {
 		return _hero;
 	}
 	
-	/** @return Level's hero. */
+	/** @return Level's enemies. */
 	public List<Entity> getEnemies() {
 		return _enemies;
 	}
 	
-	/** @return Level's hero. */
+	/** @return Level's doors. */
 	public List<Door> getDoors() {
 		return _doors;
 	}
@@ -120,8 +125,6 @@ public class Level implements Serializable {
 	public void setKey(DKObject key) {
 		_key = key;
 	}
-
-	//END_GETTERS_SETTERS
 	
 	/** Loads Level's map accordingly.
 	 * @param mapID ID of the wanted map.
@@ -180,6 +183,7 @@ public class Level implements Serializable {
 		}
 	}
 	
+	/** Loads the entities from the loaded map. */
 	private void _loadEntities() {
 		
 		for(int y = 0; y < _map.length; y++) {
@@ -202,6 +206,7 @@ public class Level implements Serializable {
 		}
 	}
 	
+	/** Loads the guards, accordingly. */
 	private void _loadGuards(int x, int y) {
 		
 		switch(Level.guardPersonality) {
@@ -217,13 +222,12 @@ public class Level implements Serializable {
 		}
 	}
 	
+	/** Loads the ogres, accordingly. */
 	private void _loadOgres(int x, int y) {
 		
 		for(int i = 0; i < Level.nrOgres; i++)
 			_enemies.add(new Ogre(x, y));		
 	}
-	
-	//END_LOAD_FUNCTONS
 	
 	/** Updates the level and its entities.
 	 * @param d Direction for the hero. */
@@ -266,21 +270,21 @@ public class Level implements Serializable {
 	/** Updates the doors from the level. */
 	private void _updateDoors() {
 		
-		if(_hero.getKey() == hero_t.NULL)
+		if(_hero.getKey() == key_t.NULL)
 			return;
-		else if(_hero.getKey() == hero_t.LEVER) {
+		else if(_hero.getKey() == key_t.LEVER) {
 			
 			for(Door door : _doors) {
 				if(door.isExit() && !door.isOpen())
 					door.unlockDoor();
 			}
 			
-			_hero.updateKey(hero_t.NULL);
+			_hero.updateKey(key_t.NULL);
 		}		
 	}
 	
 	/** Draws the entities from the level. */
-	protected void _drawEntities() {
+	private void _drawEntities() {
 		
 		for(Entity enemy : _enemies)
 			enemy.drawEntity();
@@ -289,7 +293,7 @@ public class Level implements Serializable {
 	}
 	
 	/** Updates level status. */
-	protected void _updateLevelStatus() {
+	private void _updateLevelStatus() {
 		
 		if(_foundExit())
 			return;
@@ -303,6 +307,8 @@ public class Level implements Serializable {
 		}
 	}
 	
+	/** Checks if the hero found the exit.
+	 *  @return True if he found it, false otherwise. */
 	private boolean _foundExit() {
 		
 		for(Door door : _doors) {
@@ -316,6 +322,8 @@ public class Level implements Serializable {
 		return false;
 	}
 	
+	/** Checks if the hero was found by a guard.
+	 *  @return True if he  was found, false otherwise. */
 	private boolean _foundByGuard(Guard guard) {
 		
 		if(guard.isHarmless())
@@ -328,6 +336,8 @@ public class Level implements Serializable {
 		return false;
 	}
 	
+	/** Checks if the hero was found by a ogre.
+	 *  @return True if he  was found, false otherwise. */
 	private boolean _foundByOgre(Ogre ogre) {
 
 		if(ogre.isStunned())
@@ -339,8 +349,6 @@ public class Level implements Serializable {
 		
 		return false;		
 	}
-	
-	//END_LEVEL_RELATED_FUNCTIONS
 	
 	/** Display the level. */
 	public void display() {

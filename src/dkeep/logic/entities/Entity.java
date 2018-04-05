@@ -5,19 +5,19 @@ import java.util.Random;
 
 import dkeep.logic.objects.DKObject;
 
+/** Entity from a level. */
 public abstract class Entity extends DKObject implements Serializable {
 	
-	/** Creates an object Entity.
+	/** Creates an instance of Entity.
 	 * @param x X-position of the entity.
 	 * @param y Y-position of the entity.
-	 * @param l Current level.
-	 * @param i Icon. */
+	 * @param i Icon of the entity. */
 	public Entity(int x, int y, char icon) {
 		super(x, y, icon);
 	}
 	
 	/** Generates a new position for the entity, randomly or not.
-	 * @param direction 
+	 * @param direction Last direction received.
 	 * @param initial_x Initial x-position of the entity.
 	 * @param initial_y Initial y-position of the entity.
 	 * @param rand True to randomly generate a direction, false otherwise.
@@ -62,7 +62,7 @@ public abstract class Entity extends DKObject implements Serializable {
 		return direction;
 	}
 	
-	/** Generates a direction to be used in generatePosition.
+	/** Generates a direction to be used in generatePosition().
 	 * @return Direction generated. */
 	protected char generateDirection() {
 
@@ -95,6 +95,10 @@ public abstract class Entity extends DKObject implements Serializable {
 	 * @return Returns true if it's possible to move to that position, or false otherwise. */
 	protected abstract boolean checkCollision(int x, int y);
 	
+	/** Checks if there's a wall in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if there's no wall, false otherwise. */
 	protected boolean checkWalls(int x, int y) {
 		
 		if (DKObject.level.getMap()[y][x] == 'X')

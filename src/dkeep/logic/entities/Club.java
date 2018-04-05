@@ -3,6 +3,7 @@ package dkeep.logic.entities;
 import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
 
+/** Weapon of an entity. */
 public class Club extends Entity {
 	
 	/** Entity who holds the weapon. */
@@ -11,7 +12,7 @@ public class Club extends Entity {
 	/** Direction of the last attack. */
 	private char 	_lastDirection;
 	
-	/** Creates an object Club.
+	/** Creates an instance of Club.
 	 * @param w Wielder of the weapon. */
 	public Club(Entity wielder) {
 		super(wielder.getX(), wielder.getY(), '*');
@@ -58,6 +59,10 @@ public class Club extends Entity {
 		return true;
 	}
 	
+	/** Checks if there's a door in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if there's no door, false otherwise. */
 	private boolean _checkDoors(int x, int y) {
 		
 		for(Door door : DKObject.level.getDoors()) {
@@ -69,6 +74,9 @@ public class Club extends Entity {
 		return true;		
 	}
 	
+	/** Checks if there's a key in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked. */
 	private void _checkKey(int x, int y) {
 		
 		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
@@ -77,6 +85,10 @@ public class Club extends Entity {
 			updateIcon('*');		
 	}
 	
+	/** Checks if the weapon hit a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if hit, false otherwise. */
 	public boolean checkHit(int x, int y) {
 		
 		int cx = getX(), cy = getY();

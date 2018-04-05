@@ -2,19 +2,27 @@ package dkeep.io;
 
 import dkeep.ui.gui.GraphicsMap;
 
+/** GUI's implementation for input/output. */
 public class ApplicationIO implements IO {
-	
-	private GraphicsMap display;
-	static public char input = 'n';
 
+	/** Input from user. */
+	static public char 	input;
+	
+	/** Screen to be used as display. */
+	private GraphicsMap _display;
+
+	/** Creates an instance of ApplicationIO. */
 	public ApplicationIO() {}
 	
-	public ApplicationIO(GraphicsMap jp) {
-		display = jp;
+	/** Creates an instance of ApplicationIO.
+	 * @param display Screen to be used.
+	 */
+	public ApplicationIO(GraphicsMap display) {
+		_display = display;
 	}
 	
 	public void write(char [][] map) {
-		display.append(map);
+		_display.append(map);
 	}
 	
 	public char read() {	
@@ -23,6 +31,6 @@ public class ApplicationIO implements IO {
 
 	public void clear() {
 		char[][] empty = { {} };
-		display.append(empty);
+		_display.append(empty);
 	}
 }

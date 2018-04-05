@@ -2,12 +2,15 @@ package dkeep.io;
 
 import java.util.Scanner;
 
+/** CLI's implementation for input/output. */
 public class ConsoleIO implements IO {
 
-	private Scanner is;
+	/** Scanner to scan input from console. */
+	private Scanner _is;
 
+	/** Creates an instance of ConsoleIO. */
 	public ConsoleIO() {
-		is = new Scanner(System.in);
+		_is = new Scanner(System.in);
 	}
 
 	public void write(char[][] map) {
@@ -25,7 +28,7 @@ public class ConsoleIO implements IO {
 
 	public char read() {
 
-		char input = is.next().charAt(0);
+		char input = _is.next().charAt(0);
 		input = Character.toLowerCase(input);
 
 		// Check if we can accept that char
@@ -40,8 +43,9 @@ public class ConsoleIO implements IO {
 		for (int i = 0; i < 10; i++)
 			System.out.print("\n");
 	}
-
+	
+	/** Closes the scanner. */
 	public void finalize() {
-		is.close();
+		_is.close();
 	}
 }

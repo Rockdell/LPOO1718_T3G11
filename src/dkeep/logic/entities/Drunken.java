@@ -2,6 +2,7 @@ package dkeep.logic.entities;
 
 import java.util.Random;
 
+/** Drunken personality. */
 public class Drunken extends Guard {
 
 	/** True if the guard is sleeping, false otherwise. */
@@ -10,11 +11,9 @@ public class Drunken extends Guard {
 	/** Number of rounds the guard is going to be asleep. */
 	private int rounds_asleep;
 	
-	/** Creates an object Drunken.
+	/** Creates an instance of Drunken.
 	 * @param x X-position of the guard.
-	 * @param y Y-position of the guard.
-	 * @param l Current level.
-	 */
+	 * @param y Y-position of the guard. */
 	public Drunken(int x, int y) {
 		super(x, y);
 		isSleeping = false;
@@ -33,7 +32,7 @@ public class Drunken extends Guard {
 				if(reverse)
 					reversePath();
 				
-				wakeUp();
+				_wakeUp();
 				move();
 			}
 			else
@@ -44,14 +43,14 @@ public class Drunken extends Guard {
 			int sleep = new Random().nextInt(10) + 1;
 		
 			if(sleep > 7)
-				fallAsleep();
+				_fallAsleep();
 			else
 				move();
 		}
 	}
 	
 	/** Guard falls asleep. */
-	private void fallAsleep() {
+	private void _fallAsleep() {
 		
 		isSleeping = true;
 		setHarmless(true);
@@ -60,7 +59,7 @@ public class Drunken extends Guard {
 	}
 	
 	/** Guard wakes up. */
-	private void wakeUp() {
+	private void _wakeUp() {
 		
 		isSleeping = false;
 		setHarmless(false);

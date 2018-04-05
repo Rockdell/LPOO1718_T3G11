@@ -1,10 +1,12 @@
 package dkeep.test;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
-import dkeep.engine.Game;
+
 import dkeep.io.ConsoleIO;
-import dkeep.logic.entities.Hero.hero_t;
+import dkeep.logic.entities.Hero.key_t;
+import dkeep.logic.engine.Game;
 import dkeep.logic.entities.Ogre;
 import dkeep.logic.layout.Level.status_t;
 
@@ -42,7 +44,7 @@ public class TestKeepGameLogic {
 		test2.getCurrentLevel().updateLevel('s');
 		
 		assertEquals('K', test2.getCurrentLevel().getHero().getIcon());
-		assertEquals(hero_t.KEY, test2.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.KEY, test2.getCurrentLevel().getHero().getKey());
 		assertEquals('E', test2.getCurrentLevel().getMap()[4][0]);
 	}
 	
@@ -69,18 +71,18 @@ public class TestKeepGameLogic {
 		test3.loadLevel(99);
 	
 		assertEquals(status_t.ONGOING, test3.getCurrentLevel().getStatus());
-		assertEquals(hero_t.NULL, test3.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.NULL, test3.getCurrentLevel().getHero().getKey());
 		
 		test3.getCurrentLevel().updateLevel('s');
 		
-		assertEquals(hero_t.KEY, test3.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.KEY, test3.getCurrentLevel().getHero().getKey());
 		assertEquals('E', test3.getCurrentLevel().getMap()[4][0]);
 		
 		test3.getCurrentLevel().updateLevel('s');
 		test3.getCurrentLevel().updateLevel('s');
 		test3.getCurrentLevel().updateLevel('a');
 		
-		assertEquals(hero_t.KEY, test3.getCurrentLevel().getHero().getKey());
+		assertEquals(key_t.KEY, test3.getCurrentLevel().getHero().getKey());
 		assertEquals('e', test3.getCurrentLevel().getMap()[4][0]);
 		assertEquals('K', test3.getCurrentLevel().getMap()[4][1]);
 		

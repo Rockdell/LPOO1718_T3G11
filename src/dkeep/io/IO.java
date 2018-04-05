@@ -1,5 +1,6 @@
 package dkeep.io;
 
+/** Interface for input/output. */
 public interface IO {
 
 	/** Reads input from user. */
@@ -8,6 +9,6 @@ public interface IO {
 	/** Writes current map to the screen. */
 	void write(char[][] map);
 	
-	/** Clears the console (only for CLI). */
+	/** Clears the screen. */
 	void clear();
 }

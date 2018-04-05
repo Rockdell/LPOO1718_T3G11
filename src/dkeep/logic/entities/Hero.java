@@ -3,35 +3,36 @@ package dkeep.logic.entities;
 import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
 
+/** Hero from a level. */
 public class Hero extends Entity {
 	
 	/** Key's possible states. */
-	public enum hero_t { 
+	public enum key_t { 
 		/** Used/no key */ NULL,
 		/** Got key. */ KEY, 
 		/** Touched lever. */ LEVER, 
 		};
 	
 	/** Hero's state. */
-	private hero_t _key;
+	private key_t _key;
 	
-	/** Creates an object Hero.
+	/** Creates an instance of Hero.
 	 * @param x X-position of the hero.
 	 * @param y Y-position of the hero.
-	 * @param l Current level. */
+	 * @param icon Icon of the hero. */
 	public Hero(int x, int y, char icon) {
 		super(x, y, icon);
-		_key = hero_t.NULL;
+		_key = key_t.NULL;
 	}
 	
 	/** @return Key's state. */
-	public hero_t getKey() {
+	public key_t getKey() {
 		return _key;
 	}
 	
 	/** Updates key's value.
 	 * @param k New key value. */
-	public void updateKey(hero_t key) {
+	public void updateKey(key_t key) {
 		_key = key;
 	}
 	
@@ -68,6 +69,10 @@ public class Hero extends Entity {
 		return true;
 	}
 	
+	/** Checks if the hero can move to a door on the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if he can, false otherwise. */
 	private boolean _checkDoors(int x, int y) {
 		
 		for(Door door : DKObject.level.getDoors()) {
@@ -76,7 +81,7 @@ public class Hero extends Entity {
 				
 				if(!door.isOpen()) {
 					
-					if(door.isExit() && _key == hero_t.KEY)
+					if(door.isExit() && _key == key_t.KEY)
 						door.unlockDoor();
 					
 					return false;
@@ -87,17 +92,20 @@ public class Hero extends Entity {
 		return true;		
 	}
 	
+	/** Checks if there's a key in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked. */
 	private void _checkKey(int x, int y) {
 		
 		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y)) {
 
 			switch (DKObject.level.getKey().getIcon()) {
 			case 'k':
-				_key = hero_t.KEY;
+				_key = key_t.KEY;
 				updateIcon('K');
 				break;
 			case 'l':
-				_key = hero_t.LEVER;
+				_key = key_t.LEVER;
 				break;
 			}
 			
@@ -105,6 +113,9 @@ public class Hero extends Entity {
 		}
 	}
 	
+	/** Checks if there's an enemy in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked. */
 	private boolean _checkEnemies(int x, int y) {
 		
 		//Check for enemies

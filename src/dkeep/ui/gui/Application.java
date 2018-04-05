@@ -27,8 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Font;
 
-import dkeep.engine.Game;
 import dkeep.io.ApplicationIO;
+import dkeep.logic.engine.Game;
 import dkeep.logic.layout.Level.status_t;
 
 public class Application {

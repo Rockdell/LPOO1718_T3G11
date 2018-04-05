@@ -3,6 +3,7 @@ package dkeep.logic.entities;
 import dkeep.logic.objects.DKObject;
 import dkeep.logic.objects.Door;
 
+/** Ogre from a level. */
 public class Ogre extends Entity {
 	
 	/** Ogre's weapon. */
@@ -14,10 +15,9 @@ public class Ogre extends Entity {
 	/** Number of rounds the ogre is going to be stunned. */
 	private int 	_roundsStunned;
 	
-	/** Creates an object Ogre.
+	/** Creates an instance of Ogre.
 	 * @param x X-position of the ogre.
-	 * @param y Y-position of the ogre.
-	 * @param l Current level. */
+	 * @param y Y-position of the ogre. */
 	public Ogre(int x, int y) {
 		super(x, y, 'O');
 		_weapon = new Club(this);
@@ -69,17 +69,6 @@ public class Ogre extends Entity {
 		}
 	}
 	
-	//Used only for tests
-	public void drawPositionWithoutSwing() {
-		DKObject.level.getMap()[getY()][getX()] = getIcon();
-
-		if (_stunned)
-		{
-			if (_roundsStunned-- == 0)
-				setStunned(false);
-		}
-	}
-	
 	public void eraseEntity() {
 			
 		//Ogre esta na posicao da chave (independente da char atual no map)
@@ -104,6 +93,10 @@ public class Ogre extends Entity {
 		return true;
 	}
 	
+	/** Checks if there's a door in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if there's no door, false otherwise. */
 	private boolean _checkDoors(int x, int y) {
 		
 		for(Door door : DKObject.level.getDoors()) {
@@ -115,6 +108,9 @@ public class Ogre extends Entity {
 		return true;
 	}
 	
+	/** Checks if there's a key in a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked. */
 	private void _checkKey(int x, int y) {
 		
 		if (DKObject.level.getKey() != null && DKObject.level.getKey().equalPosition(x, y) || DKObject.level.getMap()[y][x] == '$')
@@ -123,6 +119,10 @@ public class Ogre extends Entity {
 			updateIcon('O');		
 	}
 	
+	/** Checks if the ogre gets stunned and if the weapon hits a certain position of the map.
+	 * @param x X-position to be checked.
+	 * @param y Y-position to be checked.
+	 * @return True if it hits, false otherwise. */
 	public boolean checkHit(int x, int y) {
 		
 		int[][] adjacent = new int[][] {

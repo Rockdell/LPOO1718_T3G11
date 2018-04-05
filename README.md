@@ -5,7 +5,9 @@
 
 ## Description:
 
-... you are finally awaken Link. It has been too long...
+"... you are finally awaken Link. It has been too long..."
+Legend of Zelda themed game developed in Java.
+Project for the Object Oriented Programming Laboratory (LPOO) class of the Master in Informatics and Computer Engineering (MIEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
 ### Menu Screen
 ![Menu](/res/MenuScreen.PNG)

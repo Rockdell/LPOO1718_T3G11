@@ -8,14 +8,14 @@
 ... you are finally awaken Link. It has been too long...
 
 # Menu Screen
-(/res/MenuScreen.PNG)
+![Menu](/res/MenuScreen.PNG)
 
 # Game Screen
-(/res/GameScreen.PNG)
-(/res/GamePlayingScreen.PNG)
+![Game](/res/GameScreen.PNG)
+![GamePlaying](/res/GamePlayingScreen.PNG)
 
 # Map Creation
-(/res/MapCreationScreen.PNG)
+![MapCreation](/res/MapCreationScreen.PNG)
 
 ## Test results:
 

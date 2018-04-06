@@ -52,7 +52,7 @@ public class Ogre extends Entity {
 	public void move() {
 
 		if (!_stunned) {
-			generatePosition(' ', getX(), getY(), true);
+			generatePosition('w', getX(), getY(), true);
 			_weapon.attack();
 		}
 	}

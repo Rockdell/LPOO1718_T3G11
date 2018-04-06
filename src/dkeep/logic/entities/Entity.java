@@ -1,4 +1,4 @@
-package dkeep.logic.entities;
+ package dkeep.logic.entities;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -24,10 +24,12 @@ public abstract class Entity extends DKObject implements Serializable {
 	 * @return Last movement of the entity. */
 	protected char generatePosition(char direction, int initial_x, int initial_y, boolean rand) {
 
+		int tries = 0;
+		
 		int iX = initial_x, iY = initial_y;
 
 		boolean done = false;
-		while (!done) {
+		while (!done && tries < 20) {
 
 			if (rand)
 				direction = generateDirection();
@@ -57,6 +59,7 @@ public abstract class Entity extends DKObject implements Serializable {
 
 			initial_x = iX;
 			initial_y = iY;
+			tries++;
 		}
 		
 		return direction;

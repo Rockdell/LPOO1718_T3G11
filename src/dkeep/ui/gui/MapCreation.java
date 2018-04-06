@@ -132,6 +132,7 @@ public class MapCreation {
 	private void _initButtons() {
 		
 		_btnAddRow = new JButton("Add Row");
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _m_numberSpinner, -4, SpringLayout.NORTH, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.EAST, _m_numberSpinner, 0, SpringLayout.EAST, _btnAddRow);
 		_sprLayout.putConstraint(SpringLayout.EAST, _btnAddRow, -46, SpringLayout.EAST, _frame.getContentPane());
 		_frame.getContentPane().add(_btnAddRow);
@@ -234,9 +235,8 @@ public class MapCreation {
 	private void _initLabel() {
 		
 		_lblWarning = new JLabel("");
-		_sprLayout.putConstraint(SpringLayout.NORTH, _m_numberSpinner, 0, SpringLayout.NORTH, _lblWarning);
 		_sprLayout.putConstraint(SpringLayout.WEST, _lblWarning, 0, SpringLayout.WEST, _btnAddRow);
-		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblWarning, -36, SpringLayout.NORTH, _btnAddRow);
+		_sprLayout.putConstraint(SpringLayout.SOUTH, _lblWarning, -20, SpringLayout.NORTH, _m_numberSpinner);
 		_sprLayout.putConstraint(SpringLayout.EAST, _lblWarning, 0, SpringLayout.EAST, _btnAddRow);
 		_frame.getContentPane().add(_lblWarning);
 		
@@ -275,6 +275,8 @@ public class MapCreation {
 
 				if (!_btnAddRow.isEnabled())
 					return;
+				
+				_lblWarning.setText("");
 
 				_model.addRow((int)_m_numberSpinner.getValue());
 				
@@ -299,6 +301,8 @@ public class MapCreation {
 
 				if (!_btnRemoveRow.isEnabled())
 					return;
+				
+				_lblWarning.setText("");
 
 				_model.removeRow((int)_m_numberSpinner.getValue());
 
@@ -323,6 +327,8 @@ public class MapCreation {
 
 				if (!_btnAddColumn.isEnabled())
 					return;
+				
+				_lblWarning.setText("");
 
 				_model.addColumn((int)_m_numberSpinner.getValue());
 
@@ -347,6 +353,8 @@ public class MapCreation {
 
 				if (!_btnRemoveColumn.isEnabled())
 					return;
+				
+				_lblWarning.setText("");
 
 				_model.removeColumn((int)_m_numberSpinner.getValue());
 
@@ -387,6 +395,7 @@ public class MapCreation {
 		        }
 				
 				_table.setValueAt(_toDraw, row, col);
+				_lblWarning.setText("");
 			}
 		});
 	}

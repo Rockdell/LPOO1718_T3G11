@@ -32,7 +32,7 @@ public class Club extends Entity {
 	
 	/** Attack with the weapon. */
 	public void attack() {
-		char d = generatePosition(' ', _wielder.getX(), _wielder.getY(), true);
+		char d = generatePosition('w', _wielder.getX(), _wielder.getY(), true);
 		
 		_lastDirection = d;
 	}

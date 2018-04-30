@@ -9,7 +9,7 @@
 * [Package](/checkpoint/uml/package_uml_dep.png)
 
 ### Design Patterns
-* [Design Patterns PDF](/checkpoint/design_patterns/design_patterns.pdf)
+* [Design Patterns](/checkpoint/design_patterns/design_patterns.pdf)
 
 ### GUI Design
 * [GUI Functionalities](/checkpoint/gui_mockup/functionalities.pdf)

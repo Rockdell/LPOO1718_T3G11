@@ -58,8 +58,14 @@ Update is used to simulate one frame of a model's behaviour.
 #### Game Loop:
 Using this pattern, we can simulate a physic's simulation and render as often as we want.
 
-## Other design decisions:
+### Other design decisions:
 We decided to implement Dijkstra's algorithm to be used in path-finding for the AI. This made the
+
+### Overall time spent:
+We spent around 3/4 weeks working.
+
+### Work distribution:
+Equal between members.
 
 ## User Manual:
 

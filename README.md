@@ -63,3 +63,15 @@ We decided to implement Dijkstra's algorithm to be used in path-finding for the 
 
 ## User Manual:
 
+Kill as many spider as you can! Are you strong enough to defeat the boss?  
+
+Movement:  
+W, A, S, D to move. Space to dash.  
+
+Attack:  
+Right click to attack, left click to shoot.  
+
+![GameScreen](/screenshots/GameScreen.png)
+![GameScreen2](/screenshots/GameScreen2.png)
+![DeathScreen](/screenshots/DeathScreen.png)
+

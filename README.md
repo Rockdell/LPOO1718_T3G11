@@ -2,7 +2,19 @@
 
 ![LoadingScreen](/screenshots/LoadingScreen.png)
 
-## Setup/Installation:
+## Setup/Installation (for IntelliJ):
+
+Compile the project:  
+Step 1) Open the file "build.gradle" with IntelliJ.  
+Step 2) Select "Auto-import" in the options.  
+Step 3) Wait for gradle to sync.  
+Step 4) Go to "desktop/src/com/hotlinedrifter/tests", press Alt-Enter in "import org.junit.Test;" and select "Add 'JUnit 4' to classpath".  
+Step 4) Go to "desktop/src/com/hotlinedrifter/desktop/DesktopLauncher". Run project as DesktopLauncher.  
+Step 5) Go to "Run" | "Edit Configurations" and set the "Working directory" as the folder $PROJ/core/assets".  
+Step 6) Ready to run!  
+
+Play the game:  
+Open the .jar file in the folder "jar".
 
 ## Development documentation:
 
@@ -43,12 +55,11 @@ Object pools are used to reuse and recycle bullets and attacks.
 #### Update:
 Update is used to simulate one frame of a model's behaviour.
 
+#### Game Loop:
+Using this pattern, we can simulate a physic's simulation and render as often as we want.
 
-
-
-
-
-
+## Other design decisions:
+We decided to implement Dijkstra's algorithm to be used in path-finding for the AI. This made the
 
 ## User Manual:
 

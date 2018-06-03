@@ -59,7 +59,7 @@ Update is used to simulate one frame of a model's behaviour.
 Using this pattern, we can simulate a physic's simulation and render as often as we want.
 
 ### Other design decisions:
-We decided to implement Dijkstra's algorithm to be used in path-finding for the AI. This made the
+We decided to implement Dijkstra's algorithm to be used in path-finding for the AI.
 
 ### Major difficulties:
 Organizing the code overrall.
